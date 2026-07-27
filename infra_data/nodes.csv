@@ -1,0 +1,545 @@
+node_id;name;valid_dir;pk_rel;pk_abs;node_type;stop_slow;stop_fast;y;altitude;coord_x;coord_y;scenario
+ME;Merano;both;0;31,483;LdS;1;1;0;301,5;11.1488187;46.6732676;base
+Dev_ME_01;Deviatoio Merano 01;;0,317;31,800;SC;0;0;0;302,79;11.14627886;46.67522807;base
+Pa_ME;Part. Merano;malles;0,572;32,055;signal_mainline;0;0;0;307,71;11.1439425;46.67685239;base
+SC_ME;SC LT ETCS Merano;merano;0,636;32,119;signal_mainline;0;0;0;308,94;11.14317007;46.67706925;base
+Pr_ME_LT;Prot. Merano LT ETCS;merano;0,766;32,249;signal_mainline;0;0;0;311,45;11.14154738;46.67741591;base
+Pr_E_LAG_01;Prot. Est. Lagundo 01;malles;1,247;32,730;signal_mainline;0;0;0;320,72;11.13550918;46.67861744;base
+Pa_LAG_31;Part. Lagundo 31;merano;1,402;32,885;signal_mainline;0;0;0;323,71;11.13356282;46.67895859;base
+LAG;Lagundo;;1,517;33,000;LdS;1;0;0;324;11.13206881;46.67884732;base
+Pa_LAG_32;Part. Lagundo 32;malles;1,592;33,075;signal_mainline;0;0;0;324;11.13109863;46.67875322;base
+Dev_LAG_02;Deviatoio Lagundo 02;;1,642;33,125;SC;0;0;0;324;11.13109864;46.67875323;base
+Pr_E_LAG_02;Prot. Est. Lagundo 02;merano;1,742;33,225;signal_mainline;0;0;0;326,69;11.12951418;46.6780158;base
+Pr_E_MAR_01;Prot. Est. Marlengo 01;malles;2,872;34,355;signal_mainline;0;0;0;350,98;11.13355422;46.66913061;base
+Pr_I_MAR_91;Prot. Int. N3 Marlengo 91;malles;2,972;34,455;signal_mainline;0;0;0;353,13;11.13416574;46.66834264;base
+PL04;PL04;;2,998;34,481;PL;0;0;0;353,69;11.13437514;46.66815846;base
+Pa_E_MAR_81;Part. Est. Marlengo 81;merano;3,022;34,505;signal_mainline;0;0;0;354,2;11.13457952;46.66799471;base
+Pr_I_MAR_71;Prot. Int. N2 Marlengo 71;malles;3,182;34,665;signal_mainline;0;0;0;357,64;11.13587838;46.66686698;base
+PL05;PL05 Marlengo;;3,205;34,688;PL;0;0;0;358,13;11.13606882;46.66670691;base
+Pa_I_MAR_61;Part. Int. N1 Marlengo 61;merano;3,226;34,709;signal_mainline;0;0;0;358,59;11.13623652;46.66655739;base
+Pr_I_MAR_51;Prot. Int. N1 Marlengo 51;malles;3,285;34,768;signal_mainline;0;0;0;359,85;11.13674604;46.6661598;base
+Dev_MAR_01;Deviatoio Marlengo 01;;3,335;34,818;SC;0;0;0;360,93;11.13721532;46.66584687;base
+Pa_I_MAR_31;Part. Int. N2 Marlengo 31;merano;3,413;34,896;signal_mainline;0;0;0;362,61;11.13795013;46.66536091;base
+MAR;Marlengo;;3,566;35,049;LdS;1;0;0;365,89;11.13885795;46.66414471;base
+Pa_I_MAR_32;Part. Int. Marlengo 32;malles;3,647;35,130;signal_mainline;0;0;0;367,64;11.13926151;46.66347111;base
+Dev_MAR_02;Deviatoio Marlengo 02;;3,739;35,222;SC;0;0;0;369,61;11.1397208;46.66270633;base
+PL06;PL06;;3,753;35,236;PL;0;0;0;369,91;11.13978993;46.66258973;base
+Pr_I_MAR_52;Prot. Int. N1 Marlengo 52;merano;3,784;35,267;signal_mainline;0;0;0;370;11.13994555;46.66233227;base
+Pa_E_MAR_62;Part. Est. Marlengo 62;malles;3,976;35,459;signal_mainline;0;0;0;370;11.14052866;46.66066868;base
+PL06bis;PL06bis;;3,999;35,482;PL;0;0;0;370;11.14051711;46.66046195;base
+Pr_I_MAR_72;Prot. Int. N2 Marlengo 72;merano;4,022;35,505;signal_mainline;0;0;0;370;11.14050433;46.66025528;base
+Pr_E_MAR_02;Prot. Est. Marlengo 02;merano;4,126;35,609;signal_mainline;0;0;0;370;11.14018298;46.65935516;base
+IG_MAR;Imbocco Galleria di Marlengo;;4,311;35,794;Tunnel;0;0;0;371,29;11.13829133;46.65841821;base
+SG_MAR;Sbocco Galleria di Marlengo;;4,909;36,392;Tunnel;0;0;0;385,55;11.13677188;46.6623068;base
+HD_201_02;HD 201/02;both;5,126;36,609;signal_mainline;0;0;0;390,73;11.13623897;46.66412845;base
+HD_201_04;HD 201/04;both;6,126;37,609;signal_mainline;0;0;0;414,58;11.1289498;46.67136555;base
+HD_201_06;HD 201/06;both;7,126;38,609;signal_mainline;0;0;0;438,43;11.11794304;46.67409559;base
+IG_GIU;Imbocco Galleria Monte Giuseppe;;7,127;38,610;Tunnel;0;0;0;438,43;11.11794304;46.67409559;base
+SG_GIU;Sbocco Galleria Monte Giuseppe;;8,107;39,590;Tunnel;0;0;0;461,82;11.10592054;46.67527574;base
+HD_201_08;HD 201/08;both;8,126;39,609;signal_mainline;0;0;0;462,27;11.10575348;46.67540172;base
+IG_ART;Imbocco Galleria artificiale;;8,169;39,652;Tunnel;0;0;0;463,3;11.10530235;46.67563048;base
+SG_ART;Sbocco Galleria artificiale;;8,249;39,732;Tunnel;0;0;0;465,21;11.10432386;46.67586998;base
+IG_TEL;Imbocco Galleria di Tel;;8,608;40,091;Tunnel;0;0;0;473,77;11.09992879;46.67682044;base
+HD_201_10;HD 201/10;both;9,126;40,609;signal_mainline;0;0;0;486,12;11.09385514;46.67887537;base
+SG_TEL;Sbocco Galleria di Tel;;9,292;40,775;Tunnel;0;0;0;490,08;11.09176936;46.67926262;base
+Pr_E_TEL_01;Prot. Est. Tel 01;malles;9,743;41,226;signal_mainline;0;0;0;500,34;11.08665688;46.67742497;base
+Pr_I_TEL_91;Prot. Int. N3 Tel 91;merano;9,865;41,348;signal_mainline;0;0;0;503,11;11.08533587;46.67681055;base
+PL07;PL07;;9,898;41,381;PL;0;0;0;503,85;11.0850112;46.67661566;base
+Pa_E_TEL_61;Part. Est. Tel 61;merano;9,913;41,396;signal_mainline;0;0;0;504,19;11.08487518;46.67651849;base
+Pr_I_TEL_71;Prot. Int. N2 Tel 71;malles;10,074;41,557;signal_mainline;0;0;0;507,85;11.08384421;46.67526265;base
+Dev_TEL_01;Deviatoio Tel 01;;10,124;41,607;SC;0;0;0;508,98;11.08355566;46.67485909;base
+Pa_I_TEL_31b;Part. Int. N1 Tel 31b;merano;10,200;41,683;signal_mainline;0;0;0;510,06;11.08310473;46.67425025;base
+Pr_I_TEL_51;Prot. Int. N1 Tel 51;malles;10,303;41,786;signal_mainline;0;0;0;510,27;11.08227389;46.67352347;base
+Pa_I_TEL_31a;Part. Int. N2 Tel 31a;merano;10,345;41,828;signal_mainline;0;0;0;510,35;11.08190885;46.67324142;base
+TEL;Tel;;10,419;41,902;LdS;1;0;0;510,5;11.08127383;46.67273938;base
+Pa_I_TEL_32;Part. Int. Tel 32;malles;10,544;42,027;signal_mainline;0;0;0;510,75;11.08019082;46.67189759;base
+Dev_TEL_02;Deviatoio Tel 02;;10,630;42,113;SC;0;0;0;510,92;11.0794422;46.67132097;base
+Pr_I_TEL_52;Prot. Int. Tel 52;merano;10,699;42,182;signal_mainline;0;0;0;511,1;11.0788377;46.67086043;base
+Pa_E_TEL_62;Part. Est. Tel 62;malles;10,850;42,333;signal_mainline;0;0;0;511,58;11.07748511;46.66987141;base
+Pr_E_TEL_02;Prot. Est. Tel 02;merano;11,000;42,483;signal_mainline;0;0;0;512,07;11.07606004;46.66894614;base
+Pr_E_RAB_01;Prot. Est. Rabla 01;malles;11,520;43,003;signal_mainline;0;0;0;513,75;11.07035286;46.66641524;base
+Pr_I_RAB_51;Prot. Int. Rabla 51;malles;11,622;43,105;signal_mainline;0;0;0;514;11.06921426;46.66593826;base
+PL08;PL08;;11,647;43,130;PL;0;0;0;514;11.06893518;46.66582137;base
+Pa_I_RAB_31;Part. Int. Rabla 31;merano;11,670;43,153;signal_mainline;0;0;0;514;11.06867785;46.66571448;base
+RAB;Rabla;;11,699;43,182;LdS;1;0;0;514;11.06835339;46.66557972;base
+Pa_RAB_32;Part. Rabla 32;malles;11,818;43,301;signal_mainline;0;0;0;514,05;11.0670246;46.66502375;base
+Pr_E_RAB_02;Prot. Est. Rabla 02;merano;11,968;43,451;signal_mainline;0;0;0;514,48;11.06534921;46.66432347;base
+HD_302_02;HD 302/02;both;12,968;44,451;signal_mainline;0;0;0;517,35;11.05340363;46.66109292;base
+Pr_E_PLA_01;Prot. Est. Plaus 01;malles;13,731;45,214;signal_mainline;0;0;0;519,54;11.04383127;46.65961159;base
+Dev_01_PLA;Deviatoio 01 Plaus;both;13,831;45,314;SC;0;0;0;519,54;11.04383128;46.65961160;base
+Pa_PLA_31;Part. Plaus 31;merano;13,881;45,364;signal_mainline;0;0;0;519,97;11.04214801;46.65892051;base
+PLA;Plaus;;13,991;45,474;LdS;1;0;0;520;11.04091293;46.65841452;base
+Pa_PLA_32;Part. Plaus 32;malles;14,029;45,512;signal_mainline;0;0;0;520;11.04048643;46.65823954;base
+PL09;PL09;;14,053;45,536;PL;0;0;0;520;11.04021714;46.65812894;base
+Pr_I_PLA_52;Prot. Int. Plaus 52;merano;14,078;45,561;signal_mainline;0;0;0;520;11.03993669;46.65801366;base
+Pr_E_PLA_02;Prot. Est. Plaus 02;merano;14,178;45,661;signal_mainline;0;0;0;520,37;11.03881489;46.65755254;base
+HD_303_02;HD 303/02;both;15,178;46,661;signal_mainline;0;0;0;524,58;11.02758662;46.65295387;base
+HD_303_04;HD 303/04;both;16,178;47,661;signal_mainline;0;0;0;528,79;11.01699296;46.64773513;base
+km48500;km48500;;17,017;48,500;km;0;0;0;532,33;11.00692196;46.64514775;base
+Pr_E_NAT_01;Prot. Est. Naturno 01;malles;17,058;48,541;signal_mainline;0;0;0;532,5;11.00638753;46.64512408;base
+Pr_I_NAT_51;Prot. Int. Naturno 51;malles;17,148;48,631;signal_mainline;0;0;0;532,88;11.00521366;46.64508274;base
+PL10;PL10;;17,178;48,661;PL;0;0;0;533;11.0048221;46.64508885;base
+Pa_NAT_31;Part. Naturno 31;merano;17,208;48,691;signal_mainline;0;0;0;533;11.00443186;46.64511294;base
+NAT;Naturno;;17,277;48,760;LdS;1;1;0;533;11.0035442;46.64521819;base
+Pa_NAT_32;Part. Naturno 32;malles;17,369;48,852;signal_mainline;0;0;0;533;11.0023689;46.6453907;base
+Pr_E_NAT_02;Prot. Est. Naturno 02;merano;17,518;49,001;signal_mainline;0;0;0;533,84;11.00048159;46.64571478;base
+Pr_E_PL11_01;Prot. Est. PL11 01;malles;18,105;49,588;signal_mainline;0;0;0;537,34;10.99347287;46.64785177;base
+Pr_I_PL11_51;Prot. Int. PL11 51;malles;18,206;49,689;signal_mainline;0;0;0;537,94;10.99223224;46.64814928;base
+PL11;PL11;;18,232;49,715;PL;0;0;0;538,1;10.99189342;46.64816411;base
+Pr_I_PL11_52;Prot. Int. PL11 52;merano;18,255;49,738;signal_mainline;0;0;0;538,24;10.99159384;46.64815027;base
+Dev_PL11_02;Deviatoio PL11 02;both;18,300;49,783;SC;0;0;0;538,24;10.99159385;46.64815028;base
+Pr_E_PL11_02;Prot. Est. PL11 02;merano;18,356;49,839;signal_mainline;0;0;0;538,84;10.99030238;46.64796584;base
+SblNatKomp;SblNatKomp;;18,397;49,880;Sbl;0;0;0;539,18;10.98978034;46.64788353;base
+Pr_E_STA_01;Prot. Est. Stava 01;malles;19,231;50,714;signal_mainline;0;0;0;549,93;10.97935216;46.64675565;base
+Pa_E_STA_61;Part. Est. Stava 61;merano;19,381;50,864;signal_mainline;0;0;0;551,86;10.97740804;46.64692344;base
+Pr_I_STA_51;Prot. Int. Stava 51;malles;19,523;51,006;signal_mainline;0;0;0;553,69;10.97555819;46.64694252;base
+Dev_STA_01;Deviatoio Stava 01;;19,573;51,056;SC;0;0;0;554;10.97491078;46.64688327;base
+Pa_I_STA_31;Part. Int. Stava 31;merano;19,683;51,166;signal_mainline;0;0;0;554;10.97348883;46.64674107;base
+STA;Stava;;19,797;51,280;LdS;1;0;0;554;10.9720153;46.64659316;base
+Pa_I_STA_32;Part. Int. Stava 32;malles;19,863;51,346;signal_mainline;0;0;0;554;10.97116183;46.64650935;base
+Dev_STA_02;Deviatoio Stava 02;;19,949;51,432;SC;0;0;0;554;10.97004975;46.64640006;base
+Pr_I_STA_52;Prot. Int. N1 Stava 52;merano;19,999;51,482;signal_mainline;0;0;0;554;10.96941039;46.64631053;base
+Pa_E_STA_62;Part. Est. Stava 62;malles;20,275;51,758;signal_mainline;0;0;0;554;10.96615499;46.64531729;base
+PL12;PL12;;20,298;51,781;PL;0;0;0;554;10.96585773;46.64528732;base
+Pr_I_STA_72;Prot. Int. N2 Stava 72;merano;20,325;51,808;signal_mainline;0;0;0;554;10.96550886;46.64525177;base
+Pr_E_STA_02;Prot. Est. Stava 02;merano;20,426;51,909;signal_mainline;0;0;0;554,09;10.96426065;46.64497082;base
+km52000;km52000;;20,517;52,000;km;0;0;0;554,39;10.96323373;46.64455873;base
+Dev_PL13_01;Deviatoio PL13 01;;21,429;52,912;SC;0;0;0;557,38;10.95299;46.64038;base
+Pr_E_PL13_01;Prot. Est. PL13 01;malles;21,479;52,962;signal_mainline;0;0;0;557,55;10.95241889;46.6401532;base
+SblStab21529;SblStab21529;;21,529;53,012;Sbl;0;0;0;557,72;10.95185788;46.63992298;base
+Pr_I_PL13_51;Prot. Int. PL13 51;malles;21,582;53,065;signal_mainline;0;0;0;557,89;10.95126202;46.63968032;base
+PL13;PL13;;21,606;53,089;PL;0;0;0;557,97;10.95099229;46.63957034;base
+Pr_I_PL13_52;Prot. Int. PL13 52;merano;21,630;53,113;signal_mainline;0;0;0;558,05;10.95072263;46.63946028;base
+Pr_E_PL13_02;Prot. Est. PL13 02;merano;21,733;53,216;signal_mainline;0;0;0;558,39;10.94956533;46.63898792;base
+Pr_E_CIA_01;Prot. Est. Ciardes 01;malles;22,307;53,790;signal_mainline;0;0;0;560,27;10.94311589;46.63635579;base
+Pa_CIA_31;Part. Ciardes 31;merano;22,457;53,940;signal_mainline;0;0;0;560,76;10.94143227;46.63566596;base
+CIA;Ciardes;;22,578;54,061;LdS;1;0;0;561;10.94007126;46.63511286;base
+Pa_CIA_32;Part. Ciardes 32;malles;22,605;54,088;signal_mainline;0;0;0;561;10.93976752;46.6349895;base
+PL14;PL14;;22,629;54,112;PL;0;0;0;561;10.93949763;46.63487973;base
+Pr_I_CIA_62;Prot. Int. Ciardes 62;merano;22,653;54,136;signal_mainline;0;0;0;561;10.93922782;46.63476986;base
+Pr_E_CIA_02;Prot. Est. Ciardes 02;merano;22,756;54,239;signal_mainline;0;0;0;561,21;10.9380718;46.63429614;base
+HD_403_02;HD 403/02;both;23,756;55,239;signal_mainline;0;0;0;569,08;10.92683967;46.62970752;base
+km55900;km55900;;24,417;55,900;km;0;0;0;574,28;10.91941386;46.62667661;base
+SblStab24529;SblStab24529;;24,529;56,012;Sbl;0;0;0;575,16;10.91815656;46.62616201;base
+Pr_E_PL15_01;Prot. Est. PL15 01;malles;24,625;56,108;signal_mainline;0;0;0;575,92;10.9170441;46.62576591;base
+Dev_PL15_01;Deviatoio PL15 01;;24,725;56,208;SC;0;0;0;576,71;10.915812;46.625472;base
+Pr_I_PL15_51;Prot. Int. PL15 51;malles;24,729;56,212;signal_mainline;0;0;0;576,74;10.91576275;46.62545993;base
+PL15;PL15;;24,752;56,235;PL;0;0;0;576,92;10.91547134;46.62540995;base
+Pr_I_PL15_52;Prot. Int. PL15 52;merano;24,775;56,258;signal_mainline;0;0;0;577,1;10.91517813;46.62536552;base
+Pr_E_PL15_02;Prot. Est. PL15 02;merano;24,879;56,362;signal_mainline;0;0;0;577,92;10.91382997;46.62526225;base
+km57000;km57000;;25,517;57,000;km;0;0;0;582,94;10.90597007;46.62690814;base
+Pr_E_CAB_01;Prot. Est. Castelbello 01;malles;25,869;57,352;signal_mainline;0;0;0;585,71;10.90155725;46.62741976;base
+Pr_I_CAB_71;Prot. Int. N2 Castelbello 71;malles;25,968;57,451;signal_mainline;0;0;0;586,49;10.90039191;46.62703566;base
+PL16;PL16;;25,995;57,478;PL;0;0;0;586,7;10.90005455;46.62696582;base
+Pa_E_CAB_61;Part. Est. Castelbello 61;merano;26,019;57,502;signal_mainline;0;0;0;586,89;10.8997447;46.62693488;base
+Pr_I_CAB_51;Prot. Int. N1 Castelbello 51;malles;26,062;57,545;signal_mainline;0;0;0;587;10.89918383;46.62692981;base
+PL17;PL17;;26,087;57,570;PL;0;0;0;587;10.89885783;46.6269412;base
+Pa_I_CAB_31;Part. Int. Castelbello 31;merano;26,112;57,595;signal_mainline;0;0;0;587;10.89853192;46.62695404;base
+CAB;Castelbello;;26,133;57,616;LdS;1;0;0;587;10.89825815;46.62696463;base
+Pa_CAB_32;Part. Castelbello 32;malles;26,262;57,745;signal_mainline;0;0;0;587,5;10.89657666;46.6270313;base
+Pr_E_CAB_02;Prot. Est. Castelbello 02;merano;26,412;57,895;signal_mainline;0;0;0;590,07;10.89469189;46.62671471;base
+HD_405_02;HD 405/02;both;27,494;58,977;signal_mainline;0;0;0;608,66;10.8821016;46.62365012;base
+km60000;km60000;;28,517;60,000;km;0;0;0;626,23;10.86932373;46.62205894;base
+Pr_E_LAC_01;Prot. Est. Laces 01;malles;28,658;60,141;signal_mainline;0;0;0;628,65;10.8677421;46.62140985;base
+PL18;PL18;;28,782;60,265;PL;0;0;0;630,78;10.86637931;46.62080835;base
+Pr_I_LAC_71;Prot. Int. N2 Laces 71;malles;28,784;60,267;signal_mainline;0;0;0;630,82;10.86635787;46.62079808;base
+Pa_E_LAC_61;Part. Est. Laces 61;merano;28,808;60,291;signal_mainline;0;0;0;631,23;10.86610057;46.62067486;base
+Pr_I_LAC_51;Prot. Int. N1 Laces 51;malles;29,033;60,516;signal_mainline;0;0;0;633;10.86351922;46.61976124;base
+Dev_LAC_01;Deviatoio Laces 01;;29,083;60,566;SC;0;0;0;633;10.86286841;46.619727;base
+Pa_I_LAC_31;Part. Int. Laces 31;merano;29,201;60,684;signal_mainline;0;0;0;633;10.86133003;46.61967372;base
+LAC;Laces;;29,261;60,744;LdS;1;1;0;633;10.86054716;46.61965521;base
+Pa_I_LAC_32;Part. Int. Laces 32;malles;29,364;60,847;signal_mainline;0;0;0;633;10.85920276;46.61963404;base
+Dev_LAC_02;Deviatoio Laces 02;;29,480;60,963;SC;0;0;0;633,73;10.8576885;46.61963897;base
+Pr_I_LAC_52;Prot. Int. N1 Laces 52;merano;29,530;61,013;signal_mainline;0;0;0;634,26;10.85703579;46.61963325;base
+Pa_E_LAC_62;Part. Est. Laces 62;malles;30,010;61,493;signal_mainline;0;0;0;639,32;10.85080045;46.61922618;base
+PL19;PL19;;30,031;61,514;PL;0;0;0;639,54;10.85052809;46.61920454;base
+Pr_I_LAC_72;Prot. Int. N2 Laces 72;merano;30,055;61,538;signal_mainline;0;0;0;639,8;10.85021684;46.61917966;base
+Pr_E_LAC_02;Prot. Est. Laces 02;merano;30,160;61,643;signal_mainline;0;0;0;640,9;10.84885881;46.61905477;base
+SblLac31026;SblLac31026;;31,026;62,509;signal_mainline;0;0;0;650,04;10.8382375;46.61683719;base
+HD_501_02;HD 501/02;both;31,160;62,643;signal_mainline;0;0;0;651,46;10.83656212;46.61718385;base
+Pr_E_COLD_01;Prot. Est. Coldrano 01;malles;32,014;63,497;signal_mainline;0;0;0;660,47;10.82603801;46.61936363;base
+Pr_I_COLD_91;Prot. Int. Coldrano 91;malles;32,084;63,567;signal_mainline;0;0;0;661,21;10.8251252;46.61935336;base
+PL20;PL20;;32,110;63,593;PL;0;0;0;661,48;10.82478645;46.6193385;base
+Pa_COLD_31;Part. Coldrano 31;merano;32,136;63,619;signal_mainline;0;0;0;661,75;10.82444786;46.61932191;base
+Dev_COLD_01;Deviatoio Coldrano 01;;32,200;63,683;SC;0;0;0;662,12;10.823630;46.619219;base
+COLD;Coldrano;;32,353;63,836;LdS;1;0;0;663;10.82167381;46.61897378;base
+Pa_I_COLD_71;Part. Int. Coldrano 71;malles;32,873;64,356;signal_mainline;0;0;0;669,91;10.81521007;46.61771116;base
+PL21;PL21;;32,901;64,384;PL;0;0;0;670,37;10.81492621;46.61755247;base
+Pr_I_COLD_52;Prot. Int. N1 Coldrano 52;merano;32,931;64,414;signal_mainline;0;0;0;670,87;10.81462221;46.61738236;base
+Pa_E_COLD_51;Part. Est. Coldrano 51;malles;33,256;64,739;signal_mainline;0;0;0;676,23;10.81054606;46.61688873;base
+PL22;PL22;;33,279;64,762;PL;0;0;0;676,61;10.81024579;46.61688995;base
+Pr_I_COLD_72;Prot. Int. N2 Coldrano 72;merano;33,302;64,785;signal_mainline;0;0;0;676,98;10.80994553;46.61689121;base
+Pr_E_COLD_02;Prot. Est. Coldrano 02;merano;33,406;64,889;signal_mainline;0;0;0;678,7;10.80858912;46.61685617;base
+Pr_E_PL23_01;Prot. Est. PL23 01;malles;34,356;65,839;signal_mainline;0;0;0;694,37;10.79635559;46.61546881;base
+Pr_I_PL23_51;Prot. Int. PL23 51;malles;34,459;65,942;signal_mainline;0;0;0;696,06;10.79502585;46.61533124;base
+PL23;PL23;;34,483;65,966;PL;0;0;0;696,46;10.79471605;46.61529898;base
+Pr_I_PL23_52;Prot. Int. PL23 52;merano;34,507;65,990;signal_mainline;0;0;0;696,86;10.79440628;46.6152666;base
+Pr_E_PL23_02;Prot. Est. PL23 02;merano;34,609;66,092;signal_mainline;0;0;0;698,54;10.79308949;46.61513018;base
+SblLac35026;SblLac35026;;35,026;66,509;Sbl;0;0;0;705,42;10.78769972;46.61476402;base
+Pr_E_PL24_01;Prot. Est. PL24 01;malles;35,040;66,523;signal_mainline;0;0;0;705,65;10.7875215;46.61479191;base
+Dev_PL24_01;Deviatoio PL24 01;both;35,094;66,577;SC;0;0;0;706,54;10.78683582;46.61489936;base
+Pr_I_PL24_51;Prot. Int. PL24 51;malles;35,144;66,627;signal_mainline;0;0;0;707,36;10.78620014;46.6150068;base
+PL24;PL24;;35,167;66,650;PL;0;0;0;707,74;10.78591014;46.6150603;base
+Pr_I_PL24_52;Prot. Int. PL24 52;merano;35,191;66,674;signal_mainline;0;0;0;708,14;10.78561008;46.61512227;base
+Pr_E_PL24_02;Prot. Est. PL24 02;merano;35,294;66,777;signal_mainline;0;0;0;709,83;10.78435527;46.61545449;base
+HD_504_02;HD 504/02;both;36,294;67,777;signal_mainline;0;0;0;726,33;10.77177173;46.61728287;base
+Pr_E_SIL_01;Prot. Est. Silandro 01;malles;36,827;68,310;signal_mainline;0;0;0;735,12;10.76605982;46.61975108;base
+PL25;PL25;;36,943;68,426;PL;0;0;0;737,03;10.76457504;46.61995058;base
+Pr_I_SIL_91;Prot. Int. N2 Silandro 91;malles;36,957;68,440;signal_mainline;0;0;0;737,26;10.76440589;46.61999822;base
+Pa_E_SIL_81;Part. Est. Silandro 81;merano;36,981;68,464;signal_mainline;0;0;0;737,66;10.76412539;46.62009355;base
+km68500;km68500;;37,017;68,500;km;0;0;0;738,25;10.7637436;46.62028153;base
+km68650;km68650;;37,167;68,650;km;0;0;0;740,72;10.76285177;46.62144628;base
+IG_GEO;Imbocco Galleria GEOS;;37,379;68,862;Tunnel;0;0;0;744,22;10.76381322;46.62317517;base
+Pr_I_SIL_71;Prot. Int. N1 Silandro 71;malles;37,473;68,956;signal_mainline;0;0;0;744,73;10.76452093;46.62386603;base
+SG_GEO;Sbocco Galleria GEOS;;37,521;69,004;Tunnel;0;0;0;744,92;10.76488488;46.62421754;base
+Dev_SIL_05;Deviatoio Silandro 05;;37,572;69,055;SC;0;0;0;745;10.76526933;46.62459214;base
+Pa_I_SIL_31;Part. Int Silandro 31;merano;37,682;69,165;signal_mainline;0;0;0;745;10.76610186;46.62539847;base
+SIL;Silandro;;37,792;69,275;LdS;1;1;0;745;10.76694914;46.62619719;base
+Pa_I_SIL_32;Part. Int. Silandro 32;malles;37,860;69,343;signal_mainline;0;0;0;745;10.76748855;46.62668307;base
+Dev_SIL_02;Deviatoio Silandro 02;;37,939;69,422;SC;0;0;0;745;10.768118;46.62724604;base
+Pr_I_SIL_52;Prot. Int. Silandro 52;merano;37,989;69,472;signal_mainline;0;0;0;745;10.7685164;46.62760237;base
+Pa_E_SIL_62;Part. Est. Silandro 62;malles;38,129;69,612;signal_mainline;0;0;0;747,34;10.76947584;46.6286639;base
+Pr_E_SIL_02;Prot. Est. Silandro 02;merano;38,279;69,762;signal_mainline;0;0;0;751,38;10.76931448;46.62997531;base
+km70200;km70200;;38,717;70,200;km;0;0;0;763,18;10.76465188;46.63004043;base
+HD_601_02;HD 601/02;both;39,279;70,762;signal_mainline;0;0;0;778,31;10.7601437;46.62605462;base
+HD_601_04;HD 601/04;both;40,279;71,762;signal_mainline;0;0;0;805,24;10.75043863;46.62010325;base
+HD_601_06;HD 601/06;both;41,279;72,762;signal_mainline;0;0;0;832,17;10.73955193;46.61539544;base
+HD_601_08;HD 601/08;both;42,279;73,762;signal_mainline;0;0;0;859,1;10.72723299;46.61274274;base
+HD_601_10;HD 601/10;both;43,279;74,762;signal_mainline;0;0;0;865,71;10.71460825;46.61190014;base
+km75800;km75800;;44,317;75,800;km;0;0;0;866,64;10.70243599;46.61542881;base
+Pr_E_LASA_01;Prot. Est. Lasa 01;malles;44,387;75,870;signal_mainline;0;0;0;866,71;10.70153601;46.61553806;base
+Pr_I_LASA_91;Prot. Int. N3 Lasa 91;malles;44,488;75,971;signal_mainline;0;0;0;866,8;10.70029513;46.61582866;base
+PL27;PL27;;44,513;75,996;PL;0;0;0;866,82;10.70001293;46.61594146;base
+Pa_E_LASA_81;Part. Est. Lasa 81;merano;44,538;76,021;signal_mainline;0;0;0;866,84;10.6997292;46.61605261;base
+Pr_I_LASA_71;Prot. Int. N2 Lasa 71;malles;44,724;76,207;signal_mainline;0;0;0;867;10.69762189;46.61688348;base
+PL28;PL28;;44,752;76,235;PL;0;0;0;867;10.69732233;46.61702763;base
+Pa_I_LASA_61;Part. Int. N1 Lasa 61;merano;44,775;76,258;signal_mainline;0;0;0;867;10.69708996;46.6171586;base
+Pr_I_LASA_51;Prot. Int. N1 Lasa 51;malles;44,809;76,292;signal_mainline;0;0;0;867;10.69676096;46.61736382;base
+Dev_LASA_01;Deviatoio Lasa 01;;44,829;76,312;SC;0;0;0;867;10.69656919;46.61748593;base
+Pa_I_LASA_31;Part. Int. N1 Lasa 31;merano;44,945;76,428;signal_mainline;0;0;0;867;10.69545667;46.61819393;base
+LASA;Lasa;;44,962;76,445;LdS;1;1;0;867;10.6952939;46.61829789;base
+Pa_I_LASA_32;Part. Int. N2 Lasa 32;malles;45,102;76,585;signal_mainline;0;0;0;867;10.69395221;46.61915315;base
+Dev_LASA_02;Deviatoio Lasa 02;;45,188;76,671;SC;0;0;0;867;10.69312779;46.61967835;base
+Pr_I_LASA_52;Prot. Int. N1 Lasa 52;merano;45,238;76,721;signal_mainline;0;0;0;867,06;10.69264809;46.61998341;base
+Pa_I_LASA_62;Part. Int. N1 Lasa 62;malles;45,309;76,792;signal_mainline;0;0;0;867,21;10.69196698;46.62041665;base
+PL29;PL29;;45,335;76,818;PL;0;0;0;867,27;10.6917158;46.62057398;base
+Pr_I_LASA_72;Prot. Int. N2 Lasa 72;merano;45,382;76,865;signal_mainline;0;0;0;867,37;10.69125291;46.62085143;base
+Pa_E_LASA_82;Part. Est. Lasa 82;malles;45,499;76,982;signal_mainline;0;0;0;867,62;10.69000418;46.62145593;base
+Pr_E_LASA_02;Prot. Est. Lasa 02;merano;45,650;77,133;signal_mainline;0;0;0;867,94;10.68831737;46.62215909;base
+HD_701_01;HD 701/01;both;46,650;78,133;signal_mainline;0;0;0;870,1;10.6762738;46.62526869;base
+SblLasa46915;SblLasa46915;;46,915;78,398;Sbl;0;0;0;870,67;10.67286362;46.62567245;base
+HD_701_03;HD 701/03;both;47,650;79,133;signal_mainline;0;0;0;872,26;10.66331314;46.62547971;base
+Pr_E_ORIS_01;Prot. Est. Oris 01;malles;48,848;80,331;signal_mainline;0;0;0;874,84;10.64793856;46.62628794;base
+Dev_ORIS_01;Deviatoio Oris 01;both;48,919;80,402;SC;0;0;0;874,95;10.647047;46.626463;base
+Pr_I_ORIS_71;Prot. Int. Oris 71;malles;48,949;80,432;signal_mainline;0;0;0;875;10.64667008;46.62653652;base
+PL30;PL30;;48,973;80,456;PL;0;0;0;875;10.64636882;46.62659594;base
+Pa_ORIS_31;Part. Oris 31;merano;48,998;80,481;signal_mainline;0;0;0;875;10.64605449;46.62665662;base
+ORIS;Oris;;49,020;80,503;LdS;1;0;0;875;10.64577806;46.62671046;base
+Pa_ORIS_32;Part. Oris 32;malles;49,147;80,630;signal_mainline;0;0;0;875,12;10.64418356;46.62702432;base
+Pr_E_ORIS_02;Prot. Est. Oris 02;merano;49,297;80,780;signal_mainline;0;0;0;875,78;10.64229874;46.62739127;base
+HD_702_02;HD 702/02;both;50,297;81,780;signal_mainline;0;0;0;880,18;10.62965952;46.62957694;base
+Pr_E_SPON_01;Prot. Est. Spondigna 01;malles;51,279;82,762;signal_mainline;0;0;0;884,51;10.61734141;46.63148095;base
+Pa_E_SPON_81;Part. Est. Spondigna 81;merano;51,451;82,934;signal_mainline;0;0;0;885,26;10.61538522;46.63224131;base
+Pr_I_SPON_71;Prot. Int. N2 Spondigna 71;malles;51,620;83,103;signal_mainline;0;0;0;886;10.61348754;46.63301698;base
+PL31;PL31;;51,644;83,127;PL;0;0;0;886;10.61322282;46.63313256;base
+Pr_I_SPON_51;Prot. Int. N1 Spondigna 51;malles;51,652;83,135;signal_mainline;0;0;0;886;10.61313471;46.63317122;base
+Pa_I_SPON_61;Part. Int. N1 Spondigna 61;merano;51,668;83,151;signal_mainline;0;0;0;886;10.61295724;46.63324719;base
+Dev_SPON_01;Deviatoio Spondigna 01;;51,672;83,155;SC;0;0;0;886;10.61291286;46.63326617;base
+Pa_I_SPON_31;Part. Int. N2 Spondigna 31;merano;51,789;83,272;signal_mainline;0;0;0;886;10.61163529;46.63384315;base
+SPON;Spondigna;;51,867;83,350;LdS;1;0;0;886;10.61079701;46.63424178;base
+Pa_I_SPON_32;Part. Int. Spondigna 32;malles;51,986;83,469;signal_mainline;0;0;0;886;10.6095143;46.63484615;base
+Dev_SPON_02;Deviatoio Spondigna 02;;52,061;83,544;SC;0;0;0;886;10.60870466;46.63522583;base
+Pr_I_SPON_52;Prot. Int. N1 Spondigna 52;merano;52,111;83,594;signal_mainline;0;0;0;886;10.60815324;46.63546661;base
+Pa_E_SPON_62;Part. Est. Spondigna 62;malles;52,429;83,912;signal_mainline;0;0;0;886,11;10.60430832;46.63653119;base
+PL32;PL32;;52,454;83,937;PL;0;0;0;886,12;10.60402176;46.63663895;base
+Pr_I_SPON_72;Prot. Int. N2 Spondigna 72;merano;52,480;83,963;signal_mainline;0;0;0;886,13;10.60373084;46.63675939;base
+Pr_E_SPON_02;Prot. Est. Spondigna 02;merano;52,580;84,063;signal_mainline;0;0;0;886,42;10.60270808;46.63731725;base
+HD_801_02;HD 801/02;both;53,580;85,063;signal_mainline;0;0;0;895,82;10.59473454;46.6443895;base
+HD_801_04;HD 801/04;both;54,580;86,063;signal_mainline;0;0;0;905,22;10.58963042;46.65256598;base
+SblSpon54860;SblSpon54860;;54,860;86,343;Sbl;0;0;0;907,85;10.58861387;46.65497788;base
+km86800;km86800;;55,317;86,800;km;0;0;0;912,15;10.58718497;46.65896854;base
+HD_801_06;HD 801/06;both;55,580;87,063;signal_mainline;0;0;0;914,62;10.5855763;46.66099652;base
+HD_801_07;HD 801/07;malles;56,027;87,510;signal_mainline;0;0;0;918,82;10.58196453;46.66394375;base
+SLU;Sluderno;;56,146;87,629;LdS;1;0;0;919;10.58152966;46.66497152;base
+HD_801_08;HD 801/08;merano;56,397;87,880;signal_mainline;0;0;0;922,55;10.58106761;46.66719613;base
+HD_801_10;HD 801/10;both;57,229;88,712;signal_mainline;0;0;0;942,13;10.57474932;46.6729141;base
+HD_801_12;HD 801/12;both;58,229;89,712;signal_mainline;0;0;0;965,67;10.56365799;46.67592065;base
+SblSpon58860;SblSpon58860;;58,860;90,343;Sbl;0;0;0;980,52;10.55629073;46.67831902;base
+Pr_E_MAL_01;Prot. Est. Malles 01;malles;59,103;90,586;signal_mainline;0;0;0;986,23;10.55422862;46.67994665;base
+Pa_E_MAL_61;Part. Est. Malles 61;merano;59,254;90,737;signal_mainline;0;0;0;989,79;10.5541629;46.68128972;base
+Pr_I_MAL_51;Prot. Int. Malles 51;malles;59,515;90,998;signal_mainline;0;0;0;995,93;10.55263102;46.68320559;base
+Dev_MAL_05;Deviatoio Malles 05;;59,633;91,116;SC;0;0;0;998;10.55117762;46.68355939;base
+Pa_I_MAL_31d;Part. Int. Malles 31d;merano;59,721;91,204;signal_mainline;0;0;0;998;10.55008699;46.68381098;base
+MAL;Malles;both;59,853;91,336;LdS;1;1;0;998;10.54845192;46.68419015;base
+ME_side;Merano side;both;0;31,483;LdS_side;1;1;0,01;301,5;11.1488187;46.6732676;existing
+Dev_ME_01_side;Deviatoio Merano 01 side;;0,317;31,800;SC;0;0;0,01;302,79;11.14627886;46.67522807;dt_me_lag
+Pa_ME_side;Part. Merano side;malles;0,572;32,055;signal_mainline;0;0;0,01;307,71;11.1439425;46.67685239;dt_me_lag
+SC_ME_side;SC LT ETCS Merano side;merano;0,636;32,119;signal_mainline;0;0;0,01;308,94;11.14317007;46.67706925;dt_me_lag
+Pr_ME_LT_side;Prot. Merano LT ETCS side;merano;0,766;32,249;signal_mainline;0;0;0,01;311,45;11.14154738;46.67741591;dt_me_lag
+Pr_E_LAG_01_side;Prot. Est. Lagundo 01 side;malles;1,247;32,730;signal_mainline;0;0;0,01;320,72;11.13550918;46.67861744;dt_me_lag
+Pa_LAG_31_side;Part. Lagundo 31 side;merano;1,402;32,885;signal_mainline;0;0;0,01;323,71;11.13356282;46.67895859;dt_me_lag
+LAG_side;Lagundo side;;1,517;33,000;LdS_side;1;0;0,01;324;11.13206881;46.67884732;dt_me_lag
+Pa_LAG_32_side;Part. Lagundo 32 side;malles;1,592;33,075;signal_mainline;0;0;0,01;324;11.13109863;46.67875322;dt_me_lag
+Dev_LAG_02_side;Deviatoio Lagundo 02 side;;1,642;33,125;SC;0;0;0,01;324;11.13109864;46.67875323;dt_lag_mar
+Pr_E_LAG_02_side;Prot. Est. Lagundo 02 side;merano;1,742;33,225;signal_mainline;0;0;0,01;326,69;11.12951418;46.6780158;dt_lag_mar
+Pr_E_MAR_01_side;Prot. Est. Marlengo 01 side;malles;2,872;34,355;signal_mainline;0;0;0,01;350,98;11.13355422;46.66913061;dt_lag_mar
+Pr_I_MAR_91_side;Prot. Int. N3 Marlengo 91 side;malles;2,972;34,455;signal_mainline;0;0;0,01;353,13;11.13416574;46.66834264;dt_lag_mar
+PL04_side;PL04 side;;2,998;34,481;PL;0;0;0,01;353,69;11.13437514;46.66815846;dt_lag_mar
+Pa_E_MAR_81_side;Part. Est. Marlengo 81 side;merano;3,022;34,505;signal_mainline;0;0;0,01;354,2;11.13457952;46.66799471;dt_lag_mar
+Pr_I_MAR_71_side;Prot. Int. N2 Marlengo 71 side;malles;3,182;34,665;signal_mainline;0;0;0,01;357,64;11.13587838;46.66686698;dt_lag_mar
+PL05_side;PL05 Marlengo side;;3,205;34,688;PL;0;0;0,01;358,13;11.13606882;46.66670691;dt_lag_mar
+Pa_I_MAR_61_side;Part. Int. N1 Marlengo 61 side;merano;3,226;34,709;signal_mainline;0;0;0,01;358,59;11.13623652;46.66655739;dt_lag_mar
+Pr_I_MAR_51_side;Prot. Int. N1 Marlengo 51 side;malles;3,285;34,768;signal_mainline;0;0;0,01;359,85;11.13674604;46.6661598;dt_lag_mar
+Dev_MAR_01_side;Deviatoio Marlengo 01 side;;3,335;34,818;SC;0;0;0,01;360,93;11.13721532;46.66584687;dt_lag_mar
+Pa_I_MAR_31_side;Part. Int. N2 Marlengo 31 side;merano;3,413;34,896;signal_mainline;0;0;0,01;362,61;11.13795013;46.66536091;existing
+MAR_side;Marlengo side;;3,566;35,049;LdS_side;1;0;0,01;365,89;11.13885795;46.66414471;existing
+Pa_I_MAR_32_side;Part. Int. Marlengo 32 side;malles;3,647;35,130;signal_mainline;0;0;0,01;367,64;11.13926151;46.66347111;existing
+Dev_MAR_02_side;Deviatoio Marlengo 02 side;;3,739;35,222;SC;0;0;0,01;369,61;11.1397208;46.66270633;dt_mar_tel
+PL06_side;PL06 side;;3,753;35,236;PL;0;0;0,01;369,91;11.13978993;46.66258973;dt_mar_tel
+Pr_I_MAR_52_side;Prot. Int. N1 Marlengo 52 side;merano;3,784;35,267;signal_mainline;0;0;0,01;370;11.13994555;46.66233227;dt_mar_tel
+Pa_E_MAR_62_side;Part. Est. Marlengo 62 side;malles;3,976;35,459;signal_mainline;0;0;0,01;370;11.14052866;46.66066868;dt_mar_tel
+PL06bis_side;PL06bis side;;3,999;35,482;PL;0;0;0,01;370;11.14051711;46.66046195;dt_mar_tel
+Pr_I_MAR_72_side;Prot. Int. N2 Marlengo 72 side;merano;4,022;35,505;signal_mainline;0;0;0,01;370;11.14050433;46.66025528;dt_mar_tel
+Pr_E_MAR_02_side;Prot. Est. Marlengo 02 side;merano;4,126;35,609;signal_mainline;0;0;0,01;370;11.14018298;46.65935516;dt_mar_tel
+IG_MAR_side;Imbocco Galleria di Marlengo side;;4,311;35,794;Tunnel;0;0;0,01;371,29;11.13829133;46.65841821;dt_mar_tel
+SG_MAR_side;Sbocco Galleria di Marlengo side;;4,909;36,392;Tunnel;0;0;0,01;385,55;11.13677188;46.6623068;dt_mar_tel
+HD_201_02_side;HD 201/02 side;both;5,126;36,609;signal_mainline;0;0;0,01;390,73;11.13623897;46.66412845;dt_mar_tel
+HD_201_04_side;HD 201/04 side;both;6,126;37,609;signal_mainline;0;0;0,01;414,58;11.1289498;46.67136555;dt_mar_tel
+HD_201_06_side;HD 201/06 side;both;7,126;38,609;signal_mainline;0;0;0,01;438,43;11.11794304;46.67409559;dt_mar_tel
+IG_GIU_side;Imbocco Galleria Monte Giuseppe side;;7,127;38,609;Tunnel;0;0;0,01;438,43;11.11794304;46.67409559;dt_mar_tel
+SG_GIU_side;Sbocco Galleria Monte Giuseppe side;;8,107;39,590;Tunnel;0;0;0,01;461,82;11.10592054;46.67527574;dt_mar_tel
+HD_201_08_side;HD 201/08 side;both;8,126;39,609;signal_mainline;0;0;0,01;462,27;11.10575348;46.67540172;dt_mar_tel
+IG_ART_side;Imbocco Galleria artificiale side;;8,169;39,652;Tunnel;0;0;0,01;463,3;11.10530235;46.67563048;dt_mar_tel
+SG_ART_side;Sbocco Galleria artificiale side;;8,249;39,732;Tunnel;0;0;0,01;465,21;11.10432386;46.67586998;dt_mar_tel
+IG_TEL_side;Imbocco Galleria di Tel side;;8,608;40,091;Tunnel;0;0;0,01;473,77;11.09992879;46.67682044;dt_mar_tel
+HD_201_10_side;HD 201/10 side;both;9,126;40,609;signal_mainline;0;0;0,01;486,12;11.09385514;46.67887537;dt_mar_tel
+SG_TEL_side;Sbocco Galleria di Tel side;;9,292;40,775;Tunnel;0;0;0,01;490,08;11.09176936;46.67926262;dt_mar_tel
+Pr_E_TEL_01_side;Prot. Est. Tel 01 side;malles;9,743;41,226;signal_mainline;0;0;0,01;500,34;11.08665688;46.67742497;dt_mar_tel
+Pr_I_TEL_91_side;Prot. Int. N3 Tel 91 side;merano;9,865;41,348;signal_mainline;0;0;0,01;503,11;11.08533587;46.67681055;dt_mar_tel
+PL07_side;PL07 side;;9,898;41,381;PL;0;0;0,01;503,85;11.0850112;46.67661566;dt_mar_tel
+Pa_E_TEL_61_side;Part. Est. Tel 61 side;merano;9,913;41,396;signal_mainline;0;0;0,01;504,19;11.08487518;46.67651849;dt_mar_tel
+Pr_I_TEL_71_side;Prot. Int. N2 Tel 71 side;malles;10,074;41,557;signal_mainline;0;0;0,01;507,85;11.08384421;46.67526265;dt_mar_tel
+Dev_TEL_01_side;Deviatoio Tel 01 side;;10,124;41,607;SC;0;0;0,01;508,98;11.08355566;46.67485909;dt_mar_tel
+Pa_I_TEL_31b_side;Part. Int. N1 Tel 31b side;merano;10,200;41,683;signal_mainline;0;0;0,01;510,06;11.08310473;46.67425025;existing
+Pr_I_TEL_51_side;Prot. Int. N1 Tel 51 side;malles;10,303;41,786;signal_mainline;0;0;0,01;510,27;11.08227389;46.67352347;existing
+Pa_I_TEL_31a_side;Part. Int. N2 Tel 31a side;merano;10,345;41,828;signal_mainline;0;0;0,01;510,35;11.08190885;46.67324142;existing
+TEL_side;Tel side;;10,419;41,902;LdS_side;1;0;0,01;510,5;11.08127383;46.67273938;existing
+Pa_I_TEL_32_side;Part. Int. Tel 32 side;malles;10,544;42,027;signal_mainline;0;0;0,01;510,75;11.08019082;46.67189759;existing
+Dev_TEL_02_side;Deviatoio Tel 02 side;;10,630;42,113;SC;0;0;0,01;510,92;11.0794422;46.67132097;dt_tel_pla
+Pr_I_TEL_52_side;Prot. Int. Tel 52 side;merano;10,699;42,182;signal_mainline;0;0;0,01;511,1;11.0788377;46.67086043;dt_tel_pla
+Pa_E_TEL_62_side;Part. Est. Tel 62 side;malles;10,850;42,333;signal_mainline;0;0;0,01;511,58;11.07748511;46.66987141;dt_tel_pla
+Pr_E_TEL_02_side;Prot. Est. Tel 02 side;merano;11,000;42,483;signal_mainline;0;0;0,01;512,07;11.07606004;46.66894614;dt_tel_pla
+Pr_E_RAB_01_side;Prot. Est. Rabla 01 side;malles;11,520;43,003;signal_mainline;0;0;0,01;513,75;11.07035286;46.66641524;dt_tel_pla
+Pr_I_RAB_51_side;Prot. Int. Rabla 51 side;malles;11,622;43,105;signal_mainline;0;0;0,01;514;11.06921426;46.66593826;dt_tel_pla
+PL08_side;PL08 side;;11,647;43,130;PL;0;0;0,01;514;11.06893518;46.66582137;dt_tel_pla
+Pa_I_RAB_31_side;Part. Int. Rabla 31 side;merano;11,670;43,153;signal_mainline;0;0;0,01;514;11.06867785;46.66571448;dt_tel_pla
+RAB_side;Rabla side;;11,699;43,182;LdS_side;1;0;0,01;514;11.06835339;46.66557972;dt_tel_pla
+Pa_RAB_32_side;Part. Rabla 32 side;malles;11,818;43,301;signal_mainline;0;0;0,01;514,05;11.0670246;46.66502375;dt_tel_pla
+Pr_E_RAB_02_side;Prot. Est. Rabla 02 side;merano;11,968;43,451;signal_mainline;0;0;0,01;514,48;11.06534921;46.66432347;dt_tel_pla
+HD_302_02_side;HD 302/02 side;both;12,968;44,451;signal_mainline;0;0;0,01;517,35;11.05340363;46.66109292;dt_tel_pla
+Pr_E_PLA_01_side;Prot. Est. Plaus 01 side;malles;13,731;45,214;signal_mainline;0;0;0,01;519,54;11.04383127;46.65961159;dt_tel_pla,dt_pla_nat
+Dev_01_PLA_side;Deviatoio 01 Plaus side;both;13,831;45,314;SC;0;0;0,01;519,54;11.04383128;46.65961160;side
+Pa_PLA_31_side;Part. Plaus 31 side;merano;13,881;45,364;signal_mainline;0;0;0,01;519,97;11.04214801;46.65892051;dt_pla_nat
+PLA_side;Plaus side;;13,991;45,474;LdS_side;1;0;0,01;520;11.04091293;46.65841452;dt_pla_nat
+Pa_PLA_32_side;Part. Plaus 32 side;malles;14,029;45,512;signal_mainline;0;0;0,01;520;11.04048643;46.65823954;dt_pla_nat
+PL09_side;PL09 side;;14,053;45,536;PL;0;0;0,01;520;11.04021714;46.65812894;dt_pla_nat
+Pr_I_PLA_52_side;Prot. Int. Plaus 52 side;merano;14,078;45,561;signal_mainline;0;0;0,01;520;11.03993669;46.65801366;dt_pla_nat
+Pr_E_PLA_02_side;Prot. Est. Plaus 02 side;merano;14,178;45,661;signal_mainline;0;0;0,01;520,37;11.03881489;46.65755254;dt_pla_nat
+HD_303_02_side;HD 303/02 side;both;15,178;46,661;signal_mainline;0;0;0,01;524,58;11.02758662;46.65295387;dt_pla_nat
+HD_303_04_side;HD 303/04 side;both;16,178;47,661;signal_mainline;0;0;0,01;528,79;11.01699296;46.64773513;dt_pla_nat
+km48500_side;km48500 side;;17,017;48,500;km;0;0;0,01;532,33;11.00692196;46.64514775;dt_pla_nat
+Pr_E_NAT_01_side;Prot. Est. Naturno 01 side;malles;17,058;48,541;signal_mainline;0;0;0,01;532,5;11.00638753;46.64512408;dt_pla_nat
+Pr_I_NAT_51_side;Prot. Int. Naturno 51 side;malles;17,148;48,631;signal_mainline;0;0;0,01;532,88;11.00521366;46.64508274;dt_pla_nat
+PL10_side;PL10 side;;17,178;48,661;PL;0;0;0,01;533;11.0048221;46.64508885;dt_pla_nat
+Pa_NAT_31_side;Part. Naturno 31 side;merano;17,208;48,691;signal_mainline;0;0;0,01;533;11.00443186;46.64511294;dt_pla_nat
+NAT_side;Naturno side;;17,277;48,760;LdS_side;1;1;0,01;533;11.0035442;46.64521819;dt_pla_nat,dt_nat_natkomp
+Pa_NAT_32_side;Part. Naturno 32 side;malles;17,369;48,852;signal_mainline;0;0;0,01;533;11.0023689;46.6453907;dt_nat_natkomp
+Pr_E_NAT_02_side;Prot. Est. Naturno 02 side;merano;17,518;49,001;signal_mainline;0;0;0,01;533,84;11.00048159;46.64571478;dt_nat_natkomp
+Pr_E_PL11_01_side;Prot. Est. PL11 01 side;malles;18,105;49,588;signal_mainline;0;0;0,01;537,34;10.99347287;46.64785177;dt_nat_natkomp
+Pr_I_PL11_51_side;Prot. Int. PL11 51 side;malles;18,206;49,689;signal_mainline;0;0;0,01;537,94;10.99223224;46.64814928;dt_nat_natkomp
+PL11_side;PL11 side;;18,232;49,715;PL;0;0;0,01;538,1;10.99189342;46.64816411;dt_nat_natkomp
+Pr_I_PL11_52_side;Prot. Int. PL11 52 side;merano;18,255;49,738;signal_mainline;0;0;0,01;538,24;10.99159384;46.64815027;dt_nat_natkomp
+Dev_PL11_02_side;Deviatoio PL11 02 side;both;18,300;49,783;SC;0;0;0,01;538,24;10.99159385;46.64815028;dt_nat_natkomp
+Pr_E_PL11_02_side;Prot. Est. PL11 02 side;merano;18,356;49,839;signal_mainline;0;0;0,01;538,84;10.99030238;46.64796584;dt_natkomp_sta
+SblNatKomp_side;SblNatKomp side;;18,397;49,880;Sbl;0;0;0,01;539,18;10.98978034;46.64788353;dt_natkomp_sta
+Pr_E_STA_01_side;Prot. Est. Stava 01 side;malles;19,231;50,714;signal_mainline;0;0;0,01;549,93;10.97935216;46.64675565;dt_natkomp_sta
+Pa_E_STA_61_side;Part. Est. Stava 61 side;merano;19,381;50,864;signal_mainline;0;0;0,01;551,86;10.97740804;46.64692344;dt_natkomp_sta
+Pr_I_STA_51_side;Prot. Int. Stava 51 side;malles;19,523;51,006;signal_mainline;0;0;0,01;553,69;10.97555819;46.64694252;dt_natkomp_sta
+Dev_STA_01_side;Deviatoio Stava 01 side;;19,573;51,056;SC;0;0;0,01;554;10.97491078;46.64688327;dt_natkomp_sta
+Pa_I_STA_31_side;Part. Int. Stava 31 side;merano;19,683;51,166;signal_mainline;0;0;0,01;554;10.97348883;46.64674107;existing
+STA_side;Stava side;;19,797;51,280;LdS_side;1;0;0,01;554;10.9720153;46.64659316;existing
+Pa_I_STA_32_side;Part. Int. Stava 32 side;malles;19,863;51,346;signal_mainline;0;0;0,01;554;10.97116183;46.64650935;existing
+Dev_STA_02_side;Deviatoio Stava 02 side;;19,949;51,432;SC;0;0;0,01;554;10.97004975;46.64640006;side
+Pr_I_STA_52_side;Prot. Int. N1 Stava 52 side;merano;19,999;51,482;signal_mainline;0;0;0,01;554;10.96941039;46.64631053;side
+Pa_E_STA_62_side;Part. Est. Stava 62 side;malles;20,275;51,758;signal_mainline;0;0;0,01;554;10.96615499;46.64531729;side
+PL12_side;PL12 side;;20,298;51,781;PL;0;0;0,01;554;10.96585773;46.64528732;side
+Pr_I_STA_72_side;Prot. Int. N2 Stava 72 side;merano;20,325;51,808;signal_mainline;0;0;0,01;554;10.96550886;46.64525177;side
+Pr_E_STA_02_side;Prot. Est. Stava 02 side;merano;20,426;51,909;signal_mainline;0;0;0,01;554,09;10.96426065;46.64497082;side
+km52000_side;km52000 side;;20,517;52,000;km;0;0;0,01;554,39;10.96323373;46.64455873;side
+Dev_PL13_01_side;Deviatoio PL13 01 side;;21,429;52,912;SC;0;0;0,01;557,38;10.95299;46.64038;side
+Pr_E_PL13_01_side;Prot. Est. PL13 01 side;malles;21,479;52,962;signal_mainline;0;0;0,01;557,55;10.95241889;46.6401532;dt_sta_cia
+SblStab21529_side;SblStab21529 side;;21,529;53,012;Sbl;0;0;0,01;557,72;10.95185788;46.63992298;dt_sta_cia
+Pr_I_PL13_51_side;Prot. Int. PL13 51 side;malles;21,582;53,065;signal_mainline;0;0;0,01;557,89;10.95126202;46.63968032;dt_sta_cia
+PL13_side;PL13 side;;21,606;53,089;PL;0;0;0,01;557,97;10.95099229;46.63957034;dt_sta_cia
+Pr_I_PL13_52_side;Prot. Int. PL13 52 side;merano;21,630;53,113;signal_mainline;0;0;0,01;558,05;10.95072263;46.63946028;dt_sta_cia
+Pr_E_PL13_02_side;Prot. Est. PL13 02 side;merano;21,733;53,216;signal_mainline;0;0;0,01;558,39;10.94956533;46.63898792;dt_sta_cia
+Pr_E_CIA_01_side;Prot. Est. Ciardes 01 side;malles;22,307;53,790;signal_mainline;0;0;0,01;560,27;10.94311589;46.63635579;dt_sta_cia
+Pa_CIA_31_side;Part. Ciardes 31 side;merano;22,457;53,940;signal_mainline;0;0;0,01;560,76;10.94143227;46.63566596;dt_sta_cia,dt_cia_cab
+CIA_side;Ciardes side;;22,578;54,061;LdS_side;1;0;0,01;561;10.94007126;46.63511286;dt_sta_cia,dt_cia_cab
+Pa_CIA_32_side;Part. Ciardes 32 side;malles;22,605;54,088;signal_mainline;0;0;0,01;561;10.93976752;46.6349895;dt_sta_cia,dt_cia_cab
+PL14_side;PL14 side;;22,629;54,112;PL;0;0;0,01;561;10.93949763;46.63487973;dt_sta_cia,dt_cia_cab
+Pr_I_CIA_62_side;Prot. Int. Ciardes 62 side;merano;22,653;54,136;signal_mainline;0;0;0,01;561;10.93922782;46.63476986;dt_sta_cia,dt_cia_cab
+Pr_E_CIA_02_side;Prot. Est. Ciardes 02 side;merano;22,756;54,239;signal_mainline;0;0;0,01;561,21;10.9380718;46.63429614;dt_sta_cia,dt_cia_cab
+HD_403_02_side;HD 403/02 side;both;23,756;55,239;signal_mainline;0;0;0,01;569,08;10.92683967;46.62970752;dt_sta_cia,dt_cia_cab
+km55900_side;km55900 side;;24,417;55,900;km;0;0;0,01;574,28;10.91941386;46.62667661;dt_sta_cia,dt_cia_cab
+SblStab24529_side;SblStab24529 side;;24,529;56,012;Sbl;0;0;0,01;575,16;10.91815656;46.62616201;dt_sta_cia,dt_cia_cab
+Pr_E_PL15_01_side;Prot. Est. PL15 01 side;malles;24,625;56,108;signal_mainline;0;0;0,01;575,92;10.9170441;46.62576591;dt_sta_cia,dt_cia_cab
+Dev_PL15_01_side;Deviatoio PL15 01 side;;24,725;56,208;SC;0;0;0,01;576,71;10.915812;46.625472;dt_cia_cab
+Pr_I_PL15_51_side;Prot. Int. PL15 51 side;malles;24,729;56,212;signal_mainline;0;0;0,01;576,74;10.91576275;46.62545993;dt_cia_cab
+PL15_side;PL15 side;;24,752;56,235;PL;0;0;0,01;576,92;10.91547134;46.62540995;dt_cia_cab
+Pr_I_PL15_52_side;Prot. Int. PL15 52 side;merano;24,775;56,258;signal_mainline;0;0;0,01;577,1;10.91517813;46.62536552;dt_cia_cab
+Pr_E_PL15_02_side;Prot. Est. PL15 02 side;merano;24,879;56,362;signal_mainline;0;0;0,01;577,92;10.91382997;46.62526225;dt_cia_cab
+km57000_side;km57000 side;;25,517;57,000;km;0;0;0,01;582,94;10.90597007;46.62690814;dt_cia_cab
+Pr_E_CAB_01_side;Prot. Est. Castelbello 01 side;malles;25,869;57,352;signal_mainline;0;0;0,01;585,71;10.90155725;46.62741976;dt_cia_cab
+Pr_I_CAB_71_side;Prot. Int. N2 Castelbello 71 side;malles;25,968;57,451;signal_mainline;0;0;0,01;586,49;10.90039191;46.62703566;dt_cia_cab
+PL16_side;PL16 side;;25,995;57,478;PL;0;0;0,01;586,7;10.90005455;46.62696582;dt_cia_cab
+Pa_E_CAB_61_side;Part. Est. Castelbello 61 side;merano;26,019;57,502;signal_mainline;0;0;0,01;586,89;10.8997447;46.62693488;dt_cia_cab
+Pr_I_CAB_51_side;Prot. Int. N1 Castelbello 51 side;malles;26,062;57,545;signal_mainline;0;0;0,01;587;10.89918383;46.62692981;dt_cia_cab
+PL17_side;PL17 side;;26,087;57,570;PL;0;0;0,01;587;10.89885783;46.6269412;dt_cia_cab
+Pa_I_CAB_31_side;Part. Int. Castelbello 31 side;merano;26,112;57,595;signal_mainline;0;0;0,01;587;10.89853192;46.62695404;dt_cia_cab
+CAB_side;Castelbello side;;26,133;57,616;LdS_side;1;0;0,01;587;10.89825815;46.62696463;dt_cia_cab,dt_cab_lac
+Pa_CAB_32_side;Part. Castelbello 32 side;malles;26,262;57,745;signal_mainline;0;0;0,01;587,5;10.89657666;46.6270313;dt_cab_lac
+Pr_E_CAB_02_side;Prot. Est. Castelbello 02 side;merano;26,412;57,895;signal_mainline;0;0;0,01;590,07;10.89469189;46.62671471;dt_cab_lac
+HD_405_02_side;HD 405/02 side;both;27,494;58,977;signal_mainline;0;0;0,01;608,66;10.8821016;46.62365012;dt_cab_lac
+km60000_side;km60000 side;;28,517;60,000;km;0;0;0,01;626,23;10.86932373;46.62205894;dt_cab_lac
+Pr_E_LAC_01_side;Prot. Est. Laces 01 side;malles;28,658;60,141;signal_mainline;0;0;0,01;628,65;10.8677421;46.62140985;dt_cab_lac
+PL18_side;PL18 side;;28,782;60,265;PL;0;0;0,01;630,78;10.86637931;46.62080835;dt_cab_lac
+Pr_I_LAC_71_side;Prot. Int. N2 Laces 71 side;malles;28,784;60,267;signal_mainline;0;0;0,01;630,82;10.86635787;46.62079808;dt_cab_lac
+Pa_E_LAC_61_side;Part. Est. Laces 61 side;merano;28,808;60,291;signal_mainline;0;0;0,01;631,23;10.86610057;46.62067486;dt_cab_lac
+Pr_I_LAC_51_side;Prot. Int. N1 Laces 51 side;malles;29,033;60,516;signal_mainline;0;0;0,01;633;10.86351922;46.61976124;dt_cab_lac
+Dev_LAC_01_side;Deviatoio Laces 01 side;;29,083;60,566;SC;0;0;0,01;633;10.86286841;46.619727;dt_cab_lac
+Pa_I_LAC_31_side;Part. Int. Laces 31 side;merano;29,201;60,684;signal_mainline;0;0;0,01;633;10.86133003;46.61967372;existing
+LAC_side;Laces side;;29,261;60,744;LdS_side;1;1;0,01;633;10.86054716;46.61965521;existing
+Pa_I_LAC_32_side;Part. Int. Laces 32 side;malles;29,364;60,847;signal_mainline;0;0;0,01;633;10.85920276;46.61963404;existing
+Dev_LAC_02_side;Deviatoio Laces 02 side;;29,480;60,963;SC;0;0;0,01;633,73;10.8576885;46.61963897;dt_lac_cold
+Pr_I_LAC_52_side;Prot. Int. N1 Laces 52 side;merano;29,530;61,013;signal_mainline;0;0;0,01;634,26;10.85703579;46.61963325;dt_lac_cold
+Pa_E_LAC_62_side;Part. Est. Laces 62 side;malles;30,010;61,493;signal_mainline;0;0;0,01;639,32;10.85080045;46.61922618;dt_lac_cold
+PL19_side;PL19 side;;30,031;61,514;PL;0;0;0,01;639,54;10.85052809;46.61920454;dt_lac_cold
+Pr_I_LAC_72_side;Prot. Int. N2 Laces 72 side;merano;30,055;61,538;signal_mainline;0;0;0,01;639,8;10.85021684;46.61917966;dt_lac_cold
+Pr_E_LAC_02_side;Prot. Est. Laces 02 side;merano;30,160;61,643;signal_mainline;0;0;0,01;640,9;10.84885881;46.61905477;dt_lac_cold
+SblLac31026_side;SblLac31026 side;;31,026;62,509;signal_mainline;0;0;0,01;650,04;10.8382375;46.61683719;dt_lac_cold
+HD_501_02_side;HD 501/02 side;both;31,160;62,643;signal_mainline;0;0;0,01;651,46;10.83656212;46.61718385;dt_lac_cold
+Pr_E_COLD_01_side;Prot. Est. Coldrano 01 side;malles;32,014;63,497;signal_mainline;0;0;0,01;660,47;10.82603801;46.61936363;dt_lac_cold
+Pr_I_COLD_91_side;Prot. Int. Coldrano 91 side;malles;32,084;63,567;signal_mainline;0;0;0,01;661,21;10.8251252;46.61935336;dt_lac_cold
+PL20_side;PL20 side;;32,110;63,593;PL;0;0;0,01;661,48;10.82478645;46.6193385;dt_lac_cold
+Pa_COLD_31_side;Part. Coldrano 31 side;merano;32,136;63,619;signal_mainline;0;0;0,01;661,75;10.82444786;46.61932191;dt_lac_cold
+Dev_COLD_01_side;Deviatoio Coldrano 01 side;;32,200;63,683;SC;0;0;0,01;662,12;10.823630;46.619219;dt_lac_cold
+COLD_side;Coldrano side;;32,353;63,836;LdS_side;1;0;0,01;663;10.82167381;46.61897378;dt_lac_cold, dt_cold_sblLac
+Pa_I_COLD_71_side;Part. Int. Coldrano 71 side;malles;32,873;64,356;signal_mainline;0;0;0,01;669,91;10.81521007;46.61771116;dt_cold_sblLac
+PL21_side;PL21 side;;32,901;64,384;PL;0;0;0,01;670,37;10.81492621;46.61755247;dt_cold_sblLac
+Pr_I_COLD_52_side;Prot. Int. N1 Coldrano 52 side;merano;32,931;64,414;signal_mainline;0;0;0,01;670,87;10.81462221;46.61738236;dt_cold_sblLac
+Pa_E_COLD_51_side;Part. Est. Coldrano 51 side;malles;33,256;64,739;signal_mainline;0;0;0,01;676,23;10.81054606;46.61688873;dt_cold_sblLac
+PL22_side;PL22 side;;33,279;64,762;PL;0;0;0,01;676,61;10.81024579;46.61688995;dt_cold_sblLac
+Pr_I_COLD_72_side;Prot. Int. N2 Coldrano 72 side;merano;33,302;64,785;signal_mainline;0;0;0,01;676,98;10.80994553;46.61689121;dt_cold_sblLac
+Pr_E_COLD_02_side;Prot. Est. Coldrano 02 side;merano;33,406;64,889;signal_mainline;0;0;0,01;678,7;10.80858912;46.61685617;dt_cold_sblLac
+Pr_E_PL23_01_side;Prot. Est. PL23 01 side;malles;34,356;65,839;signal_mainline;0;0;0,01;694,37;10.79635559;46.61546881;dt_cold_sblLac
+Pr_I_PL23_51_side;Prot. Int. PL23 51 side;malles;34,459;65,942;signal_mainline;0;0;0,01;696,06;10.79502585;46.61533124;dt_cold_sblLac
+PL23_side;PL23 side;;34,483;65,966;PL;0;0;0,01;696,46;10.79471605;46.61529898;dt_cold_sblLac
+Pr_I_PL23_52_side;Prot. Int. PL23 52 side;merano;34,507;65,990;signal_mainline;0;0;0,01;696,86;10.79440628;46.6152666;dt_cold_sblLac
+Pr_E_PL23_02_side;Prot. Est. PL23 02 side;merano;34,609;66,092;signal_mainline;0;0;0,01;698,54;10.79308949;46.61513018;dt_cold_sblLac
+SblLac35026_side;SblLac35026 side;;35,026;66,509;Sbl;0;0;0,01;705,42;10.78769972;46.61476402;dt_cold_sblLac, dt_sblLac_sil
+Pr_E_PL24_01_side;Prot. Est. PL24 01 side;malles;35,040;66,523;signal_mainline;0;0;0,01;705,65;10.7875215;46.61479191;dt_cold_sblLac
+Dev_PL24_01_side;Deviatoio PL24 01 side;both;35,094;66,577;SC;0;0;0,01;706,54;10.78683582;46.61489936;dt_sblLac_sil
+Pr_I_PL24_51_side;Prot. Int. PL24 51 side;malles;35,144;66,627;signal_mainline;0;0;0,01;707,36;10.78620014;46.6150068;dt_sblLac_sil
+PL24_side;PL24 side;;35,167;66,650;PL;0;0;0,01;707,74;10.78591014;46.6150603;dt_sblLac_sil
+Pr_I_PL24_52_side;Prot. Int. PL24 52 side;merano;35,191;66,674;signal_mainline;0;0;0,01;708,14;10.78561008;46.61512227;dt_sblLac_sil
+Pr_E_PL24_02_side;Prot. Est. PL24 02 side;merano;35,294;66,777;signal_mainline;0;0;0,01;709,83;10.78435527;46.61545449;dt_sblLac_sil
+HD_504_02_side;HD 504/02 side;both;36,294;67,777;signal_mainline;0;0;0,01;726,33;10.77177173;46.61728287;dt_sblLac_sil
+Pr_E_SIL_01_side;Prot. Est. Silandro 01 side;malles;36,827;68,310;signal_mainline;0;0;0,01;735,12;10.76605982;46.61975108;dt_sblLac_sil
+PL25_side;PL25 side;;36,943;68,426;PL;0;0;0,01;737,03;10.76457504;46.61995058;dt_sblLac_sil
+Pr_I_SIL_91_side;Prot. Int. N2 Silandro 91 side;malles;36,957;68,440;signal_mainline;0;0;0,01;737,26;10.76440589;46.61999822;dt_sblLac_sil
+Pa_E_SIL_81_side;Part. Est. Silandro 81 side;merano;36,981;68,464;signal_mainline;0;0;0,01;737,66;10.76412539;46.62009355;dt_sblLac_sil
+km68500_side;km68500 side;;37,017;68,500;km;0;0;0,01;738,25;10.7637436;46.62028153;dt_sblLac_sil
+km68650_side;km68650 side;;37,167;68,650;km;0;0;0,01;740,72;10.76285177;46.62144628;dt_sblLac_sil
+IG_GEO_side;Imbocco Galleria GEOS side;;37,379;68,862;Tunnel;0;0;0,01;744,22;10.76381322;46.62317517;dt_sblLac_sil
+Pr_I_SIL_71_side;Prot. Int. N1 Silandro 71 side;malles;37,473;68,956;signal_mainline;0;0;0,01;744,73;10.76452093;46.62386603;dt_sblLac_sil
+SG_GEO_side;Sbocco Galleria GEOS side;;37,521;69,004;Tunnel;0;0;0,01;744,92;10.76488488;46.62421754;dt_sblLac_sil
+Dev_SIL_05_side;Deviatoio Silandro 05 side;;37,572;69,055;SC;0;0;0,01;745;10.76526933;46.62459214;dt_sblLac_sil
+Pa_I_SIL_31_side;Part. Int Silandro 31 side;merano;37,682;69,165;signal_mainline;0;0;0,01;745;10.76610186;46.62539847;existing
+SIL_side;Silandro side;;37,792;69,275;LdS_side;1;1;0,01;745;10.76694914;46.62619719;existing
+Pa_I_SIL_32_side;Part. Int. Silandro 32 side;malles;37,860;69,343;signal_mainline;0;0;0,01;745;10.76748855;46.62668307;existing
+Dev_SIL_02_side;Deviatoio Silandro 02 side;;37,939;69,422;SC;0;0;0,01;745;10.768118;46.62724604;side
+Pr_I_SIL_52_side;Prot. Int. Silandro 52 side;merano;37,989;69,472;signal_mainline;0;0;0,01;745;10.7685164;46.62760237;side
+Pa_E_SIL_62_side;Part. Est. Silandro 62 side;malles;38,129;69,612;signal_mainline;0;0;0,01;747,34;10.76947584;46.6286639;side
+Pr_E_SIL_02_side;Prot. Est. Silandro 02 side;merano;38,279;69,762;signal_mainline;0;0;0,01;751,38;10.76931448;46.62997531;side
+km70200_side;km70200 side;;38,717;70,200;km;0;0;0,01;763,18;10.76465188;46.63004043;dt_70200_lasa
+HD_601_02_side;HD 601/02 side;both;39,279;70,762;signal_mainline;0;0;0,01;778,31;10.7601437;46.62605462;dt_70200_lasa
+HD_601_04_side;HD 601/04 side;both;40,279;71,762;signal_mainline;0;0;0,01;805,24;10.75043863;46.62010325;dt_70200_lasa
+HD_601_06_side;HD 601/06 side;both;41,279;72,762;signal_mainline;0;0;0,01;832,17;10.73955193;46.61539544;dt_70200_lasa
+HD_601_08_side;HD 601/08 side;both;42,279;73,762;signal_mainline;0;0;0,01;859,1;10.72723299;46.61274274;dt_70200_lasa
+HD_601_10_side;HD 601/10 side;both;43,279;74,762;signal_mainline;0;0;0,01;865,71;10.71460825;46.61190014;dt_70200_lasa
+km75800_side;km75800 side;;44,317;75,800;km;0;0;0,01;866,64;10.70243599;46.61542881;dt_70200_lasa
+Pr_E_LASA_01_side;Prot. Est. Lasa 01 side;malles;44,387;75,870;signal_mainline;0;0;0,01;866,71;10.70153601;46.61553806;dt_70200_lasa
+Pr_I_LASA_91_side;Prot. Int. N3 Lasa 91 side;malles;44,488;75,971;signal_mainline;0;0;0,01;866,8;10.70029513;46.61582866;dt_70200_lasa
+PL27_side;PL27 side;;44,513;75,996;PL;0;0;0,01;866,82;10.70001293;46.61594146;dt_70200_lasa
+Pa_E_LASA_81_side;Part. Est. Lasa 81 side;merano;44,538;76,021;signal_mainline;0;0;0,01;866,84;10.6997292;46.61605261;dt_70200_lasa
+Pr_I_LASA_71_side;Prot. Int. N2 Lasa 71 side;malles;44,724;76,207;signal_mainline;0;0;0,01;867;10.69762189;46.61688348;dt_70200_lasa
+PL28_side;PL28 side;;44,752;76,235;PL;0;0;0,01;867;10.69732233;46.61702763;dt_70200_lasa
+Pa_I_LASA_61_side;Part. Int. N1 Lasa 61 side;merano;44,775;76,258;signal_mainline;0;0;0,01;867;10.69708996;46.6171586;dt_70200_lasa
+Pr_I_LASA_51_side;Prot. Int. N1 Lasa 51 side;malles;44,809;76,292;signal_mainline;0;0;0,01;867;10.69676096;46.61736382;dt_70200_lasa
+Dev_LASA_01_side;Deviatoio Lasa 01 side;;44,829;76,312;SC;0;0;0,01;867;10.69656919;46.61748593;dt_70200_lasa
+Pa_I_LASA_31_side;Part. Int. N1 Lasa 31 side;merano;44,945;76,428;signal_mainline;0;0;0,01;867;10.69545667;46.61819393;existing
+LASA_side;Lasa side;;44,962;76,445;LdS_side;1;1;0,01;867;10.6952939;46.61829789;existing
+Pa_I_LASA_32_side;Part. Int. N2 Lasa 32 side;malles;45,102;76,585;signal_mainline;0;0;0,01;867;10.69395221;46.61915315;existing
+Dev_LASA_02_side;Deviatoio Lasa 02 side;;45,188;76,671;SC;0;0;0,01;867;10.69312779;46.61967835;dt_lasa_oris
+Pr_I_LASA_52_side;Prot. Int. N1 Lasa 52 side;merano;45,238;76,721;signal_mainline;0;0;0,01;867,06;10.69264809;46.61998341;dt_lasa_oris
+Pa_I_LASA_62_side;Part. Int. N1 Lasa 62 side;malles;45,309;76,792;signal_mainline;0;0;0,01;867,21;10.69196698;46.62041665;dt_lasa_oris
+PL29_side;PL29 side;;45,335;76,818;PL;0;0;0,01;867,27;10.6917158;46.62057398;dt_lasa_oris
+Pr_I_LASA_72_side;Prot. Int. N2 Lasa 72 side;merano;45,382;76,865;signal_mainline;0;0;0,01;867,37;10.69125291;46.62085143;dt_lasa_oris
+Pa_E_LASA_82_side;Part. Est. Lasa 82 side;malles;45,499;76,982;signal_mainline;0;0;0,01;867,62;10.69000418;46.62145593;dt_lasa_oris
+Pr_E_LASA_02_side;Prot. Est. Lasa 02 side;merano;45,650;77,133;signal_mainline;0;0;0,01;867,94;10.68831737;46.62215909;dt_lasa_oris
+HD_701_01_side;HD 701/01 side;both;46,650;78,133;signal_mainline;0;0;0,01;870,1;10.6762738;46.62526869;dt_lasa_oris
+SblLasa46915_side;SblLasa46915 side;;46,915;78,398;Sbl;0;0;0,01;870,67;10.67286362;46.62567245;dt_lasa_oris
+HD_701_03_side;HD 701/03 side;both;47,650;79,133;signal_mainline;0;0;0,01;872,26;10.66331314;46.62547971;dt_lasa_oris
+Pr_E_ORIS_01_side;Prot. Est. Oris 01 side;malles;48,848;80,331;signal_mainline;0;0;0,01;874,84;10.64793856;46.62628794;dt_lasa_oris
+Pr_I_ORIS_71_side;Prot. Int. Oris 71 side;malles;48,949;80,432;signal_mainline;0;0;0,01;875;10.64667008;46.62653652;side
+Dev_ORIS_01_side;Deviatoio Oris 01 side;both;48,919;80,402;SC;1;0;0,01;874,95;10.647047;46.626463;side
+PL30_side;PL30 side;;48,973;80,456;PL;0;0;0,01;875;10.64636882;46.62659594;side
+Pa_ORIS_31_side;Part. Oris 31 side;merano;48,998;80,481;signal_mainline;0;0;0,01;875;10.64605449;46.62665662;side
+ORIS_side;Oris side;;49,020;80,503;LdS_side;1;0;0,01;875;10.64577806;46.62671046;side
+Pa_ORIS_32_side;Part. Oris 32 side;malles;49,147;80,630;signal_mainline;0;0;0,01;875,12;10.64418356;46.62702432;side
+Pr_E_ORIS_02_side;Prot. Est. Oris 02 side;merano;49,297;80,780;signal_mainline;0;0;0,01;875,78;10.64229874;46.62739127;dt_oris_spon
+HD_702_02_side;HD 702/02 side;both;50,297;81,780;signal_mainline;0;0;0,01;880,18;10.62965952;46.62957694;dt_oris_spon
+Pr_E_SPON_01_side;Prot. Est. Spondigna 01 side;malles;51,279;82,762;signal_mainline;0;0;0,01;884,51;10.61734141;46.63148095;dt_oris_spon
+Pa_E_SPON_81_side;Part. Est. Spondigna 81 side;merano;51,451;82,934;signal_mainline;0;0;0,01;885,26;10.61538522;46.63224131;dt_oris_spon
+Pr_I_SPON_71_side;Prot. Int. N2 Spondigna 71 side;malles;51,620;83,103;signal_mainline;0;0;0,01;886;10.61348754;46.63301698;dt_oris_spon
+PL31_side;PL31 side;;51,644;83,127;PL;0;0;0,01;886;10.61322282;46.63313256;dt_oris_spon
+Pr_I_SPON_51_side;Prot. Int. N1 Spondigna 51 side;malles;51,652;83,135;signal_mainline;0;0;0,01;886;10.61313471;46.63317122;dt_oris_spon
+Pa_I_SPON_61_side;Part. Int. N1 Spondigna 61 side;merano;51,668;83,151;signal_mainline;0;0;0,01;886;10.61295724;46.63324719;dt_oris_spon
+Dev_SPON_01_side;Deviatoio Spondigna 01 side;;51,672;83,155;SC;0;0;0,01;886;10.61291286;46.63326617;dt_oris_spon
+Pa_I_SPON_31_side;Part. Int. N2 Spondigna 31 side;merano;51,789;83,272;signal_mainline;0;0;0,01;886;10.61163529;46.63384315;existing
+SPON_side;Spondigna side;;51,867;83,350;LdS_side;1;0;0,01;886;10.61079701;46.63424178;existing
+Pa_I_SPON_32_side;Part. Int. Spondigna 32 side;malles;51,986;83,469;signal_mainline;0;0;0,01;886;10.6095143;46.63484615;existing
+Dev_SPON_02_side;Deviatoio Spondigna 02 side;;52,061;83,544;SC;0;0;0,01;886;10.60870466;46.63522583;dt_spon_slu
+Pr_I_SPON_52_side;Prot. Int. N1 Spondigna 52 side;merano;52,111;83,594;signal_mainline;0;0;0,01;886;10.60815324;46.63546661;dt_spon_slu
+Pa_E_SPON_62_side;Part. Est. Spondigna 62 side;malles;52,429;83,912;signal_mainline;0;0;0,01;886,11;10.60430832;46.63653119;dt_spon_slu
+PL32_side;PL32 side;;52,454;83,937;PL;0;0;0,01;886,12;10.60402176;46.63663895;dt_spon_slu
+Pr_I_SPON_72_side;Prot. Int. N2 Spondigna 72 side;merano;52,480;83,963;signal_mainline;0;0;0,01;886,13;10.60373084;46.63675939;dt_spon_slu
+Pr_E_SPON_02_side;Prot. Est. Spondigna 02 side;merano;52,580;84,063;signal_mainline;0;0;0,01;886,42;10.60270808;46.63731725;dt_spon_slu
+HD_801_02_side;HD 801/02 side;both;53,580;85,063;signal_mainline;0;0;0,01;895,82;10.59473454;46.6443895;dt_spon_slu
+HD_801_04_side;HD 801/04 side;both;54,580;86,063;signal_mainline;0;0;0,01;905,22;10.58963042;46.65256598;dt_spon_slu
+SblSpon54860_side;SblSpon54860 side;;54,860;86,343;Sbl;0;0;0,01;907,85;10.58861387;46.65497788;dt_spon_slu
+km86800_side;km86800 side;;55,317;86,800;km;0;0;0,01;912,15;10.58718497;46.65896854;dt_spon_slu
+HD_801_06_side;HD 801/06 side;both;55,580;87,063;signal_mainline;0;0;0,01;914,62;10.5855763;46.66099652;dt_spon_slu
+HD_801_07_side;HD 801/07 side;malles;56,027;87,510;signal_mainline;0;0;0,01;918,82;10.58196453;46.66394375;dt_spon_slu
+SLU_side;Sluderno side;;56,146;87,629;LdS_side;1;0;0,01;919;10.58152966;46.66497152;dt_spon_slu, dt_slu_mal
+HD_801_08_side;HD 801/08 side;merano;56,397;87,880;signal_mainline;0;0;0,01;922,55;10.58106761;46.66719613;dt_slu_mal
+HD_801_10_side;HD 801/10 side;both;57,229;88,712;signal_mainline;0;0;0,01;942,13;10.57474932;46.6729141;dt_slu_mal
+HD_801_12_side;HD 801/12 side;both;58,229;89,712;signal_mainline;0;0;0,01;965,67;10.56365799;46.67592065;dt_slu_mal
+SblSpon58860_side;SblSpon58860 side;;58,860;90,343;Sbl;0;0;0,01;980,52;10.55629073;46.67831902;dt_slu_mal
+Pr_E_MAL_01_side;Prot. Est. Malles 01 side;malles;59,103;90,586;signal_mainline;0;0;0,01;986,23;10.55422862;46.67994665;dt_slu_mal
+Pa_E_MAL_61_side;Part. Est. Malles 61 side;merano;59,254;90,737;signal_mainline;0;0;0,01;989,79;10.5541629;46.68128972;dt_slu_mal
+Pr_I_MAL_51_side;Prot. Int. Malles 51 side;malles;59,515;90,998;signal_mainline;0;0;0,01;995,93;10.55263102;46.68320559;dt_slu_mal
+Dev_MAL_05_side;Deviatoio Malles 05 side;;59,633;91,116;SC;0;0;0,01;998;10.55117762;46.68355939;dt_slu_mal
+Pa_I_MAL_31d_side;Part. Int. Malles 31d side;merano;59,721;91,204;signal_mainline;0;0;0,01;998;10.55008699;46.68381098;existing
+MAL_side;Malles side;both;59,853;91,336;LdS_side;1;1;0,01;998;10.54845192;46.68419015;existing

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Generated data
+*.npy
+*.html
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Virtual environments
+.venv/
+venv/
+
+# Temporary files
+tree.txt
