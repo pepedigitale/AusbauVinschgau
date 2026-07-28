@@ -1,0 +1,1336 @@
+"""
+Interactive Plotly visualization of an Event-Activity Network.
+
+Layout:
+    x = position along the line (pk_rel)
+    y = time of day in seconds, descending from top to bottom.
+
+The public functions intentionally have the same names as the Matplotlib
+version:
+
+    plot_ean(...)
+    draw_ean(...)
+"""
+
+from collections import defaultdict
+
+import numpy as np
+import plotly.graph_objects as go
+
+
+# ----------------------------------------------------------------------
+# Edge styles
+# ----------------------------------------------------------------------
+
+EDGE_STYLE = {
+    "running":        dict(color="#888888", width=1.2, dash="solid"),
+    "dwell":          dict(color="#888888", width=1.2, dash="dot"),
+    "schedule_floor": dict(color="#cccccc", width=0.8, dash="dash"),
+    "headway":        dict(color="#d62728", width=1.8, dash="solid"),
+}
+
+
+# Matplotlib-like tab10/tab20 colors
+TAB10 = [
+    "#1f77b4",
+    "#ff7f0e",
+    "#2ca02c",
+    "#d62728",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
+    "#7f7f7f",
+    "#bcbd22",
+    "#17becf",
+]
+
+TAB20 = [
+    "#1f77b4", "#aec7e8",
+    "#ff7f0e", "#ffbb78",
+    "#2ca02c", "#98df8a",
+    "#d62728", "#ff9896",
+    "#9467bd", "#c5b0d5",
+    "#8c564b", "#c49c94",
+    "#e377c2", "#f7b6d2",
+    "#7f7f7f", "#c7c7c7",
+    "#bcbd22", "#dbdb8d",
+    "#17becf", "#9edae5",
+]
+
+
+# ----------------------------------------------------------------------
+# Helpers
+# ----------------------------------------------------------------------
+
+def _seconds_to_hhmmss(seconds):
+    """Convert seconds since midnight to HH:MM:SS."""
+    seconds = float(seconds)
+
+    hours = int(seconds // 3600) % 24
+    minutes = int((seconds % 3600) // 60)
+    secs = int(round(seconds % 60))
+
+    if secs == 60:
+        secs = 0
+        minutes += 1
+
+    if minutes == 60:
+        minutes = 0
+        hours = (hours + 1) % 24
+
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+
+
+def _train_colors(trains):
+    """Assign stable colors to trains."""
+    trains = sorted(trains)
+    palette = TAB10 if len(trains) <= 10 else TAB20
+    return {
+        train: palette[i % len(palette)]
+        for i, train in enumerate(trains)
+    }
+
+
+def _get_boundary_stations(nodesDf, edgesDf):
+    """
+    Determine stations where the infrastructure changes between
+    single/double track.
+
+    This is the same logic used for the infrastructure schematic.
+    """
+
+    pk_values = sorted(nodesDf["pk_rel"].unique())
+
+    if len(pk_values) < 2:
+        return set()
+
+    interval_count = defaultdict(int)
+
+    for _, edge in edgesDf.iterrows():
+
+        pk1 = nodesDf.loc[edge["node_from"], "pk_rel"]
+        pk2 = nodesDf.loc[edge["node_to"], "pk_rel"]
+
+        a, b = sorted((pk1, pk2))
+
+        for left, right in zip(pk_values[:-1], pk_values[1:]):
+            if left >= a and right <= b:
+                interval_count[(left, right)] += 1
+
+    intervals = list(zip(pk_values[:-1], pk_values[1:]))
+
+    boundary_pks = set()
+
+    for i in range(1, len(intervals)):
+
+        left_interval = intervals[i - 1]
+        right_interval = intervals[i]
+
+        if (
+            interval_count[left_interval]
+            != interval_count[right_interval]
+        ):
+            boundary_pks.add(pk_values[i])
+
+    return {
+        station
+        for station in nodesDf.index
+        if nodesDf.loc[station, "pk_rel"] in boundary_pks
+    }
+
+
+def _is_boundary_event(G, node, boundary_stations):
+    """
+    Identify virtual/boundary events.
+
+    Explicit attributes are checked first. If they are not available,
+    the station location is used as fallback.
+    """
+
+    attrs = G.nodes[node]
+
+    for key in (
+        "boundary",
+        "is_boundary",
+        "virtual",
+        "is_virtual",
+    ):
+        if key in attrs:
+            value = attrs[key]
+
+            if isinstance(value, (bool, np.bool_)):
+                return bool(value)
+
+    return attrs.get("station") in boundary_stations
+
+
+def _station_x_map(G, nodesDf):
+    """Return station -> pk_rel mapping for stations present in G."""
+
+    events = [
+        node
+        for node in G.nodes
+        if node != "SOURCE"
+    ]
+
+    stations = sorted(
+        {
+            G.nodes[node]["station"]
+            for node in events
+        },
+        key=lambda station: nodesDf.loc[station, "pk_rel"],
+    )
+
+    return {
+        station: nodesDf.loc[station, "pk_rel"]
+        for station in stations
+    }
+
+
+# ----------------------------------------------------------------------
+# Infrastructure schematic
+# ----------------------------------------------------------------------
+
+def _add_infrastructure_schematic(fig, nodesDf, edgesDf):
+    """
+    Draw the single/double-track infrastructure schematic below the
+    x-axis, with enough separation from the station labels.
+    """
+
+    pk_values = sorted(nodesDf["pk_rel"].unique())
+
+    if len(pk_values) < 2:
+        return
+
+    interval_count = defaultdict(int)
+
+    for _, edge in edgesDf.iterrows():
+
+        pk1 = nodesDf.loc[edge["node_from"], "pk_rel"]
+        pk2 = nodesDf.loc[edge["node_to"], "pk_rel"]
+
+        a, b = sorted((pk1, pk2))
+
+        for left, right in zip(pk_values[:-1], pk_values[1:]):
+            if left >= a and right <= b:
+                interval_count[(left, right)] += 1
+
+    # Further below the x-axis than before.
+    y = -0.13
+    offset = 0.008
+
+    for (left, right), n_tracks in sorted(interval_count.items()):
+
+        if n_tracks == 1:
+
+            fig.add_shape(
+                type="line",
+                xref="x",
+                yref="paper",
+                x0=left,
+                x1=right,
+                y0=y,
+                y1=y,
+                line=dict(
+                    color="black",
+                    width=2,
+                ),
+                layer="above",
+            )
+
+        else:
+
+            for yy in (y - offset, y + offset):
+
+                fig.add_shape(
+                    type="line",
+                    xref="x",
+                    yref="paper",
+                    x0=left,
+                    x1=right,
+                    y0=yy,
+                    y1=yy,
+                    line=dict(
+                        color="black",
+                        width=2,
+                    ),
+                    layer="above",
+                )
+
+
+# ----------------------------------------------------------------------
+# Axes
+# ----------------------------------------------------------------------
+
+def _configure_axes(fig, nodesDf, title):
+    """Configure x/y axes and overall layout."""
+
+    # --------------------------------------------------------------
+    # X axis
+    # --------------------------------------------------------------
+
+    pk_groups = defaultdict(list)
+
+    lds_nodes = nodesDf.index[
+        nodesDf["node_type"] == "LdS"
+    ]
+
+    for node in lds_nodes:
+        pk_groups[nodesDf.loc[node, "pk_rel"]].append(node)
+
+    xticks = []
+    xticklabels = []
+
+    for pk in sorted(pk_groups):
+
+        xticks.append(pk)
+
+        # Station names remain on the x axis.
+        # Multiple names at the same pk are stacked.
+        xticklabels.append(
+            "<br>".join(pk_groups[pk]) + f"<br>({pk})"
+        )
+
+    fig.update_xaxes(
+        tickmode="array",
+        tickvals=xticks,
+        ticktext=xticklabels,
+        showgrid=True,
+        gridcolor="lightgrey",
+        gridwidth=0.6,
+        zeroline=False,
+        ticklabelstandoff=10,
+    )
+
+    # --------------------------------------------------------------
+    # Y axis
+    # --------------------------------------------------------------
+
+    times = []
+
+    for trace in fig.data:
+
+        if trace.y is None:
+            continue
+
+        for value in trace.y:
+
+            if value is not None:
+                times.append(float(value))
+
+    if times:
+
+        y_min = min(times)
+        y_max = max(times)
+
+        # Same 15-minute grid as the Matplotlib implementation.
+        tick_interval = 15 * 60
+
+        tick_start = (
+            tick_interval
+            * np.floor(y_min / tick_interval)
+        )
+
+        tick_end = (
+            tick_interval
+            * np.ceil(y_max / tick_interval)
+        )
+
+        tickvals = np.arange(
+            tick_start,
+            tick_end + tick_interval,
+            tick_interval,
+        )
+
+        ticktext = [
+            _seconds_to_hhmmss(value)
+            for value in tickvals
+        ]
+
+        fig.update_yaxes(
+            tickmode="array",
+            tickvals=tickvals,
+            ticktext=ticktext,
+
+            # Time increases downward.
+            autorange="reversed",
+
+            title_text="Time",
+            showgrid=True,
+            gridcolor="lightgrey",
+            gridwidth=0.6,
+            zeroline=False,
+        )
+
+    # --------------------------------------------------------------
+    # General layout
+    # --------------------------------------------------------------
+
+    fig.update_layout(
+        showlegend=False,
+        title=dict(text=title),
+
+        template="plotly_white",
+
+        hovermode="closest",
+
+        margin=dict(
+            l=80,
+            r=220,
+            t=80,
+            b=180,
+        ),
+
+        height=900,
+
+        legend=dict(
+            title=dict(text="Layers"),
+
+            # Clicking a layer toggles the whole group.
+            groupclick="togglegroup",
+
+            itemsizing="constant",
+
+            traceorder="grouped",
+
+            x=1.02,
+            xanchor="left",
+            y=1,
+            yanchor="top",
+        ),
+    )
+
+
+# ----------------------------------------------------------------------
+# Main plot function
+# ----------------------------------------------------------------------
+
+def plot_ean_plotly(
+    G,
+    nodesDf,
+    edgesDf,
+    title="Event-Activity Network",
+    figsize=(20, 20),
+):
+    """
+    Create a new Plotly figure and plot the scheduled EAN.
+
+    The return signature intentionally matches the Matplotlib version:
+
+        fig, ax = plot_ean(...)
+
+    Here both returned values are the Plotly Figure.
+    """
+
+    fig = go.Figure()
+
+    # Information shared by subsequent draw_ean() calls.
+    fig.update_layout(
+        meta=dict(
+            realization_count=0,
+            boundary_stations=list(
+                _get_boundary_stations(
+                    nodesDf,
+                    edgesDf,
+                )
+            ),
+            boundary_events_added=False,
+            headway_layer_added=False,
+        )
+    )
+
+    # Draw scheduled EAN.
+    draw_ean_plotly(
+        G,
+        nodesDf,
+        fig,
+        alpha=1.0,
+        linewidth_scale=1.0,
+        layer_name="Scheduled",
+        is_scheduled=True,
+    )
+
+    # Infrastructure schematic.
+    _add_infrastructure_schematic(
+        fig,
+        nodesDf,
+        edgesDf,
+    )
+
+    # Axes/layout.
+    _configure_axes(
+        fig,
+        nodesDf,
+        title,
+    )
+
+    return fig, fig
+
+
+# ----------------------------------------------------------------------
+# Draw/add EAN
+# ----------------------------------------------------------------------
+
+def draw_ean_plotly(
+    G,
+    nodesDf,
+    ax,
+    alpha=1.0,
+    linewidth_scale=1.0,
+    linestyle_override=None,
+    draw_nodes=True,
+    draw_edges=True,
+    layer_name=None,
+    is_scheduled=False,
+):
+    """
+    Add an EAN to an existing Plotly Figure.
+
+    Parameters are intentionally compatible with the Matplotlib
+    implementation.
+
+    Additional parameters:
+
+    layer_name : str or None
+        Name displayed in the Plotly legend.
+
+    is_scheduled : bool
+        Internal flag used by plot_ean().
+    """
+
+    fig = ax
+
+    events = [
+        node
+        for node in G.nodes
+        if node != "SOURCE"
+    ]
+
+    x_of_station = _station_x_map(
+        G,
+        nodesDf,
+    )
+
+    trains = sorted(
+        {
+            G.nodes[node]["train"]
+            for node in events
+        }
+    )
+
+    color_of_train = _train_colors(trains)
+
+    boundary_stations = set(
+        fig.layout.meta.get(
+            "boundary_stations",
+            [],
+        )
+    )
+
+    # ==============================================================
+    # Determine layer name
+    # ==============================================================
+
+    if is_scheduled:
+
+        layer_name = layer_name or "Scheduled"
+        layer_id = "scheduled"
+
+    else:
+
+        count = int(
+            fig.layout.meta.get("realization_count", 0)
+        ) + 1
+
+        fig.layout.meta["realization_count"] = count
+
+        layer_name = (
+            layer_name
+            or f"Realization {count}"
+        )
+
+        layer_id = f"realization_{count}"
+
+    legend_group=layer_id
+
+    graph_meta = dict(
+        layer_id=layer_id,
+        layer_name=layer_name,
+        layer_type="graph",
+    )
+
+    boundary_meta = dict(
+        layer_id=layer_id,
+        layer_name=layer_name,
+        layer_type="boundary",
+    )
+
+    headway_meta = dict(
+        layer_id=layer_id,
+        layer_name=layer_name,
+        layer_type="headway",
+    )
+
+    # ==============================================================
+    # Proxy trace for the EAN layer
+    #
+    # This is what appears in the legend. All traces belonging to
+    # this graph share the same legendgroup.
+    # ==============================================================
+
+    fig.add_trace(
+        go.Scatter(
+            x=[None],
+            y=[None],
+            mode="lines",
+            name=layer_name,
+            legendgroup=legend_group,
+            line=dict(
+                color="#555555",
+                width=3,
+            ),
+            showlegend=True,
+            hoverinfo="skip",
+        )
+    )
+
+    # ==============================================================
+    # Edges
+    # ==============================================================
+
+    if draw_edges:
+
+        for u, v, data in G.edges(data=True):
+
+            if u == "SOURCE":
+                continue
+
+            kind = data.get(
+                "kind",
+                "running",
+            )
+
+            x0 = x_of_station[
+                G.nodes[u]["station"]
+            ]
+
+            x1 = x_of_station[
+                G.nodes[v]["station"]
+            ]
+
+            y0 = G.nodes[u]["time"]
+            y1 = G.nodes[v]["time"]
+
+            # ------------------------------------------------------
+            # Headway edges
+            #
+            # These belong to their own global layer, independent
+            # of Scheduled / Realization layers.
+            # ------------------------------------------------------
+
+            if kind == "headway":
+
+                style = EDGE_STYLE["headway"]
+
+                hover = (
+                    "<b>Headway constraint</b>"
+                    f"<br>Location: {G.nodes[u]['station']}"
+                    f"<br>Start: {_seconds_to_hhmmss(y0)}"
+                    f"<br>End: {_seconds_to_hhmmss(y1)}"
+                    f"<br>Δt: "
+                    f"{_seconds_to_hhmmss(abs(y1 - y0))}"
+                    "<extra></extra>"
+                )
+
+                fig.add_trace(
+                    go.Scatter(
+                        x=[x0, x1],
+                        y=[y0, y1],
+                        mode="lines",
+                        line=dict(
+                            color=style["color"],
+                            width=style["width"],
+                            dash=style["dash"],
+                        ),
+                        opacity=alpha,
+                        showlegend=False,
+                        meta=headway_meta,
+                        hovertemplate=hover,
+                    )
+                )
+
+                continue
+
+            # ------------------------------------------------------
+            # Normal EAN edges
+            # ------------------------------------------------------
+
+            style = EDGE_STYLE.get(
+                kind,
+                dict(
+                    color="black",
+                    width=1,
+                    dash="solid",
+                ),
+            ).copy()
+
+            style["width"] *= linewidth_scale
+
+            if linestyle_override is not None:
+
+                mpl_to_plotly_dash = {
+                    "-": "solid",
+                    "--": "dash",
+                    ":": "dot",
+                    "-.": "dashdot",
+                }
+
+                style["dash"] = mpl_to_plotly_dash.get(
+                    linestyle_override,
+                    linestyle_override,
+                )
+
+            hover = (
+                f"<b>{layer_name}</b>"
+                f"<br>Activity: {kind}"
+                f"<br>{G.nodes[u]['station']} → "
+                f"{G.nodes[v]['station']}"
+                f"<br>Start: {_seconds_to_hhmmss(y0)}"
+                f"<br>End: {_seconds_to_hhmmss(y1)}"
+                f"<br>Duration: "
+                f"{_seconds_to_hhmmss(abs(y1 - y0))}"
+                "<extra></extra>"
+            )
+
+            fig.add_trace(
+                go.Scatter(
+                    x=[x0, x1],
+                    y=[y0, y1],
+                    mode="lines",
+                    line=dict(
+                        color=style["color"],
+                        width=style["width"],
+                        dash=style["dash"],
+                    ),
+                    opacity=alpha,
+                    showlegend=False,
+                    meta=graph_meta,
+                    hovertemplate=hover,
+                )
+            )
+
+    # ==============================================================
+    # Nodes
+    # ==============================================================
+
+    if draw_nodes:
+
+        normal_nodes = []
+        boundary_nodes = []
+
+        for node in events:
+
+            if _is_boundary_event(
+                G,
+                node,
+                boundary_stations,
+            ):
+                boundary_nodes.append(node)
+            else:
+                normal_nodes.append(node)
+
+        # ----------------------------------------------------------
+        # Normal events
+        # ----------------------------------------------------------
+
+        for train in trains:
+
+            train_nodes = [
+                node
+                for node in normal_nodes
+                if G.nodes[node]["train"] == train
+            ]
+
+            if not train_nodes:
+                continue
+
+            xs = [
+                x_of_station[
+                    G.nodes[node]["station"]
+                ]
+                for node in train_nodes
+            ]
+
+            ys = [
+                G.nodes[node]["time"]
+                for node in train_nodes
+            ]
+
+            symbols = [
+                "circle"
+                if G.nodes[node]["event"] == "dep"
+                else "square"
+                for node in train_nodes
+            ]
+
+            # Everything needed for hover is put into customdata.
+            customdata = [
+                [
+                    train,
+                    G.nodes[node]["station"],
+                    G.nodes[node]["event"],
+                    x_of_station[
+                        G.nodes[node]["station"]
+                    ],
+                    _seconds_to_hhmmss(
+                        G.nodes[node]["time"]
+                    ),
+                ]
+                for node in train_nodes
+            ]
+
+            fig.add_trace(
+                go.Scatter(
+                    x=xs,
+                    y=ys,
+
+                    mode="markers",
+
+                    marker=dict(
+                        size=9,
+                        symbol=symbols,
+                        color=color_of_train[train],
+                        line=dict(
+                            color="black",
+                            width=0.5,
+                        ),
+                    ),
+
+                    opacity=alpha,
+
+                    legendgroup=legend_group,
+
+                    showlegend=False,
+
+                    customdata=customdata,
+                    meta=graph_meta,
+                    hovertemplate=(
+                        f"<b>{layer_name}</b>"
+                        "<br>Train: %{customdata[0]}"
+                        "<br>Location: %{customdata[1]}"
+                        "<br>Event: %{customdata[2]}"
+                        "<br>Time: %{customdata[4]}"
+                        "<br>pk: %{customdata[3]:.3f}"
+                        "<extra></extra>"
+                    ),
+                )
+            )
+
+        # ----------------------------------------------------------
+        # Boundary / virtual events
+        # ----------------------------------------------------------
+
+        if boundary_nodes:
+
+            xs = [
+                x_of_station[
+                    G.nodes[node]["station"]
+                ]
+                for node in boundary_nodes
+            ]
+
+            ys = [
+                G.nodes[node]["time"]
+                for node in boundary_nodes
+            ]
+
+            customdata = [
+                [
+                    G.nodes[node]["train"],
+                    G.nodes[node]["station"],
+                    G.nodes[node].get(
+                        "event",
+                        "boundary",
+                    ),
+                    x_of_station[
+                        G.nodes[node]["station"]
+                    ],
+                    _seconds_to_hhmmss(
+                        G.nodes[node]["time"]
+                    ),
+                ]
+                for node in boundary_nodes
+            ]
+
+            first_boundary_layer = not fig.layout.meta.get(
+                "boundary_events_added",
+                False,
+            )
+
+            fig.add_trace(
+                go.Scatter(
+                    x=xs,
+                    y=ys,
+
+                    mode="markers",
+
+                    marker=dict(
+                        size=11,
+                        symbol="diamond-open",
+                        color="black",
+                        line=dict(
+                            color="black",
+                            width=1.5,
+                        ),
+                    ),
+
+                    opacity=alpha,
+
+                    legendgroup="boundary_events",
+
+                    showlegend=first_boundary_layer,
+
+                    name="Boundary / virtual events",
+
+                    customdata=customdata,
+                    meta=boundary_meta,
+                    hovertemplate=(
+                        f"<b>{layer_name}</b>"
+                        "<br><b>Boundary / virtual event</b>"
+                        "<br>Train: %{customdata[0]}"
+                        "<br>Location: %{customdata[1]}"
+                        "<br>Time: %{customdata[4]}"
+                        "<br>pk: %{customdata[3]:.3f}"
+                        "<extra></extra>"
+                    ),
+                )
+            )
+
+            fig.layout.meta["boundary_events_added"] = True
+
+
+
+def show_ean(fig, filename="ean_plot.html", auto_open=True):
+    """
+    Save the Plotly EAN as a self-contained HTML file with a custom
+    hierarchical layer control panel.
+
+    The hierarchy is:
+
+        Scheduled
+            Graph
+            Boundary events
+            Headways
+
+        Realization 1
+            Graph
+            Boundary events
+            Headways
+    """
+
+    import uuid
+    from pathlib import Path
+
+    plot_id = "ean_plot_" + uuid.uuid4().hex
+
+    html = fig.to_html(
+        full_html=False,
+        include_plotlyjs=True,
+        div_id=plot_id,
+        config={
+            "scrollZoom": True,
+            "displayModeBar": True,
+        },
+    )
+
+    # Hide the normal Plotly legend. The custom JS panel replaces it.
+    fig.update_layout(showlegend=False)
+
+    # Re-generate HTML after changing the legend.
+    html = fig.to_html(
+        full_html=False,
+        include_plotlyjs=True,
+        div_id=plot_id,
+        config={
+            "scrollZoom": True,
+            "displayModeBar": True,
+        },
+    )
+
+    wrapper = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+
+body {{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+}}
+
+#ean-container {{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}}
+
+#plot-container {{
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+}}
+
+#layer-panel {{
+    width: 230px;
+    padding: 16px 14px;
+    border-left: 1px solid #cccccc;
+    background: #fafafa;
+    overflow-y: auto;
+    box-sizing: border-box;
+}}
+
+#layer-panel h3 {{
+    margin: 0 0 14px 0;
+    font-size: 16px;
+}}
+
+.layer-row {{
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    white-space: nowrap;
+}}
+
+.layer-row.parent {{
+    margin-top: 12px;
+    font-weight: 600;
+}}
+
+.layer-row.child {{
+    margin-left: 24px;
+    font-weight: normal;
+    font-size: 13px;
+}}
+
+.layer-row input {{
+    margin-right: 7px;
+}}
+
+</style>
+</head>
+
+<body>
+
+<div id="ean-container">
+
+    <div id="plot-container">
+        {html}
+    </div>
+
+    <div id="layer-panel">
+        <h3>Layers</h3>
+        <div id="layer-controls"></div>
+    </div>
+
+</div>
+
+
+<script>
+
+(function() {{
+
+    const gd = document.getElementById("{plot_id}");
+    const controls = document.getElementById("layer-controls");
+
+    /*
+     * Each Plotly trace gets metadata like:
+     *
+     * meta: {{
+     *     layer_id: "realization_1",
+     *     layer_type: "graph"
+     * }}
+     *
+     * We use this to construct the hierarchy.
+     */
+
+    const layers = {{}};
+
+    gd.data.forEach((trace, index) => {{
+
+        if (!trace.meta || !trace.meta.layer_id) {{
+            return;
+        }}
+
+        const layerId = trace.meta.layer_id;
+        const layerType = trace.meta.layer_type;
+
+        if (!layers[layerId]) {{
+            layers[layerId] = {{
+                name: trace.meta.layer_name,
+                traces: {{}}
+            }};
+        }}
+
+        if (!layers[layerId].traces[layerType]) {{
+            layers[layerId].traces[layerType] = [];
+        }}
+
+        layers[layerId].traces[layerType].push(index);
+    }});
+
+
+    const typeNames = {{
+        graph: "Graph",
+        boundary: "Boundary events",
+        headway: "Headways"
+    }};
+
+
+    /*
+     * Visibility state.
+     *
+     * This is kept separately from Plotly's trace visibility so that
+     * the parent checkbox can operate as a master switch without
+     * destroying the state of the individual children.
+     */
+
+    const state = {{}};
+
+    Object.keys(layers).forEach(layerId => {{
+
+        state[layerId] = {{
+            master: true,
+            graph: true,
+            boundary: true,
+            headway: true
+        }};
+
+    }});
+
+
+    function tracesFor(layerId, type) {{
+        return layers[layerId].traces[type] || [];
+    }}
+
+
+    function setTraces(indices, visible) {{
+
+        if (!indices.length) {{
+            return;
+        }}
+
+        Plotly.restyle(
+            gd,
+            {{visible: visible}},
+            indices
+        );
+    }}
+
+
+    function effectiveVisibility(layerId, type) {{
+
+        return (
+            state[layerId].master &&
+            state[layerId][type]
+        );
+
+    }}
+
+
+    function updateLayer(layerId) {{
+
+        ["graph", "boundary", "headway"].forEach(type => {{
+
+            const indices = tracesFor(layerId, type);
+
+            setTraces(
+                indices,
+                effectiveVisibility(layerId, type)
+            );
+
+        }});
+
+        updateParentCheckbox(layerId);
+    }}
+
+
+    function updateParentCheckbox(layerId) {{
+
+        const layer = layers[layerId];
+
+        const parent = layer.parentCheckbox;
+
+        if (!parent) {{
+            return;
+        }}
+
+        const children = [
+            state[layerId].graph,
+            state[layerId].boundary,
+            state[layerId].headway
+        ];
+
+        const allOn = children.every(x => x);
+        const allOff = children.every(x => !x);
+
+        if (!state[layerId].master) {{
+
+            parent.checked = false;
+            parent.indeterminate = false;
+
+        }} else if (allOn) {{
+
+            parent.checked = true;
+            parent.indeterminate = false;
+
+        }} else if (allOff) {{
+
+            parent.checked = false;
+            parent.indeterminate = false;
+
+        }} else {{
+
+            parent.checked = true;
+            parent.indeterminate = true;
+
+        }}
+    }}
+
+
+    function makeCheckbox(checked) {{
+
+        const checkbox = document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.checked = checked;
+
+        return checkbox;
+    }}
+
+
+    Object.entries(layers).forEach(
+        ([layerId, layer]) => {{
+
+        /*
+         * ----------------------------------------------------------
+         * Parent row
+         * ----------------------------------------------------------
+         */
+
+        const parentRow =
+            document.createElement("div");
+
+        parentRow.className =
+            "layer-row parent";
+
+        const parentCheckbox =
+            makeCheckbox(true);
+
+        const parentLabel =
+            document.createElement("span");
+
+        parentLabel.textContent =
+            layer.name;
+
+        parentRow.appendChild(parentCheckbox);
+        parentRow.appendChild(parentLabel);
+
+        controls.appendChild(parentRow);
+
+        layer.parentCheckbox =
+            parentCheckbox;
+
+
+        parentCheckbox.addEventListener(
+            "change",
+            function() {{
+
+                state[layerId].master =
+                    this.checked;
+
+                updateLayer(layerId);
+
+            }}
+        );
+
+
+        /*
+         * ----------------------------------------------------------
+         * Child rows
+         * ----------------------------------------------------------
+         */
+
+        ["graph", "boundary", "headway"].forEach(
+            type => {{
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "layer-row child";
+
+            const checkbox =
+                makeCheckbox(true);
+
+            const label =
+                document.createElement("span");
+
+            label.textContent =
+                typeNames[type];
+
+            row.appendChild(checkbox);
+            row.appendChild(label);
+
+            controls.appendChild(row);
+
+
+            checkbox.addEventListener(
+                "change",
+                function() {{
+
+                    state[layerId][type] =
+                        this.checked;
+
+                    updateLayer(layerId);
+
+                }}
+            );
+
+        }});
+
+    }});
+
+
+    /*
+     * Initial visibility.
+     */
+
+    Object.keys(layers).forEach(
+        layerId => updateLayer(layerId)
+    );
+
+}})();
+
+</script>
+
+</body>
+</html>
+"""
+
+    path = Path(filename)
+    path.write_text(
+        wrapper,
+        encoding="utf-8",
+    )
+
+    print(f"EAN visualization written to: {path.resolve()}")
+
+    if auto_open:
+        import webbrowser
+        webbrowser.open(path.resolve().as_uri())
+
+    return path
