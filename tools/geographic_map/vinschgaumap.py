@@ -1,4 +1,5 @@
 import json
+import os
 import folium
 import csv
 from pyproj import Geod
@@ -6,7 +7,7 @@ from pyproj import Geod
 # =============================================================================
 # CONFIG
 # =============================================================================
-FILE_PATH = r"C:\Users\LeoC\VSCodes\optimizationVinschgau\SimulatedAnnealing\infrastructuredesign\map\vinschgau.json.txt"
+FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vinschgau.json.txt")
 
 COLOR_SINGLE   = "#c0392b"   # rosso  – binario semplice
 COLOR_EXISTING = "#08e01d"   # verde scuro – raddoppio esistente
@@ -191,13 +192,23 @@ SCENARIOS = {
         ("Coldrano",     "SblLac35026"),
         ("Lasa",         "Oris"),
     ],
+
     "Scenario 1b": [
         ("Tel",          "Plaus"),
-        ("SblNatKomp",      "Stava"),
         ("SblStab21529", "SblStab24529"),
-        ("SblLac35026",     "Silandro"),
+        ("Laces", "Coldrano"),
         ("Lasa",         "Oris"),
     ],
+
+    "Scenario 1c": [
+        ("Merano",  "Lagundo"),
+        ("Tel",          "Plaus"),
+        ("PL10",          "Naturno"),
+        ("Stava", "SblStab24529"),
+        ("Laces",     "Coldrano"),
+        ("Lasa",         "Oris"),
+    ],
+
     "Scenario 2": [
         ("Merano",       "Lagundo"),
         ("Tel",          "Plaus"),
@@ -275,7 +286,7 @@ for name, pk_rel in cost_nodes:
         cost_pk_by_name[name] = pk_rel
 
 # ========== DUMMY ARRAY - MODIFICA QUI I COSTI ==========
-# Formato: (nodo_partenza, nodo_arrivo, costo)
+# Formato: (nodo_partenza, nodo_arrivo, costo per km)
 # Modifica i costi secondo le tue necessità
 COST_SEGMENTS = [
     ("Merano", "Lagundo", 44),
@@ -304,8 +315,63 @@ COST_SEGMENTS = [
     ("SblSpon58860", "Malles", 100),
 ]
 
+
+# ========== COST INTERVALS AND SCENARIO COST CALCULATION ==========
+
+def build_cost_intervals(cost_segments, name_to_pk):
+    intervals = []
+    for start_node, end_node, unit_cost in cost_segments:
+        pk_start = name_to_pk.get(start_node)
+        pk_end = name_to_pk.get(end_node)
+        if pk_start is None or pk_end is None:
+            continue
+        if pk_start > pk_end:
+            pk_start, pk_end = pk_end, pk_start
+        intervals.append((pk_start, pk_end, unit_cost))
+    intervals.sort(key=lambda item: item[0])
+    return intervals
+
+
+def interval_overlap(lo1, hi1, lo2, hi2):
+    return max(0.0, min(hi1, hi2) - max(lo1, lo2))
+
+
+def compute_scenario_costs(scenario_intervals, cost_intervals):
+    results = {}
+    for scenario_name, intervals in scenario_intervals.items():
+        total_km = 0.0
+        total_cost = 0.0
+        uncovered_km = 0.0
+
+        for lo, hi, _label in intervals:
+            length = max(0.0, hi - lo)
+            total_km += length
+            covered = 0.0
+            for cost_lo, cost_hi, unit_cost in cost_intervals:
+                overlap = interval_overlap(lo, hi, cost_lo, cost_hi)
+                if overlap > 0:
+                    total_cost += overlap * unit_cost
+                    covered += overlap
+            uncovered_km += max(0.0, length - covered)
+
+        results[scenario_name] = {
+            "km": total_km,
+            "cost": total_cost,
+            "uncovered_km": uncovered_km,
+        }
+    return results
+
+
+COST_INTERVALS = build_cost_intervals(COST_SEGMENTS, cost_pk_by_name)
+scenario_costs = compute_scenario_costs(scenario_intervals, COST_INTERVALS)
+
 print(f"\nNodi costo identificati: {len(cost_nodes)}")
 print(f"Segmenti costo creati: {len(COST_SEGMENTS)}")
+print("\nCosti stimati per scenario su base costo unitario e km raddoppiati:")
+for sc_name, values in scenario_costs.items():
+    print(f"  {sc_name}: {values['km']:.3f} km, costo totale €{values['cost']:.2f}")
+    if values['uncovered_km'] > 0:
+        print(f"    Attenzione: {values['uncovered_km']:.3f} km non coperti da segmenti costo noti")
 
 # =============================================================================
 # FUNZIONE PER MAPPARE COSTO A COLORE
@@ -401,6 +467,7 @@ center_lat = sum(lat for _, lat in ordered_coords) / len(ordered_coords)
 center_lon = sum(lon for lon, _ in ordered_coords) / len(ordered_coords)
 
 m = folium.Map(location=[center_lat, center_lon], zoom_start=11, tiles="CartoDB positron")
+map_name = m.get_name()
 
 #m = folium.Map(location=[center_lat, center_lon], zoom_start=11, tiles="ESRI World Imagery")
 
@@ -431,10 +498,104 @@ layer_raddoppi_esistenti.add_to(m)
 # Scenari – solo Scenario 1 visibile di default
 build_scenario_layers("Scenario 1a", m, show=True)
 build_scenario_layers("Scenario 1b", m, show=False)
+build_scenario_layers("Scenario 1c", m, show=False)
 build_scenario_layers("Scenario 2", m, show=False)
 build_scenario_layers("Scenario 3", m, show=False)
 build_tunnel_layer(m, show=False)
 build_cost_layer(m, show=False)
+
+# =============================================================================
+# SCENARIO SUMMARY PANEL
+# =============================================================================
+summary_data = {
+    name: {"km": values["km"], "cost": values["cost"]}
+    for name, values in scenario_costs.items()
+}
+summary_json = json.dumps(summary_data, ensure_ascii=False)
+summary_layer_names = {
+    f"🟢 Raddoppi {name}": name
+    for name in scenario_intervals.keys()
+}
+summary_mapping_json = json.dumps(summary_layer_names, ensure_ascii=False)
+summary_panel_html = """
+<div id="scenario-summary-panel" style="position:fixed; bottom:20px; right:20px; z-index:1000; max-width:360px; background:rgba(255,255,255,0.96); border:1px solid #2c3e50; border-radius:10px; padding:10px 14px; font-family:sans-serif; font-size:13px; color:#1a1a1a; box-shadow:0 2px 10px rgba(0,0,0,0.28);">
+  <strong style="display:block; margin-bottom:8px;">Scenario totals</strong>
+  <div id="scenario-summary-content" style="max-height:220px; overflow-y:auto;"> <em>Enable scenario layer(s) to see km and cost totals.</em></div>
+</div>
+<script>
+(function() {{
+    var summaryData = {summary_json};
+    var labelToScenario = {summary_mapping_json};
+    var content = document.getElementById('scenario-summary-content');
+
+    function normalizeText(text) {{
+        return text.replace(/\s+/g, ' ').trim();
+    }}
+
+    function getCheckedScenarios() {{
+        var selected = [];
+        var inputs = document.querySelectorAll('.leaflet-control-layers-list input[type="checkbox"]');
+        inputs.forEach(function(input) {{
+            if (!input.checked) {{
+                return;
+            }}
+            var label = input.parentElement;
+            if (!label) {{
+                return;
+            }}
+            var text = normalizeText(label.textContent || label.innerText || '');
+
+            Object.keys(labelToScenario).forEach(function(displayName) {{
+                var normalized = normalizeText(displayName);
+                if (text === normalized || text.indexOf(normalized) !== -1) {{
+                    selected.push(labelToScenario[displayName]);
+                }}
+            }});
+        }});
+        return selected;
+    }}
+
+    function render() {{
+        if (!content) {{
+            return;
+        }}
+        var visible = getCheckedScenarios();
+        if (visible.length === 0) {{
+            content.innerHTML = '<em>Enable scenario layer(s) to see km and cost totals.</em>';
+            return;
+        }}
+        visible.sort();
+        var lines = ['<ul style="margin:0; padding:0 0 0 18px;">'];
+        visible.forEach(function(scenarioName) {{
+            var values = summaryData[scenarioName];
+            if (!values) return;
+            lines.push('<li style="margin-bottom:4px; line-height:1.4;">' + scenarioName + ': ' + values.km.toFixed(3) + ' km, €' + values.cost.toFixed(2) + '</li>');
+        }});
+        lines.push('</ul>');
+        content.innerHTML = lines.join('');
+    }}
+
+    function attachHandlers() {{
+        var inputs = document.querySelectorAll('.leaflet-control-layers-list input[type="checkbox"]');
+        inputs.forEach(function(input) {{
+            input.addEventListener('change', render);
+        }});
+    }}
+
+    if (document.readyState === 'loading') {{
+        document.addEventListener('DOMContentLoaded', function() {{
+            attachHandlers();
+            render();
+        }});
+    }} else {{
+        attachHandlers();
+        render();
+    }}
+}})();
+</script>
+""".format(summary_json=summary_json, summary_mapping_json=summary_mapping_json, map_name=map_name)
+
+m.get_root().html.add_child(folium.Element(summary_panel_html))
 
 # =============================================================================
 # MARKER SEGNALI
@@ -578,6 +739,7 @@ m.get_root().html.add_child(folium.Element(legend_html))
 # =============================================================================
 # SALVA MAPPA
 # =============================================================================
-m.save(r"C:\Users\LeoC\VSCodes\optimizationVinschgau\map\val_venosta.html")
+output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "val_venosta.html")
+m.save(output_path)
 
-print(f"\nMappa salvata — {len(points)} segnali, 3 scenari.")
+print(f"\nMappa salvata — {len(points)} segnali, 3 scenari.\n{output_path}")
