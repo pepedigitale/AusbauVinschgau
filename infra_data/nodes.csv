@@ -433,8 +433,8 @@ Pr_E_COLD_01_side;Prot. Est. Coldrano 01 side;malles;32,014;63,497;signal_mainli
 Pr_I_COLD_91_side;Prot. Int. Coldrano 91 side;malles;32,084;63,567;signal_mainline;0;0;0,01;661,21;10.8251252;46.61935336;dt_lac_cold
 PL20_side;PL20 side;;32,110;63,593;PL;0;0;0,01;661,48;10.82478645;46.6193385;dt_lac_cold
 Pa_COLD_31_side;Part. Coldrano 31 side;merano;32,136;63,619;signal_mainline;0;0;0,01;661,75;10.82444786;46.61932191;dt_lac_cold
-Dev_COLD_01_side;Deviatoio Coldrano 01 side;;32,200;63,683;SC;0;0;0,01;662,12;10.823630;46.619219;dt_lac_cold
-COLD_side;Coldrano side;;32,353;63,836;LdS_side;1;0;0,01;663;10.82167381;46.61897378;dt_lac_cold, dt_cold_sblLac
+Dev_COLD_01_side;Deviatoio Coldrano 01 side;;32,200;63,683;SC;0;0;0,01;662,12;10.823630;46.619219;side
+COLD_side;Coldrano side;;32,353;63,836;LdS_side;1;0;0,01;663;10.82167381;46.61897378;dt_cold_sblLac
 Pa_I_COLD_71_side;Part. Int. Coldrano 71 side;malles;32,873;64,356;signal_mainline;0;0;0,01;669,91;10.81521007;46.61771116;dt_cold_sblLac
 PL21_side;PL21 side;;32,901;64,384;PL;0;0;0,01;670,37;10.81492621;46.61755247;dt_cold_sblLac
 Pr_I_COLD_52_side;Prot. Int. N1 Coldrano 52 side;merano;32,931;64,414;signal_mainline;0;0;0,01;670,87;10.81462221;46.61738236;dt_cold_sblLac
