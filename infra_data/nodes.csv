@@ -66,7 +66,7 @@ Pa_RAB_32;Part. Rabla 32;malles;11,818;43,301;signal_mainline;0;0;0;514,05;11.06
 Pr_E_RAB_02;Prot. Est. Rabla 02;merano;11,968;43,451;signal_mainline;0;0;0;514,48;11.06534921;46.66432347;base
 HD_302_02;HD 302/02;both;12,968;44,451;signal_mainline;0;0;0;517,35;11.05340363;46.66109292;base
 Pr_E_PLA_01;Prot. Est. Plaus 01;malles;13,731;45,214;signal_mainline;0;0;0;519,54;11.04383127;46.65961159;base
-Dev_01_PLA;Deviatoio 01 Plaus;both;13,831;45,314;SC;0;0;0;519,54;11.04383128;46.65961160;base
+Dev_01_PLA;Deviatoio 01 Plaus;;13,831;45,314;SC;0;0;0;519,54;11.04383128;46.65961160;base
 Pa_PLA_31;Part. Plaus 31;merano;13,881;45,364;signal_mainline;0;0;0;519,97;11.04214801;46.65892051;base
 PLA;Plaus;;13,991;45,474;LdS;1;0;0;520;11.04091293;46.65841452;base
 Pa_PLA_32;Part. Plaus 32;malles;14,029;45,512;signal_mainline;0;0;0;520;11.04048643;46.65823954;base
@@ -79,15 +79,17 @@ km48500;km48500;;17,017;48,500;km;0;0;0;532,33;11.00692196;46.64514775;base
 Pr_E_NAT_01;Prot. Est. Naturno 01;malles;17,058;48,541;signal_mainline;0;0;0;532,5;11.00638753;46.64512408;base
 Pr_I_NAT_51;Prot. Int. Naturno 51;malles;17,148;48,631;signal_mainline;0;0;0;532,88;11.00521366;46.64508274;base
 PL10;PL10;;17,178;48,661;PL;0;0;0;533;11.0048221;46.64508885;base
+Dev_NAT_01;Deviatoio Naturno 01;;17,200;48,692;SC;0;0;0;533;11.0048221;46.64508885;base
 Pa_NAT_31;Part. Naturno 31;merano;17,208;48,691;signal_mainline;0;0;0;533;11.00443186;46.64511294;base
 NAT;Naturno;;17,277;48,760;LdS;1;1;0;533;11.0035442;46.64521819;base
 Pa_NAT_32;Part. Naturno 32;malles;17,369;48,852;signal_mainline;0;0;0;533;11.0023689;46.6453907;base
+Dev_NAT_02;Deviatoio Naturno 02;;17,500;48,992;SC;0;0;0;533;11.0023689;46.6453907;base
 Pr_E_NAT_02;Prot. Est. Naturno 02;merano;17,518;49,001;signal_mainline;0;0;0;533,84;11.00048159;46.64571478;base
 Pr_E_PL11_01;Prot. Est. PL11 01;malles;18,105;49,588;signal_mainline;0;0;0;537,34;10.99347287;46.64785177;base
 Pr_I_PL11_51;Prot. Int. PL11 51;malles;18,206;49,689;signal_mainline;0;0;0;537,94;10.99223224;46.64814928;base
 PL11;PL11;;18,232;49,715;PL;0;0;0;538,1;10.99189342;46.64816411;base
 Pr_I_PL11_52;Prot. Int. PL11 52;merano;18,255;49,738;signal_mainline;0;0;0;538,24;10.99159384;46.64815027;base
-Dev_PL11_02;Deviatoio PL11 02;both;18,300;49,783;SC;0;0;0;538,24;10.99159385;46.64815028;base
+Dev_PL11_02;Deviatoio PL11 02;;18,300;49,783;SC;0;0;0;538,24;10.99159385;46.64815028;base
 Pr_E_PL11_02;Prot. Est. PL11 02;merano;18,356;49,839;signal_mainline;0;0;0;538,84;10.99030238;46.64796584;base
 SblNatKomp;SblNatKomp;;18,397;49,880;Sbl;0;0;0;539,18;10.98978034;46.64788353;base
 Pr_E_STA_01;Prot. Est. Stava 01;malles;19,231;50,714;signal_mainline;0;0;0;549,93;10.97935216;46.64675565;base
@@ -177,7 +179,7 @@ Pr_I_PL23_52;Prot. Int. PL23 52;merano;34,507;65,990;signal_mainline;0;0;0;696,8
 Pr_E_PL23_02;Prot. Est. PL23 02;merano;34,609;66,092;signal_mainline;0;0;0;698,54;10.79308949;46.61513018;base
 SblLac35026;SblLac35026;;35,026;66,509;Sbl;0;0;0;705,42;10.78769972;46.61476402;base
 Pr_E_PL24_01;Prot. Est. PL24 01;malles;35,040;66,523;signal_mainline;0;0;0;705,65;10.7875215;46.61479191;base
-Dev_PL24_01;Deviatoio PL24 01;both;35,094;66,577;SC;0;0;0;706,54;10.78683582;46.61489936;base
+Dev_PL24_01;Deviatoio PL24 01;;35,094;66,577;SC;0;0;0;706,54;10.78683582;46.61489936;base
 Pr_I_PL24_51;Prot. Int. PL24 51;malles;35,144;66,627;signal_mainline;0;0;0;707,36;10.78620014;46.6150068;base
 PL24;PL24;;35,167;66,650;PL;0;0;0;707,74;10.78591014;46.6150603;base
 Pr_I_PL24_52;Prot. Int. PL24 52;merano;35,191;66,674;signal_mainline;0;0;0;708,14;10.78561008;46.61512227;base
@@ -230,7 +232,7 @@ HD_701_01;HD 701/01;both;46,650;78,133;signal_mainline;0;0;0;870,1;10.6762738;46
 SblLasa46915;SblLasa46915;;46,915;78,398;Sbl;0;0;0;870,67;10.67286362;46.62567245;base
 HD_701_03;HD 701/03;both;47,650;79,133;signal_mainline;0;0;0;872,26;10.66331314;46.62547971;base
 Pr_E_ORIS_01;Prot. Est. Oris 01;malles;48,848;80,331;signal_mainline;0;0;0;874,84;10.64793856;46.62628794;base
-Dev_ORIS_01;Deviatoio Oris 01;both;48,919;80,402;SC;0;0;0;874,95;10.647047;46.626463;base
+Dev_ORIS_01;Deviatoio Oris 01;;48,919;80,402;SC;0;0;0;874,95;10.647047;46.626463;base
 Pr_I_ORIS_71;Prot. Int. Oris 71;malles;48,949;80,432;signal_mainline;0;0;0;875;10.64667008;46.62653652;base
 PL30;PL30;;48,973;80,456;PL;0;0;0;875;10.64636882;46.62659594;base
 Pa_ORIS_31;Part. Oris 31;merano;48,998;80,481;signal_mainline;0;0;0;875;10.64605449;46.62665662;base
@@ -338,7 +340,7 @@ Pa_RAB_32_side;Part. Rabla 32 side;malles;11,818;43,301;signal_mainline;0;0;0,01
 Pr_E_RAB_02_side;Prot. Est. Rabla 02 side;merano;11,968;43,451;signal_mainline;0;0;0,01;514,48;11.06534921;46.66432347;dt_tel_pla
 HD_302_02_side;HD 302/02 side;both;12,968;44,451;signal_mainline;0;0;0,01;517,35;11.05340363;46.66109292;dt_tel_pla
 Pr_E_PLA_01_side;Prot. Est. Plaus 01 side;malles;13,731;45,214;signal_mainline;0;0;0,01;519,54;11.04383127;46.65961159;dt_tel_pla,dt_pla_nat
-Dev_01_PLA_side;Deviatoio 01 Plaus side;both;13,831;45,314;SC;0;0;0,01;519,54;11.04383128;46.65961160;side
+Dev_01_PLA_side;Deviatoio 01 Plaus side;;13,831;45,314;SC;0;0;0,01;519,54;11.04383128;46.65961160;side
 Pa_PLA_31_side;Part. Plaus 31 side;merano;13,881;45,364;signal_mainline;0;0;0,01;519,97;11.04214801;46.65892051;dt_pla_nat
 PLA_side;Plaus side;;13,991;45,474;LdS_side;1;0;0,01;520;11.04091293;46.65841452;dt_pla_nat
 Pa_PLA_32_side;Part. Plaus 32 side;malles;14,029;45,512;signal_mainline;0;0;0,01;520;11.04048643;46.65823954;dt_pla_nat
@@ -351,15 +353,17 @@ km48500_side;km48500 side;;17,017;48,500;km;0;0;0,01;532,33;11.00692196;46.64514
 Pr_E_NAT_01_side;Prot. Est. Naturno 01 side;malles;17,058;48,541;signal_mainline;0;0;0,01;532,5;11.00638753;46.64512408;dt_pla_nat
 Pr_I_NAT_51_side;Prot. Int. Naturno 51 side;malles;17,148;48,631;signal_mainline;0;0;0,01;532,88;11.00521366;46.64508274;dt_pla_nat
 PL10_side;PL10 side;;17,178;48,661;PL;0;0;0,01;533;11.0048221;46.64508885;dt_pla_nat
-Pa_NAT_31_side;Part. Naturno 31 side;merano;17,208;48,691;signal_mainline;0;0;0,01;533;11.00443186;46.64511294;dt_pla_nat
-NAT_side;Naturno side;;17,277;48,760;LdS_side;1;1;0,01;533;11.0035442;46.64521819;dt_pla_nat,dt_nat_natkomp
-Pa_NAT_32_side;Part. Naturno 32 side;malles;17,369;48,852;signal_mainline;0;0;0,01;533;11.0023689;46.6453907;dt_nat_natkomp
+Dev_NAT_01_side;Deviatoio Naturno 01 side;;17,200;48,692;SC;0;0;0,01;533;11.0048221;46.64508885;dt_pla_nat
+Pa_NAT_31_side;Part. Naturno 31 side;merano;17,208;48,691;signal_mainline;0;0;0,01;533;11.00443186;46.64511294;dt_pla_nat, dt_nat
+NAT_side;Naturno side;;17,277;48,760;LdS_side;1;1;0,01;533;11.0035442;46.64521819;dt_pla_nat,dt_nat_natkomp, dt_nat
+Pa_NAT_32_side;Part. Naturno 32 side;malles;17,369;48,852;signal_mainline;0;0;0,01;533;11.0023689;46.6453907;dt_nat_natkomp, dt_nat
+Dev_NAT_02_side;Deviatoio Naturno 02 side;;17,500;48,992;SC;0;0;0,01;533;11.0023689;46.6453907;dt_nat_natkomp
 Pr_E_NAT_02_side;Prot. Est. Naturno 02 side;merano;17,518;49,001;signal_mainline;0;0;0,01;533,84;11.00048159;46.64571478;dt_nat_natkomp
 Pr_E_PL11_01_side;Prot. Est. PL11 01 side;malles;18,105;49,588;signal_mainline;0;0;0,01;537,34;10.99347287;46.64785177;dt_nat_natkomp
 Pr_I_PL11_51_side;Prot. Int. PL11 51 side;malles;18,206;49,689;signal_mainline;0;0;0,01;537,94;10.99223224;46.64814928;dt_nat_natkomp
 PL11_side;PL11 side;;18,232;49,715;PL;0;0;0,01;538,1;10.99189342;46.64816411;dt_nat_natkomp
 Pr_I_PL11_52_side;Prot. Int. PL11 52 side;merano;18,255;49,738;signal_mainline;0;0;0,01;538,24;10.99159384;46.64815027;dt_nat_natkomp
-Dev_PL11_02_side;Deviatoio PL11 02 side;both;18,300;49,783;SC;0;0;0,01;538,24;10.99159385;46.64815028;dt_nat_natkomp
+Dev_PL11_02_side;Deviatoio PL11 02 side;;18,300;49,783;SC;0;0;0,01;538,24;10.99159385;46.64815028;dt_nat_natkomp
 Pr_E_PL11_02_side;Prot. Est. PL11 02 side;merano;18,356;49,839;signal_mainline;0;0;0,01;538,84;10.99030238;46.64796584;dt_natkomp_sta
 SblNatKomp_side;SblNatKomp side;;18,397;49,880;Sbl;0;0;0,01;539,18;10.98978034;46.64788353;dt_natkomp_sta
 Pr_E_STA_01_side;Prot. Est. Stava 01 side;malles;19,231;50,714;signal_mainline;0;0;0,01;549,93;10.97935216;46.64675565;dt_natkomp_sta
@@ -449,7 +453,7 @@ Pr_I_PL23_52_side;Prot. Int. PL23 52 side;merano;34,507;65,990;signal_mainline;0
 Pr_E_PL23_02_side;Prot. Est. PL23 02 side;merano;34,609;66,092;signal_mainline;0;0;0,01;698,54;10.79308949;46.61513018;dt_cold_sblLac
 SblLac35026_side;SblLac35026 side;;35,026;66,509;Sbl;0;0;0,01;705,42;10.78769972;46.61476402;dt_cold_sblLac, dt_sblLac_sil
 Pr_E_PL24_01_side;Prot. Est. PL24 01 side;malles;35,040;66,523;signal_mainline;0;0;0,01;705,65;10.7875215;46.61479191;dt_cold_sblLac
-Dev_PL24_01_side;Deviatoio PL24 01 side;both;35,094;66,577;SC;0;0;0,01;706,54;10.78683582;46.61489936;dt_sblLac_sil
+Dev_PL24_01_side;Deviatoio PL24 01 side;;35,094;66,577;SC;0;0;0,01;706,54;10.78683582;46.61489936;dt_sblLac_sil
 Pr_I_PL24_51_side;Prot. Int. PL24 51 side;malles;35,144;66,627;signal_mainline;0;0;0,01;707,36;10.78620014;46.6150068;dt_sblLac_sil
 PL24_side;PL24 side;;35,167;66,650;PL;0;0;0,01;707,74;10.78591014;46.6150603;dt_sblLac_sil
 Pr_I_PL24_52_side;Prot. Int. PL24 52 side;merano;35,191;66,674;signal_mainline;0;0;0,01;708,14;10.78561008;46.61512227;dt_sblLac_sil
@@ -503,7 +507,7 @@ SblLasa46915_side;SblLasa46915 side;;46,915;78,398;Sbl;0;0;0,01;870,67;10.672863
 HD_701_03_side;HD 701/03 side;both;47,650;79,133;signal_mainline;0;0;0,01;872,26;10.66331314;46.62547971;dt_lasa_oris
 Pr_E_ORIS_01_side;Prot. Est. Oris 01 side;malles;48,848;80,331;signal_mainline;0;0;0,01;874,84;10.64793856;46.62628794;dt_lasa_oris
 Pr_I_ORIS_71_side;Prot. Int. Oris 71 side;malles;48,949;80,432;signal_mainline;0;0;0,01;875;10.64667008;46.62653652;side
-Dev_ORIS_01_side;Deviatoio Oris 01 side;both;48,919;80,402;SC;1;0;0,01;874,95;10.647047;46.626463;side
+Dev_ORIS_01_side;Deviatoio Oris 01 side;;48,919;80,402;SC;1;0;0,01;874,95;10.647047;46.626463;side
 PL30_side;PL30 side;;48,973;80,456;PL;0;0;0,01;875;10.64636882;46.62659594;side
 Pa_ORIS_31_side;Part. Oris 31 side;merano;48,998;80,481;signal_mainline;0;0;0,01;875;10.64605449;46.62665662;side
 ORIS_side;Oris side;;49,020;80,503;LdS_side;1;0;0,01;875;10.64577806;46.62671046;side

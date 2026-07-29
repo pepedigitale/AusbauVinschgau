@@ -96,7 +96,7 @@ def extract_chains2(IG: nx.Graph, nodesDf: pd.DataFrame):
     return dict(chains), boundary_nodes
     
 
-def extract_chains3(IG: nx.Graph):
+def extract_chains3(IG: nx.Graph, nodesDf: pd.DataFrame):
     """
     Returns
         chains: {(start_boundary, end_boundary): [ordered list of nodes]}

@@ -16,7 +16,7 @@ CONFIGURATION (edit the block below)
 
 # ── USER CONFIGURATION ────────────────────────────────────────────────────────
 
-file_name = "RidottoStamm6"
+file_name = "trip_data_1c"
 
 RAILML_FILE  = f"{file_name}.railml"   # ← path to your exported railML file
 LINE_ID      = "ln_Vinschgerbahn"      # ← id attribute of the <line> to plot
@@ -69,8 +69,8 @@ STATION_ABBREVIATIONS = {
 }
 
 # Time window to display  (HH:MM on a day when trains run)
-TIME_START = "10:00"
-TIME_END   = "12:00"
+TIME_START = "17:00"
+TIME_END   = "20:00"
 
 # Figure size in inches
 FIG_WIDTH  = 24
@@ -93,15 +93,28 @@ def tag(local):
     return f"{{{NS}}}{local}"
 
 
+def resolve_path(path):
+    """Resolve a file path relative to this script directory when possible."""
+    if not path:
+        return path
+    if os.path.isabs(path):
+        return path
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    candidate = os.path.join(script_dir, path)
+    return candidate if os.path.exists(candidate) else path
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. PARSE THE FILE
 # ─────────────────────────────────────────────────────────────────────────────
 
 def load_tree(path):
-    if not os.path.exists(path):
+    resolved_path = resolve_path(path)
+    if not os.path.exists(resolved_path):
         sys.exit(f"ERROR: railML file not found: '{path}'")
-    print(f"Parsing {path} …")
-    return ET.parse(path).getroot()
+    print(f"Parsing {resolved_path} …")
+    return ET.parse(resolved_path).getroot()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -522,7 +535,7 @@ def main():
     }
 
     print("Step 6: saving trip data …")
-    railml_dir = os.path.dirname(os.path.abspath(RAILML_FILE))
+    railml_dir = os.path.dirname(os.path.abspath(resolve_path(RAILML_FILE)))
     output_path = os.path.join(railml_dir, f"{file_name}.npy")
     np.save(output_path, trip_data, allow_pickle=True)
     print(f"  → saved to {output_path}")

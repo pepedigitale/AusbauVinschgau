@@ -29,35 +29,6 @@ EDGE_STYLE = {
     "headway":        dict(color="#d62728", width=1.8, dash="solid"),
 }
 
-
-# Matplotlib-like tab10/tab20 colors
-TAB10 = [
-    "#1f77b4",
-    "#ff7f0e",
-    "#2ca02c",
-    "#d62728",
-    "#9467bd",
-    "#8c564b",
-    "#e377c2",
-    "#7f7f7f",
-    "#bcbd22",
-    "#17becf",
-]
-
-TAB20 = [
-    "#1f77b4", "#aec7e8",
-    "#ff7f0e", "#ffbb78",
-    "#2ca02c", "#98df8a",
-    "#d62728", "#ff9896",
-    "#9467bd", "#c5b0d5",
-    "#8c564b", "#c49c94",
-    "#e377c2", "#f7b6d2",
-    "#7f7f7f", "#c7c7c7",
-    "#bcbd22", "#dbdb8d",
-    "#17becf", "#9edae5",
-]
-
-
 # ----------------------------------------------------------------------
 # Helpers
 # ----------------------------------------------------------------------
@@ -82,13 +53,124 @@ def _seconds_to_hhmmss(seconds):
 
 
 def _train_colors(trains):
-    """Assign stable colors to trains."""
-    trains = sorted(trains)
-    palette = TAB10 if len(trains) <= 10 else TAB20
-    return {
-        train: palette[i % len(palette)]
-        for i, train in enumerate(trains)
-    }
+    """Assign deterministic random colors to trains.
+
+    Each train gets a consistent color derived from its identifier
+    so the mapping is stable across runs but independent of the
+    total number of trains or predefined palettes.
+    """
+
+    import random
+
+    colors = {}
+
+    for train in sorted(trains):
+        rnd = random.Random(str(train))
+        # avoid extremes (too dark or too light)
+        r = rnd.randint(40, 215)
+        g = rnd.randint(40, 215)
+        b = rnd.randint(40, 215)
+        colors[train] = f"#{r:02x}{g:02x}{b:02x}"
+
+    return colors
+
+
+def infer_train_colors(G):
+    """
+    Infer edge colors per train.
+
+    Rules:
+    - Fast trains -> blue
+    - Slow trains -> red/green alternating by first-seen minute-group
+    - Respect hourly color pattern per origin: for trains whose
+      earliest event is at the same minute-of-hour from the same
+      origin (e.g., "ME" or "MAL"), use the same color.
+
+    The function returns a dict: train -> color (hex string).
+    """
+
+    # Collect per-train info: node count, earliest time, origin station
+    trains = sorted({G.nodes[n]["train"] for n in G.nodes if n != "SOURCE"})
+
+    train_info = {}
+
+    for train in trains:
+        nodes = [n for n in G.nodes if n != "SOURCE" and G.nodes[n]["train"] == train]
+        if not nodes:
+            continue
+
+        times = [float(G.nodes[n]["time"]) for n in nodes]
+        earliest_idx = int(np.argmin(times))
+        earliest_time = times[earliest_idx]
+        # find the node with earliest_time (first occurrence)
+        earliest_nodes = [n for n in nodes if float(G.nodes[n]["time"]) == earliest_time]
+        origin_node = earliest_nodes[0]
+        origin_station = G.nodes[origin_node]["station"]
+
+        unique_stations = {G.nodes[n]["station"] for n in nodes}
+        node_count = len(unique_stations)
+
+        minute = (int(earliest_time) // 60) % 60
+
+        train_info[train] = dict(
+            node_count=node_count,
+            earliest_time=earliest_time,
+            origin_station=origin_station,
+            minute=minute,
+        )
+
+    if not train_info:
+        return {}
+
+    # Decide fast vs slow: use average (mean) node count as threshold
+    node_counts = [info["node_count"] for info in train_info.values()]
+    mean = float(np.mean(node_counts))
+
+    for t, info in train_info.items():
+        info["is_fast"] = info["node_count"] <= mean
+
+    # Group trains by origin_station and minute
+    by_origin = {}
+    for t, info in train_info.items():
+        origin = info["origin_station"]
+        by_origin.setdefault(origin, {})
+        by_origin[origin].setdefault(info["minute"], [])
+        by_origin[origin][info["minute"]].append((info["earliest_time"], t))
+
+    # Colors
+    BLUE = "#1f77b4"  # fast
+    RED = "#d62728"
+    GREEN = "#2ca02c"
+
+    result = {}
+
+    # For each origin, iterate minute groups in chronological order of first appearance
+    for origin, minutes in by_origin.items():
+        # sort by earliest_time within each minute then by minute order of first occurrence
+        minute_items = []
+        for m, entries in minutes.items():
+            first_time = min(time for time, _ in entries)
+            minute_items.append((first_time, m))
+
+        minute_items.sort()
+
+        slow_toggle = True
+
+        for _, m in minute_items:
+            entries = sorted(minutes[m])
+            # determine color from the first train seen at this minute
+            _, first_train = entries[0]
+            if train_info[first_train]["is_fast"]:
+                color = BLUE
+            else:
+                color = RED if slow_toggle else GREEN
+                slow_toggle = not slow_toggle
+
+            # apply to all trains in this minute/origin group
+            for _, t in entries:
+                result[t] = color
+
+    return result
 
 
 def _get_boundary_stations(nodesDf, edgesDf):
@@ -518,7 +600,13 @@ def draw_ean_plotly(
         }
     )
 
+    # Node colors (markers) keep the stable palette.
     color_of_train = _train_colors(trains)
+
+    # Edge colors are inferred separately according to the
+    # fast/slow + hourly-minute pattern. Edges (graph traces)
+    # will use `edge_color_of_train`; headways remain their own style.
+    edge_color_of_train = infer_train_colors(G)
 
     boundary_stations = set(
         fig.layout.meta.get(
@@ -675,6 +763,15 @@ def draw_ean_plotly(
             ).copy()
 
             style["width"] *= linewidth_scale
+
+            # For normal graph edges, color by train according to
+            # the inferred per-train edge color mapping.
+            train = G.nodes[u].get("train")
+            if train is not None:
+                style["color"] = edge_color_of_train.get(
+                    train,
+                    style.get("color", "black"),
+                )
 
             if linestyle_override is not None:
 
