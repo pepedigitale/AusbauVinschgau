@@ -26,7 +26,8 @@ EDGE_STYLE = {
     "running":        dict(color="#888888", width=1.2, dash="solid"),
     "dwell":          dict(color="#888888", width=1.2, dash="dot"),
     "schedule_floor": dict(color="#cccccc", width=0.8, dash="dash"),
-    "headway":        dict(color="#d62728", width=1.8, dash="solid"),
+    "headway_active": dict(color="#d62728", width=1.8, dash="solid"),
+    "headway_inactive": dict(color="#888888", width=1.2, dash="solid"),
 }
 
 # ----------------------------------------------------------------------
@@ -647,6 +648,12 @@ def draw_ean_plotly(
         layer_type="graph",
     )
 
+    nodes_meta = dict(
+        layer_id=layer_id,
+        layer_name=layer_name,
+        layer_type="nodes",
+    )
+
     boundary_meta = dict(
         layer_id=layer_id,
         layer_name=layer_name,
@@ -711,14 +718,20 @@ def draw_ean_plotly(
 
             # ------------------------------------------------------
             # Headway edges
-            #
-            # These belong to their own global layer, independent
-            # of Scheduled / Realization layers.
             # ------------------------------------------------------
 
             if kind == "headway":
 
-                style = EDGE_STYLE["headway"]
+                is_active = bool(data.get("is_active", False))
+                style_name = "headway_active" if is_active else "headway_inactive"
+                style = EDGE_STYLE[style_name].copy()
+
+                min_headway = data.get("min_headway")
+                min_headway_text = (
+                    _seconds_to_hhmmss(min_headway)
+                    if min_headway is not None
+                    else "n/a"
+                )
 
                 hover = (
                     "<b>Headway constraint</b>"
@@ -727,6 +740,8 @@ def draw_ean_plotly(
                     f"<br>End: {_seconds_to_hhmmss(y1)}"
                     f"<br>Δt: "
                     f"{_seconds_to_hhmmss(abs(y1 - y0))}"
+                    f"<br>Min headway: {min_headway_text}"
+                    f"<br>Status: {'active' if is_active else 'inactive'}"
                     "<extra></extra>"
                 )
 
@@ -910,7 +925,7 @@ def draw_ean_plotly(
                     showlegend=False,
 
                     customdata=customdata,
-                    meta=graph_meta,
+                    meta=nodes_meta,
                     hovertemplate=(
                         f"<b>{layer_name}</b>"
                         "<br>Train: %{customdata[0]}"
@@ -1182,6 +1197,7 @@ body {{
 
     const typeNames = {{
         graph: "Graph",
+        nodes: "Nodes",
         boundary: "Boundary events",
         headway: "Headways"
     }};
@@ -1199,11 +1215,14 @@ body {{
 
     Object.keys(layers).forEach(layerId => {{
 
+        const isScheduled = layerId === "scheduled";
+
         state[layerId] = {{
-            master: true,
-            graph: true,
-            boundary: true,
-            headway: true
+            master: isScheduled,
+            graph: isScheduled,
+            nodes: false,
+            boundary: false,
+            headway: isScheduled
         }};
 
     }});
@@ -1240,7 +1259,7 @@ body {{
 
     function updateLayer(layerId) {{
 
-        ["graph", "boundary", "headway"].forEach(type => {{
+        ["graph", "nodes", "boundary", "headway"].forEach(type => {{
 
             const indices = tracesFor(layerId, type);
 
@@ -1267,6 +1286,7 @@ body {{
 
         const children = [
             state[layerId].graph,
+            state[layerId].nodes,
             state[layerId].boundary,
             state[layerId].headway
         ];
@@ -1361,7 +1381,7 @@ body {{
          * ----------------------------------------------------------
          */
 
-        ["graph", "boundary", "headway"].forEach(
+        ["graph", "nodes", "boundary", "headway"].forEach(
             type => {{
 
             const row =

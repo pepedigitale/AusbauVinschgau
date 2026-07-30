@@ -16,7 +16,7 @@ CONFIGURATION (edit the block below)
 
 # ── USER CONFIGURATION ────────────────────────────────────────────────────────
 
-file_name = "trip_data_1c"
+file_name = "trip_data_1a"
 
 RAILML_FILE  = f"{file_name}.railml"   # ← path to your exported railML file
 LINE_ID      = "ln_Vinschgerbahn"      # ← id attribute of the <line> to plot

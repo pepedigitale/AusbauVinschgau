@@ -6,7 +6,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 INFRASTRUCTURE = PROJECT_ROOT / "infra_data"
 HEADWAYS = PROJECT_ROOT / "headways"
 
-SCENARIO = "all"
+SCENARIO = "1a"
 
 SCENARIOS = {
     "0": {"base", "existing"},
@@ -17,12 +17,26 @@ SCENARIOS = {
     "all": None,
 }
 
+def tags(value):
+    return {x.strip() for x in str(value).split(",") if x.strip()}
+
+
+def _matches_any(value, active_tags):
+    return bool(tags(value) & active_tags)
+
+
 def load_network_csv(filename, index_col):
     df = pd.read_csv(INFRASTRUCTURE / filename, sep=";", decimal=",", index_col=index_col)
+
     if SCENARIO == "all":
         return df[df["edge_type"] != "connecting"] if "edge_type" in df.columns else df
-    active_scenario = SCENARIOS[SCENARIO]
-    return df[df["scenario"].fillna("").apply(lambda s: bool(set(map(str.strip, s.split(","))) & active_scenario))]
+
+    active = SCENARIOS[SCENARIO]
+
+    include = df["scenario"].fillna("").apply(lambda x: _matches_any(x, active))
+    exclude = df["exclude_scenario"].fillna("").apply(lambda x: _matches_any(x, active))
+
+    return df[include & ~exclude]
 
 def get_scenario():
     return SCENARIO

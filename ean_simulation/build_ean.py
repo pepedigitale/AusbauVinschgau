@@ -131,6 +131,32 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
 # 3. Headway arc integration -- YOU adapt the input schema to your data
 # --------------------------------------------------------------------------
 
+def _headway_edge_is_active(G: nx.DiGraph, u, v, required_headway) -> bool:
+    """Return True when the current event gap violates the headway constraint."""
+    if u not in G or v not in G:
+        return False
+
+    try:
+        gap = float(G.nodes[v]["time"]) - float(G.nodes[u]["time"])
+        required_headway = float(required_headway)
+    except (KeyError, TypeError, ValueError):
+        return False
+
+    return gap < required_headway
+
+
+def _update_headway_activity(G: nx.DiGraph) -> nx.DiGraph:
+    """Annotate each headway edge with whether it is currently active."""
+    for u, v, data in G.edges(data=True):
+        if data.get("kind") != "headway":
+            continue
+
+        required_headway = data.get("min_headway", data.get("min_duration"))
+        data["is_active"] = _headway_edge_is_active(G, u, v, required_headway)
+
+    return G
+
+
 def add_headway_arcs(G: nx.DiGraph, headway_constraints: list[dict]) -> nx.DiGraph:
     """
     Attach headway arcs to an existing EAN.
@@ -165,9 +191,18 @@ def add_headway_arcs(G: nx.DiGraph, headway_constraints: list[dict]) -> nx.DiGra
             raise KeyError(f"Headway constraint references a node not in "
                             f"the EAN: {u} -> {v}")
 
-        G.add_edge(u, v, min_duration=hc["min_headway"], kind="headway",
-                   resource=hc.get("resource"))
-    return G
+        required_headway = float(hc["min_headway"])
+        G.add_edge(
+            u,
+            v,
+            min_duration=required_headway,
+            kind="headway",
+            resource=hc.get("resource"),
+            min_headway=required_headway,
+            is_active=_headway_edge_is_active(G, u, v, required_headway),
+        )
+
+    return _update_headway_activity(G)
 
 
 def _station_lookup(G, train_id, seq):
@@ -225,7 +260,7 @@ def propagate(G: nx.DiGraph, perturbations: dict | None = None) -> nx.DiGraph:
     # Overwrite the time attribute
     nx.set_node_attributes(G_real, realized, "time")
 
-    return G_real
+    return _update_headway_activity(G_real)
 
 def propagate2(
     G: nx.DiGraph,
@@ -283,7 +318,7 @@ def propagate2(
     # Update realized times
     nx.set_node_attributes(G_real, realized, "time")
 
-    return G_real
+    return _update_headway_activity(G_real)
 
 # --------------------------------------------------------------------------
 # 5. Find out at what times which trains traverse chain boundaries (rank >= 3)
