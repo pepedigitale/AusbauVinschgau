@@ -32,6 +32,7 @@ ASSUMPTIONS TO VERIFY BEFORE TRUSTING THE OUTPUT
 
 import networkx as nx
 import pandas as pd
+import numpy as np
 
 UP_IS_INCREASING_PK = True  # <-- VERIFY against a known train, see docstring
 
@@ -329,100 +330,488 @@ def chain_boundary_event(train_id, route: list, trip_data: dict,
 # 6. Assemble headway constraints for every chain
 # --------------------------------------------------------------------------
 
-def assemble_headway_constraints(trip_data: dict, trip_data_enriched: dict, routes: dict,
-                                  nodesDf: pd.DataFrame,
-                                  chains: dict, headway_dict: dict) -> list:
-    """
-    routes: {train_id: [ordered list of physical node_ids, incl. non-stop
-             infra nodes -- i.e. the full routing you already computed]}
-    headway_dict: your {(chain_key, cat_i, cat_j): seconds} dict
+def event_time_sec(train_id, seq, event, trip_data_enriched):
+    t = trip_data_enriched[train_id][seq][2 if event == "dep" else 1]
+    return t.hour * 3600 + t.minute * 60 + t.second
 
-    Returns a list of dicts in the schema expected by build_ean.add_headway_arcs.
-    """
-    # group headway_dict entries by chain key for convenience
+def assemble_headway_constraints(
+    trip_data: dict,
+    trip_data_enriched: dict,
+    routes: dict,
+    nodesDf: pd.DataFrame,
+    chains: dict,
+    headway_dict: dict,
+) -> tuple[list[dict], list]:
+
+    def category(speed, direction):
+        return f"{speed} {direction}"
+
     chain_keys_in_headways = {k[0] for k in headway_dict}
 
     constraints = []
     skipped = []
 
     for chain_key in chain_keys_in_headways:
+
         resolved = chains_key_lookup(chains, chain_key)
         if resolved is None:
             skipped.append(("unresolved chain", chain_key))
             continue
+
         boundary_a, boundary_b = resolved
 
-        # find every train whose route crosses this chain, and where it
-        # enters/exits (a train may traverse a chain in either direction)
-        occupants = []  # (entry_time_sec, train_id, entry_evt, exit_evt, category)
+        occupants = []
+
+        # --------------------------------------------------
+        # Find all trains using this chain
+        # --------------------------------------------------
         for train_id, route in routes.items():
-            
+
             if boundary_a not in route or boundary_b not in route:
                 continue
-            idx_a, idx_b = route.index(boundary_a), route.index(boundary_b)
+
+            idx_a = route.index(boundary_a)
+            idx_b = route.index(boundary_b)
+
             if idx_a < idx_b:
                 entry_node, exit_node = boundary_a, boundary_b
             else:
                 entry_node, exit_node = boundary_b, boundary_a
 
-            entry_evt = chain_boundary_event(train_id, route, trip_data_enriched, entry_node, "entry")
-            exit_evt = chain_boundary_event(train_id, route, trip_data_enriched, exit_node, "exit")
+            entry_evt = chain_boundary_event(
+                train_id,
+                route,
+                trip_data_enriched,
+                entry_node,
+                "entry",
+            )
+
+            exit_evt = chain_boundary_event(
+                train_id,
+                route,
+                trip_data_enriched,
+                exit_node,
+                "exit",
+            )
+
             if entry_evt is None or exit_evt is None:
-                skipped.append(("no EAN event on chain", chain_key, train_id))
+                skipped.append(
+                    ("no EAN event on chain", chain_key, train_id)
+                )
                 continue
 
-            stop_codes = [s[0] for s in trip_data[train_id]]
-            entry_seq, entry_kind = entry_evt
-            entry_time = trip_data_enriched[train_id][entry_seq][2 if entry_kind == "dep" else 1]
-            entry_time_sec = entry_time.hour * 3600 + entry_time.minute * 60 + entry_time.second
+            entry_seq, entry_event = entry_evt
+            exit_seq, exit_event = exit_evt
 
-            speed = train_speed_category(train_id, route, trip_data, nodesDf)
+            speed = train_speed_category(
+                train_id,
+                route,
+                trip_data,
+                nodesDf,
+            )
+
             direction = train_direction(route, nodesDf)
 
-            occupants.append((entry_time_sec,train_id,entry_evt,exit_evt,speed,direction))
+            occupants.append(
+                {
+                    "train": train_id,
+                    "speed": speed,
+                    "direction": direction,
 
-        occupants.sort(key=lambda o: o[0])
+                    "entry_seq": entry_seq,
+                    "entry_event": entry_event,
+                    "entry_time": event_time_sec(
+                        train_id,
+                        entry_seq,
+                        entry_event,
+                    ),
 
-        # consecutive pairs only -- see rationale in the chat response
-        for (t_i, tr_i, entry_i, exit_i, speed_i, dir_i), (t_j, tr_j, entry_j, exit_j, speed_j, dir_j) in zip(occupants, occupants[1:]):
+                    "exit_seq": exit_seq,
+                    "exit_event": exit_event,
+                    "exit_time": event_time_sec(
+                        train_id,
+                        exit_seq,
+                        exit_event,
+                    ),
+                }
+            )
 
-            cat_i = f"{speed_i} {dir_i}"
-            cat_j = f"{speed_j} {dir_j}"
+        up = [
+            o for o in occupants
+            if o["direction"] == "up"
+        ]
 
-            key = (chain_key, cat_i, cat_j)
-            if key not in headway_dict:
-                skipped.append(("category pair missing", chain_key, cat_i, cat_j))
-                continue
+        down = [
+            o for o in occupants
+            if o["direction"] == "down"
+        ]
 
-            min_hw = headway_dict[key]
+        # ==================================================
+        # Same-direction constraints
+        # ==================================================
+        for group in (up, down):
 
-            if dir_i == dir_j:
-                # Same direction: departure -> departure at the entry station
-                seq_i, event_i = entry_i
-                seq_j, event_j = entry_j
-            else:
-                # Opposite direction: arrival -> departure at the common boundary station
-                seq_i, event_i = exit_i
-                seq_j, event_j = entry_j
+            group.sort(key=lambda x: x["entry_time"])
 
-            constraints.append({
-                "train_i": tr_i,
-                "seq_i": seq_i,
-                "event_i": event_i,
-                "train_j": tr_j,
-                "seq_j": seq_j,
-                "event_j": event_j,
-                "min_headway": min_hw,
-                "resource": chain_key,
-            })
+            for first, second in zip(group, group[1:]):
+
+                cat1 = category(
+                    first["speed"],
+                    first["direction"],
+                )
+                cat2 = category(
+                    second["speed"],
+                    second["direction"],
+                )
+
+                key = (chain_key, cat1, cat2)
+
+                if key not in headway_dict:
+                    skipped.append(
+                        (
+                            "category pair missing",
+                            chain_key,
+                            cat1,
+                            cat2,
+                        )
+                    )
+                    continue
+
+                constraints.append(
+                    {
+                        "train_i": first["train"],
+                        "seq_i": first["entry_seq"],
+                        "event_i": first["entry_event"],
+
+                        "train_j": second["train"],
+                        "seq_j": second["entry_seq"],
+                        "event_j": second["entry_event"],
+
+                        "min_headway": headway_dict[key],
+                        "resource": chain_key,
+                    }
+                )
+
+        # ==================================================
+        # Opposite-direction constraints
+        # ==================================================
+        for a in up:
+            for b in down:
+
+                # A leaves before B enters
+                if a["exit_time"] <= b["entry_time"]:
+
+                    first = (
+                        a["train"],
+                        a["exit_seq"],
+                        a["exit_event"],
+                        a["speed"],
+                        a["direction"],
+                    )
+
+                    second = (
+                        b["train"],
+                        b["entry_seq"],
+                        b["entry_event"],
+                        b["speed"],
+                        b["direction"],
+                    )
+
+                # B leaves before A enters
+                elif b["exit_time"] <= a["entry_time"]:
+
+                    first = (
+                        b["train"],
+                        b["exit_seq"],
+                        b["exit_event"],
+                        b["speed"],
+                        b["direction"],
+                    )
+
+                    second = (
+                        a["train"],
+                        a["entry_seq"],
+                        a["entry_event"],
+                        a["speed"],
+                        a["direction"],
+                    )
+
+                else:
+                    # Overlapping occupancy without a valid ordering
+                    skipped.append(
+                        (
+                            "overlapping opposite trains",
+                            chain_key,
+                            a["train"],
+                            b["train"],
+                        )
+                    )
+                    continue
+
+                cat1 = category(first[3], first[4])
+                cat2 = category(second[3], second[4])
+
+                key = (chain_key, cat1, cat2)
+
+                if key not in headway_dict:
+                    skipped.append(
+                        (
+                            "category pair missing",
+                            chain_key,
+                            cat1,
+                            cat2,
+                        )
+                    )
+                    continue
+
+                constraints.append(
+                    {
+                        "train_i": first[0],
+                        "seq_i": first[1],
+                        "event_i": first[2],
+
+                        "train_j": second[0],
+                        "seq_j": second[1],
+                        "event_j": second[2],
+
+                        "min_headway": headway_dict[key],
+                        "resource": chain_key,
+                    }
+                )
 
     if skipped:
-        print(f"[assemble_headway_constraints] {len(skipped)} entries skipped "
-              f"-- inspect `skipped` for details (unmatched chains/categories).")
+        print(
+            f"[assemble_headway_constraints] {len(skipped)} entries skipped "
+            "-- inspect `skipped` for details."
+        )
 
     return constraints, skipped
 
-import numpy as np
+def assemble_headway_constraints2(
+    trip_data: dict,
+    trip_data_enriched: dict,
+    routes: dict,
+    nodesDf: pd.DataFrame,
+    chains: dict,
+    headway_dict: dict,
+) -> tuple[list[dict], list]:
+
+    def time_to_sec(t):
+        return t.hour * 3600 + t.minute * 60 + t.second
+
+    def event_time_sec(train_id, seq, event):
+        t = trip_data_enriched[train_id][seq][2 if event == "dep" else 1]
+        return time_to_sec(t)
+
+    def category(speed, direction):
+        return f"{speed} {direction}"
+
+    chain_keys_in_headways = {k[0] for k in headway_dict}
+
+    constraints = []
+    skipped = []
+
+    for chain_key in chain_keys_in_headways:
+
+        resolved = chains_key_lookup(chains, chain_key)
+        if resolved is None:
+            skipped.append(("unresolved chain", chain_key))
+            continue
+
+        boundary_a, boundary_b = resolved
+
+        occupants = []
+
+        # --------------------------------------------------
+        # Find trains using this chain
+        # --------------------------------------------------
+        for train_id, route in routes.items():
+
+            if boundary_a not in route or boundary_b not in route:
+                continue
+
+            idx_a = route.index(boundary_a)
+            idx_b = route.index(boundary_b)
+
+            if idx_a < idx_b:
+                entry_node, exit_node = boundary_a, boundary_b
+            else:
+                entry_node, exit_node = boundary_b, boundary_a
+
+            entry_evt = chain_boundary_event(
+                train_id,
+                route,
+                trip_data_enriched,
+                entry_node,
+                "entry",
+            )
+
+            exit_evt = chain_boundary_event(
+                train_id,
+                route,
+                trip_data_enriched,
+                exit_node,
+                "exit",
+            )
+
+            if entry_evt is None or exit_evt is None:
+                skipped.append(
+                    ("no EAN event on chain", chain_key, train_id)
+                )
+                continue
+
+            entry_seq, entry_event = entry_evt
+            exit_seq, exit_event = exit_evt
+
+            speed = train_speed_category(
+                train_id,
+                route,
+                trip_data,
+                nodesDf,
+            )
+
+            direction = train_direction(route, nodesDf)
+
+            occupants.append(
+                {
+                    "train": train_id,
+                    "speed": speed,
+                    "direction": direction,
+
+                    "entry_seq": entry_seq,
+                    "entry_event": entry_event,
+                    "entry_time": event_time_sec(
+                        train_id,
+                        entry_seq,
+                        entry_event,
+                    ),
+
+                    "exit_seq": exit_seq,
+                    "exit_event": exit_event,
+                    "exit_time": event_time_sec(
+                        train_id,
+                        exit_seq,
+                        exit_event,
+                    ),
+                }
+            )
+
+        # --------------------------------------------------
+        # Consecutive trains only
+        # --------------------------------------------------
+        occupants.sort(key=lambda x: x["entry_time"])
+
+        for first, second in zip(occupants, occupants[1:]):
+
+            cat1 = category(
+                first["speed"],
+                first["direction"],
+            )
+
+            cat2 = category(
+                second["speed"],
+                second["direction"],
+            )
+
+            # ----------------------------------------------
+            # Same direction:
+            # entry departure -> next entry departure
+            # ----------------------------------------------
+            if first["direction"] == second["direction"]:
+
+                seq_i = first["entry_seq"]
+                event_i = first["entry_event"]
+
+                seq_j = second["entry_seq"]
+                event_j = second["entry_event"]
+
+            # ----------------------------------------------
+            # Opposite direction:
+            # exit -> next entry
+            # ----------------------------------------------
+            else:
+                if first["exit_time"] <= second["entry_time"]:
+
+                    seq_i = first["exit_seq"]
+                    event_i = first["exit_event"]
+
+                    seq_j = second["entry_seq"]
+                    event_j = second["entry_event"]
+
+                    cat1 = category(
+                        first["speed"],
+                        first["direction"],
+                    )
+
+                    cat2 = category(
+                        second["speed"],
+                        second["direction"],
+                    )
+
+                elif second["exit_time"] <= first["entry_time"]:
+
+                    seq_i = second["exit_seq"]
+                    event_i = second["exit_event"]
+
+                    seq_j = first["entry_seq"]
+                    event_j = first["entry_event"]
+
+                    cat1 = category(
+                        second["speed"],
+                        second["direction"],
+                    )
+
+                    cat2 = category(
+                        first["speed"],
+                        first["direction"],
+                    )
+
+                else:
+                    skipped.append(
+                        (
+                            "overlapping opposite trains",
+                            chain_key,
+                            first["train"],
+                            second["train"],
+                        )
+                    )
+                    continue
+
+            key = (chain_key, cat1, cat2)
+
+            if key not in headway_dict:
+                skipped.append(
+                    (
+                        "category pair missing",
+                        chain_key,
+                        cat1,
+                        cat2,
+                    )
+                )
+                continue
+
+            constraints.append(
+                {
+                    "train_i": first["train"],
+                    "seq_i": seq_i,
+                    "event_i": event_i,
+
+                    "train_j": second["train"],
+                    "seq_j": seq_j,
+                    "event_j": event_j,
+
+                    "min_headway": headway_dict[key],
+                    "resource": chain_key,
+                }
+            )
+
+    if skipped:
+        print(
+            f"[assemble_headway_constraints] {len(skipped)} entries skipped "
+            "-- inspect `skipped` for details."
+        )
+
+    return constraints, skipped
 
 
 def generate_perturbation_scenarios(

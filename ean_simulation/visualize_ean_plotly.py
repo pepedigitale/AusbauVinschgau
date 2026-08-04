@@ -697,9 +697,6 @@ def draw_ean_plotly(
 
         for u, v, data in G.edges(data=True):
 
-            if u == "SOURCE":
-                continue
-
             kind = data.get(
                 "kind",
                 "running",
@@ -739,7 +736,7 @@ def draw_ean_plotly(
                     f"<br>Start: {_seconds_to_hhmmss(y0)}"
                     f"<br>End: {_seconds_to_hhmmss(y1)}"
                     f"<br>Δt: "
-                    f"{_seconds_to_hhmmss(abs(y1 - y0))}"
+                    f"{_seconds_to_hhmmss(y1 - y0)}"
                     f"<br>Min headway: {min_headway_text}"
                     f"<br>Status: {'active' if is_active else 'inactive'}"
                     "<extra></extra>"
