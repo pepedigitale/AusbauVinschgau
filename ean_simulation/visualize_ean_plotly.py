@@ -1271,6 +1271,7 @@ body {{
         }});
 
         updateParentCheckbox(layerId);
+        updateChildCheckboxes(layerId);
     }}
 
 
@@ -1318,6 +1319,23 @@ body {{
     }}
 
 
+    function updateChildCheckboxes(layerId) {{
+
+        const layer = layers[layerId];
+
+        if (!layer || !layer.childCheckboxes) {{
+            return;
+        }}
+
+        ["graph", "nodes", "boundary", "headway"].forEach(type => {{
+            const checkbox = layer.childCheckboxes[type];
+            if (checkbox) {{
+                checkbox.checked = state[layerId][type];
+            }}
+        }});
+    }}
+
+
     function makeCheckbox(checked) {{
 
         const checkbox = document.createElement("input");
@@ -1345,7 +1363,7 @@ body {{
             "layer-row parent";
 
         const parentCheckbox =
-            makeCheckbox(true);
+            makeCheckbox(state[layerId].master);
 
         const parentLabel =
             document.createElement("span");
@@ -1361,6 +1379,8 @@ body {{
         layer.parentCheckbox =
             parentCheckbox;
 
+        layer.childCheckboxes = {{}};
+
 
         parentCheckbox.addEventListener(
             "change",
@@ -1368,6 +1388,16 @@ body {{
 
                 state[layerId].master =
                     this.checked;
+
+                ["graph", "nodes", "boundary", "headway"].forEach(
+                    type => {{
+                        state[layerId][type] = this.checked;
+                        const child = layer.childCheckboxes[type];
+                        if (child) {{
+                            child.checked = this.checked;
+                        }}
+                    }}
+                );
 
                 updateLayer(layerId);
 
@@ -1391,7 +1421,9 @@ body {{
                 "layer-row child";
 
             const checkbox =
-                makeCheckbox(true);
+                makeCheckbox(state[layerId][type]);
+
+            layer.childCheckboxes[type] = checkbox;
 
             const label =
                 document.createElement("span");

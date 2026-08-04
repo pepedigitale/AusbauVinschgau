@@ -527,7 +527,7 @@ def generate_perturbation_scenarios(
         }
 
         edge_delay = {
-            edge: max(0, rng.normal(running_delay_mean, running_delay_std))
+            edge: rng.normal(running_delay_mean, running_delay_std)
             for edge in running_edges
         }
 

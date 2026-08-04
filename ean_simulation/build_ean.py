@@ -107,6 +107,7 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                 G.add_edge(
                     arr_nodes[i],
                     dep_nodes[i],
+                    scheduled_duration= dwell,
                     min_duration=min_dwell,
                     kind="dwell",
                     train=train_id,
@@ -119,7 +120,7 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                 run = arr_sec - prev_dep_sec
                 if run < 0:
                     run += 24 * 3600
-                G.add_edge(dep_nodes[i - 1], arr_nodes[i],
+                G.add_edge(dep_nodes[i - 1], arr_nodes[i], scheduled_duration= run,
                            min_duration=run/1.07, kind="running", train=train_id,
                            from_station=G.nodes[dep_nodes[i - 1]]["station"],
                            to_station=station)
@@ -195,6 +196,7 @@ def add_headway_arcs(G: nx.DiGraph, headway_constraints: list[dict]) -> nx.DiGra
         G.add_edge(
             u,
             v,
+            scheduled_duration=required_headway,
             min_duration=required_headway,
             kind="headway",
             resource=hc.get("resource"),
@@ -300,20 +302,27 @@ def propagate2(
 
         # Source events (no predecessors)
         if not preds:
-            candidate = G_real.nodes[node]["scheduled_time"]
+            candidate = (
+                G_real.nodes[node]["scheduled_time"]
+                + node_perturbations.get(node, 0.0)
+            )
+
         else:
             candidate = max(
                 realized[p]
-                + G_real.edges[p, node]["min_duration"]
-                + edge_perturbations.get((p, node), 0.0)
+                + max(
+                    G_real.edges[p, node]["min_duration"],
+                    G_real.edges[p, node]["scheduled_duration"]
+                    + edge_perturbations.get((p, node), 0.0),
+                )
                 for p in preds
             )
 
-        # External delay at this event
-        candidate += node_perturbations.get(node, 0.0)
-
         # No event may occur before its scheduled time
-        realized[node] = max(candidate, G_real.nodes[node]["scheduled_time"])
+        realized[node] = max(
+            candidate,
+            G_real.nodes[node]["scheduled_time"],
+        )
 
     # Update realized times
     nx.set_node_attributes(G_real, realized, "time")
