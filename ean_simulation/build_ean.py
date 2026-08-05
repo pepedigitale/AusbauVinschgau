@@ -196,11 +196,12 @@ def add_headway_arcs(G: nx.DiGraph, headway_constraints: list[dict]) -> nx.DiGra
         G.add_edge(
             u,
             v,
-            scheduled_duration=required_headway,
+            scheduled_duration=float(G.nodes[v]["time"]) - float(G.nodes[u]["time"]),
             min_duration=required_headway,
             kind="headway",
+            train_i=hc["train_i"],
+            train_j=hc["train_j"],
             resource=hc.get("resource"),
-            min_headway=required_headway,
             is_active=_headway_edge_is_active(G, u, v, required_headway),
         )
 
@@ -219,52 +220,7 @@ def _station_lookup(G, train_id, seq):
 # 4. Propagation (longest path / max-plus) -- also serves as a sanity check
 # --------------------------------------------------------------------------
 
-def propagate(G: nx.DiGraph, perturbations: dict | None = None) -> nx.DiGraph:
-    """
-    Propagate delays through an EAN.
-
-    Parameters
-    ----------
-    G : nx.DiGraph
-        Scheduled EAN. Nodes have a 'time' attribute and edges a
-        'min_duration' attribute.
-
-    perturbations : dict
-        {(u, v): extra_seconds} to be added to edge min_duration.
-
-    Returns
-    -------
-    nx.DiGraph
-        A copy of G with node attribute 'time' updated to the realized times.
-    """
-    perturbations = perturbations or {}
-
-    G_real = G.copy()
-
-    realized = {}
-
-    for node in nx.topological_sort(G_real):
-        preds = list(G_real.predecessors(node))
-
-        if not preds:
-            realized[node] = G_real.nodes[node]["scheduled_time"]
-            continue
-
-        candidate = max(
-            realized[p]
-            + G_real.edges[p, node]["min_duration"]
-            + perturbations.get((p, node), 0.0)
-            for p in preds
-        )
-
-        realized[node] = max(candidate, G_real.nodes[node]["scheduled_time"])
-
-    # Overwrite the time attribute
-    nx.set_node_attributes(G_real, realized, "time")
-
-    return _update_headway_activity(G_real)
-
-def propagate2(
+def propagate(
     G: nx.DiGraph,
     edge_perturbations: dict | None = None,
     node_perturbations: dict | None = None,
@@ -300,8 +256,8 @@ def propagate2(
 
         preds = list(G_real.predecessors(node))
 
-        # Source events (no predecessors)
-        if not preds:
+        # First event of each train (seq == 0)
+        if node[3] == 0:
             candidate = (
                 G_real.nodes[node]["scheduled_time"]
                 + node_perturbations.get(node, 0.0)
@@ -312,7 +268,7 @@ def propagate2(
                 realized[p]
                 + max(
                     G_real.edges[p, node]["min_duration"],
-                    G_real.edges[p, node]["scheduled_duration"]
+                    G_real.edges[p, node]["min_duration"]
                     + edge_perturbations.get((p, node), 0.0),
                 )
                 for p in preds

@@ -720,6 +720,10 @@ def draw_ean_plotly(
             if kind == "headway":
 
                 is_active = bool(data.get("is_active", False))
+
+                if not is_active:
+                    continue
+                
                 style_name = "headway_active" if is_active else "headway_inactive"
                 style = EDGE_STYLE[style_name].copy()
 
@@ -801,6 +805,7 @@ def draw_ean_plotly(
 
             hover = (
                 f"<b>{layer_name}</b>"
+                f"<br>Train: {train}"
                 f"<br>Activity: {kind}"
                 f"<br>{G.nodes[u]['station']} → "
                 f"{G.nodes[v]['station']}"
@@ -894,6 +899,7 @@ def draw_ean_plotly(
                     _seconds_to_hhmmss(
                         G.nodes[node]["time"]
                     ),
+                    G.nodes[node]["seq"],
                 ]
                 for node in train_nodes
             ]
@@ -930,6 +936,7 @@ def draw_ean_plotly(
                         "<br>Event: %{customdata[2]}"
                         "<br>Time: %{customdata[4]}"
                         "<br>pk: %{customdata[3]:.3f}"
+                        "<br>Sequence: %{customdata[5]}"
                         "<extra></extra>"
                     ),
                 )
@@ -967,6 +974,7 @@ def draw_ean_plotly(
                     _seconds_to_hhmmss(
                         G.nodes[node]["time"]
                     ),
+                    G.nodes[node]["seq"],
                 ]
                 for node in boundary_nodes
             ]
@@ -1010,6 +1018,7 @@ def draw_ean_plotly(
                         "<br>Location: %{customdata[1]}"
                         "<br>Time: %{customdata[4]}"
                         "<br>pk: %{customdata[3]:.3f}"
+                        "<br>Sequence: %{customdata[5]}"
                         "<extra></extra>"
                     ),
                 )
@@ -1042,28 +1051,27 @@ def show_ean(fig, filename="ean_plot.html", auto_open=True):
 
     plot_id = "ean_plot_" + uuid.uuid4().hex
 
+    config = {
+        "scrollZoom": True,
+        "displayModeBar": True,
+        "responsive": True,
+        "doubleClick": "reset",
+    }
+
     html = fig.to_html(
         full_html=False,
         include_plotlyjs=True,
         div_id=plot_id,
-        config={
-            "scrollZoom": True,
-            "displayModeBar": True,
-        },
+        config=config,
     )
 
-    # Hide the normal Plotly legend. The custom JS panel replaces it.
     fig.update_layout(showlegend=False)
 
-    # Re-generate HTML after changing the legend.
     html = fig.to_html(
         full_html=False,
         include_plotlyjs=True,
         div_id=plot_id,
-        config={
-            "scrollZoom": True,
-            "displayModeBar": True,
-        },
+        config=config,
     )
 
     wrapper = f"""
@@ -1083,8 +1091,8 @@ body {{
 #ean-container {{
     display: flex;
     width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    height: 120vh;
+    overflow: visible;
 }}
 
 #plot-container {{
