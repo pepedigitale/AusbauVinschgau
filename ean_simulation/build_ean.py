@@ -106,6 +106,7 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                     arr_nodes[i],
                     dep_nodes[i],
                     scheduled_duration= dwell,
+                    duration = dwell,
                     min_duration=min_dwell,
                     kind="dwell",
                     train=train_id,
@@ -119,6 +120,7 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                 if run < 0:
                     run += 24 * 3600
                 G.add_edge(dep_nodes[i - 1], arr_nodes[i], scheduled_duration= run,
+                           duration=run,
                            min_duration=run/1.07, kind="running", train=train_id,
                            from_station=G.nodes[dep_nodes[i - 1]]["station"],
                            to_station=station)
@@ -152,6 +154,7 @@ def _update_headway_activity(G: nx.DiGraph) -> nx.DiGraph:
 
         required_headway = data.get("min_headway", data.get("min_duration"))
         data["is_active"] = _headway_edge_is_active(G, u, v, required_headway)
+        data["duration"] = float(G.nodes[v]["time"]) - float(G.nodes[u]["time"])
 
     return G
 
@@ -195,6 +198,7 @@ def add_headway_arcs(G: nx.DiGraph, headway_constraints: list[dict]) -> nx.DiGra
             u,
             v,
             scheduled_duration=float(G.nodes[v]["time"]) - float(G.nodes[u]["time"]),
+            duration=float(G.nodes[v]["time"]) - float(G.nodes[u]["time"]),
             min_duration=required_headway,
             kind="headway",
             train_i=hc["train_i"],
@@ -275,6 +279,9 @@ def propagate(
 
     # Update realized times
     nx.set_node_attributes(G_real, realized, "time")
+
+    for u, v in G_real.edges:
+        G_real.edges[u, v]["duration"] = (float(G_real.nodes[v]["time"]) - float(G_real.nodes[u]["time"]))
 
     return _update_headway_activity(G_real)
 

@@ -6,7 +6,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 INFRASTRUCTURE = PROJECT_ROOT / "infra_data"
 HEADWAYS = PROJECT_ROOT / "headways"
 
-SCENARIO = "all"
+SCENARIO = "1a"
 
 SCENARIOS = {
     "0": {"base", "existing"},

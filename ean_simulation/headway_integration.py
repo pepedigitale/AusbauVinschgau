@@ -454,13 +454,13 @@ def assemble_headway_constraints(
         # ==================================================
         # Same-direction constraints
         # ==================================================
-        print ("Assembling same-direction constraints for chain", chain_key)
+
 
         for group in (up, down):
 
             group.sort(key=lambda x: x["entry_time"])
             for first, second in zip(group, group[1:]):
-                print (first["train"], second["train"])
+
                 cat1 = category(
                     first["speed"],
                     first["direction"],
@@ -501,11 +501,11 @@ def assemble_headway_constraints(
         # ==================================================
         # Opposite-direction constraints
         # ==================================================
-        print ("Assembling opposite-direction constraints for chain", chain_key)
+
 
         for a in up:
             for b in down:
-                print (a["train"], b["train"])
+
                 # A leaves before B enters
                 if a["exit_time"] <= b["entry_time"]:
 
@@ -586,12 +586,6 @@ def assemble_headway_constraints(
                         "resource": chain_key,
                     }
                 )
-
-    if skipped:
-        print(
-            f"[assemble_headway_constraints] {len(skipped)} entries skipped "
-            "-- inspect `skipped` for details."
-        )
 
     return constraints, skipped
 
