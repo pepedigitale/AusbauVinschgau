@@ -601,13 +601,39 @@ def draw_ean_plotly(
         }
     )
 
-    # Node colors (markers) keep the stable palette.
-    color_of_train = _train_colors(trains)
+    meta = fig.layout.meta or {}
 
-    # Edge colors are inferred separately according to the
-    # fast/slow + hourly-minute pattern. Edges (graph traces)
-    # will use `edge_color_of_train`; headways remain their own style.
-    edge_color_of_train = infer_train_colors(G)
+    # Node/marker colors
+    stored_node_colors = meta.get("node_colors")
+    if is_scheduled or not stored_node_colors:
+        color_of_train = _train_colors(trains)
+        if is_scheduled:
+            meta["node_colors"] = color_of_train
+            fig.layout.meta = meta
+    else:
+        # reuse stored mapping, but ensure any newly appearing trains get a color
+        color_of_train = dict(stored_node_colors)
+        missing = set(trains) - set(color_of_train.keys())
+        if missing:
+            color_of_train.update(_train_colors(sorted(missing)))
+
+    # Edge colors (inferred style per train)
+    stored_edge_colors = meta.get("edge_train_colors")
+    if is_scheduled or not stored_edge_colors:
+        edge_color_of_train = infer_train_colors(G)
+        if is_scheduled:
+            meta["edge_train_colors"] = edge_color_of_train
+            fig.layout.meta = meta
+    else:
+        edge_color_of_train = dict(stored_edge_colors)
+        missing = set(trains) - set(edge_color_of_train.keys())
+        if missing:
+            # fallback: prefer node color for missing entries, else generate
+            for t in missing:
+                edge_color_of_train[t] = (
+                    color_of_train.get(t)
+                    or _train_colors([t])[t]
+                )
 
     boundary_stations = set(
         fig.layout.meta.get(
@@ -727,7 +753,7 @@ def draw_ean_plotly(
                 style_name = "headway_active" if is_active else "headway_inactive"
                 style = EDGE_STYLE[style_name].copy()
 
-                min_headway = data.get("min_headway")
+                min_headway = data.get("min_duration")
                 min_headway_text = (
                     _seconds_to_hhmmss(min_headway)
                     if min_headway is not None
@@ -1091,7 +1117,7 @@ body {{
 #ean-container {{
     display: flex;
     width: 100vw;
-    height: 120vh;
+    height: 100vh;
     overflow: visible;
 }}
 

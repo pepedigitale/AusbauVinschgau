@@ -72,7 +72,7 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                     event="arr",
                     seq=i,
                     time=arr_sec,
-                    scheduled_time=0,
+                    scheduled_time=arr_sec,
                     is_stop=is_stop
                 )
                 arr_nodes[i] = arr_node
@@ -87,12 +87,10 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                     event="dep",
                     seq=i,
                     time=dep_sec,
-                    scheduled_time=0,
+                    scheduled_time=dep_sec,
                     is_stop=is_stop
                 )
 
-                if is_stop:
-                    attrs["scheduled_time"] = dep_sec
 
                 G.add_node(dep_node, **attrs)
                 dep_nodes[i] = dep_node
@@ -256,29 +254,24 @@ def propagate(
 
         preds = list(G_real.predecessors(node))
 
-        # First event of each train (seq == 0)
-        if node[3] == 0:
-            candidate = (
-                G_real.nodes[node]["scheduled_time"]
-                + node_perturbations.get(node, 0.0)
-            )
+        # Earliest possible time due to schedule + node delay
+        if G_real.nodes[node]["seq"] == 0:
+            a = G_real.nodes[node]["scheduled_time"] + node_perturbations.get(node, 0.0)
+            b = 0
+            if preds:
+                b = max(realized[p] + max(G_real.edges[p, node]["min_duration"], G_real.edges[p, node]["min_duration"] + edge_perturbations.get((p, node), 0.0),)for p in preds)
+
+            candidate = max(a,b)
+
+        else: 
+            candidate = max(realized[p] + max(G_real.edges[p, node]["min_duration"], G_real.edges[p, node]["min_duration"] + edge_perturbations.get((p, node), 0.0),)for p in preds)
+       
+
+        if G_real.nodes[node]["event"] == "dep" and G_real.nodes[node]["is_stop"]:
+            realized[node] = max(candidate, G_real.nodes[node]["scheduled_time"])
 
         else:
-            candidate = max(
-                realized[p]
-                + max(
-                    G_real.edges[p, node]["min_duration"],
-                    G_real.edges[p, node]["min_duration"]
-                    + edge_perturbations.get((p, node), 0.0),
-                )
-                for p in preds
-            )
-
-        # No event may occur before its scheduled time
-        realized[node] = max(
-            candidate,
-            G_real.nodes[node]["scheduled_time"],
-        )
+            realized[node] = candidate
 
     # Update realized times
     nx.set_node_attributes(G_real, realized, "time")
