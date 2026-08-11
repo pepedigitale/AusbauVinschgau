@@ -449,7 +449,7 @@ def assemble_headway_constraints(
             o for o in occupants
             if o["direction"] == "down"
         ]
-        print (f"Chain {chain_key}: {len(up)} up trains, {len(down)} down trains")
+        #print (f"Chain {chain_key}: {len(up)} up trains, {len(down)} down trains")
 
         # ==================================================
         # Same-direction constraints

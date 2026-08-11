@@ -138,7 +138,7 @@ def _headway_edge_is_active(G: nx.DiGraph, u, v, required_headway) -> bool:
         return False
 
     try:
-        gap = float(G.nodes[v]["time"]) - float(G.nodes[u]["time"])
+        gap = float(G.nodes[v]["time"]) - float(G.nodes[u]["time"]) - 0.0001  # small shift to avoid floating-point equality issues
         required_headway = float(required_headway)
     except (KeyError, TypeError, ValueError):
         return False

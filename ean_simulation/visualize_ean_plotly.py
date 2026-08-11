@@ -715,11 +715,17 @@ def draw_ean_plotly(
         )
     )
 
+
     # ==============================================================
     # Edges
     # ==============================================================
 
     if draw_edges:
+
+        # Accumulate normal EAN edges by train so that Plotly only
+        # needs one trace per train. NaN separators prevent Plotly
+        # from connecting independent segments.
+        train_edges = {}
 
         for u, v, data in G.edges(data=True):
 
@@ -749,8 +755,13 @@ def draw_ean_plotly(
 
                 if not is_active:
                     continue
-                
-                style_name = "headway_active" if is_active else "headway_inactive"
+
+                style_name = (
+                    "headway_active"
+                    if is_active
+                    else "headway_inactive"
+                )
+
                 style = EDGE_STYLE[style_name].copy()
 
                 min_headway = data.get("min_duration")
@@ -795,6 +806,16 @@ def draw_ean_plotly(
             # Normal EAN edges
             # ------------------------------------------------------
 
+            train = G.nodes[u].get("train")
+
+            if train not in train_edges:
+                train_edges[train] = dict(
+                    x=[],
+                    y=[],
+                    customdata=[],
+                    widths=[],
+                )
+
             style = EDGE_STYLE.get(
                 kind,
                 dict(
@@ -806,58 +827,96 @@ def draw_ean_plotly(
 
             style["width"] *= linewidth_scale
 
-            # For normal graph edges, color by train according to
-            # the inferred per-train edge color mapping.
-            train = G.nodes[u].get("train")
-            if train is not None:
-                style["color"] = edge_color_of_train.get(
+            train_color = edge_color_of_train.get(
+                train,
+                style.get("color", "black"),
+            )
+
+            # One solid style per train. The previous continuous /
+            # dashed distinction is deliberately removed.
+            segment_customdata = [
+                [
                     train,
-                    style.get("color", "black"),
-                )
+                    kind,
+                    G.nodes[u]["station"],
+                    G.nodes[v]["station"],
+                    _seconds_to_hhmmss(y0),
+                    _seconds_to_hhmmss(y1),
+                    _seconds_to_hhmmss(abs(y1 - y0)),
+                ],
+                [
+                    train,
+                    kind,
+                    G.nodes[u]["station"],
+                    G.nodes[v]["station"],
+                    _seconds_to_hhmmss(y0),
+                    _seconds_to_hhmmss(y1),
+                    _seconds_to_hhmmss(abs(y1 - y0)),
+                ],
+            ]
 
-            if linestyle_override is not None:
+            train_edges[train]["x"].extend(
+                [x0, x1, None]
+            )
 
-                mpl_to_plotly_dash = {
-                    "-": "solid",
-                    "--": "dash",
-                    ":": "dot",
-                    "-.": "dashdot",
-                }
+            train_edges[train]["y"].extend(
+                [y0, y1, None]
+            )
 
-                style["dash"] = mpl_to_plotly_dash.get(
-                    linestyle_override,
-                    linestyle_override,
-                )
+            train_edges[train]["customdata"].extend(
+                segment_customdata + [None]
+            )
+
+            train_edges[train]["widths"].append(
+                style["width"]
+            )
+
+        # ----------------------------------------------------------
+        # Create exactly one trace per train
+        # ----------------------------------------------------------
+
+        for train, edge_data in train_edges.items():
+
+            if not edge_data["x"]:
+                continue
+
+            # A single Plotly trace cannot have per-segment widths.
+            # Use the maximum width used by this train.
+            width = max(edge_data["widths"])
 
             hover = (
                 f"<b>{layer_name}</b>"
-                f"<br>Train: {train}"
-                f"<br>Activity: {kind}"
-                f"<br>{G.nodes[u]['station']} → "
-                f"{G.nodes[v]['station']}"
-                f"<br>Start: {_seconds_to_hhmmss(y0)}"
-                f"<br>End: {_seconds_to_hhmmss(y1)}"
-                f"<br>Duration: "
-                f"{_seconds_to_hhmmss(abs(y1 - y0))}"
+                "<br>Train: %{customdata[0]}"
+                "<br>Activity: %{customdata[1]}"
+                "<br>%{customdata[2]} → %{customdata[3]}"
+                "<br>Start: %{customdata[4]}"
+                "<br>End: %{customdata[5]}"
+                "<br>Duration: %{customdata[6]}"
                 "<extra></extra>"
             )
 
             fig.add_trace(
                 go.Scatter(
-                    x=[x0, x1],
-                    y=[y0, y1],
+                    x=edge_data["x"],
+                    y=edge_data["y"],
                     mode="lines",
                     line=dict(
-                        color=style["color"],
-                        width=style["width"],
-                        dash=style["dash"],
+                        color=edge_color_of_train.get(
+                            train,
+                            "black",
+                        ),
+                        width=width,
+                        dash="solid",
                     ),
                     opacity=alpha,
                     showlegend=False,
+                    legendgroup=legend_group,
                     meta=graph_meta,
+                    customdata=edge_data["customdata"],
                     hovertemplate=hover,
                 )
             )
+
 
     # ==============================================================
     # Nodes
