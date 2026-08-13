@@ -34,6 +34,24 @@ EDGE_STYLE = {
 # Helpers
 # ----------------------------------------------------------------------
 
+def _seconds_to_hhmm(seconds):
+    """Convert seconds since midnight to HH:MM."""
+    seconds = float(seconds)
+
+    hours = int(seconds // 3600) % 24
+    minutes = int((seconds % 3600) // 60)
+    secs = int(round(seconds % 60))
+
+    if secs == 60:
+        secs = 0
+        minutes += 1
+
+    if minutes == 60:
+        minutes = 0
+        hours = (hours + 1) % 24
+
+    return f"{hours:02d}:{minutes:02d}"
+
 def _seconds_to_hhmmss(seconds):
     """Convert seconds since midnight to HH:MM:SS."""
     seconds = float(seconds)
@@ -406,7 +424,6 @@ def _configure_axes(fig, nodesDf, title):
         y_min = min(times)
         y_max = max(times)
 
-        # Same 15-minute grid as the Matplotlib implementation.
         tick_interval = 15 * 60
 
         tick_start = (
@@ -426,7 +443,7 @@ def _configure_axes(fig, nodesDf, title):
         )
 
         ticktext = [
-            _seconds_to_hhmmss(value)
+        _seconds_to_hhmm(value)
             for value in tickvals
         ]
 
