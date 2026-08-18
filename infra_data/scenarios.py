@@ -6,13 +6,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 INFRASTRUCTURE = PROJECT_ROOT / "infra_data"
 HEADWAYS = PROJECT_ROOT / "headways"
 
-SCENARIO = "4"
+SCENARIO = "1a"
 
 SCENARIOS = {
     "0": {"base", "existing"},
-    "1a": {"base", "existing", "dt_tel_pla", "dt_natkomp_sta", "dt_sta_cia", "dt_cold_sblLac", "dt_lasa_oris"},
+    "1a": {"base", "existing", "dt_mg_tel", "dt_tel_pla", "dt_natkomp_sta", "dt_sta_cia", "dt_cold_sblLac", "dt_lasa_oris"},
     "1b": {"base", "existing", "dt_me_lag", "dt_tel_pla", "dt_sta_cia", "dt_cold_sblLac", "dt_lasa_oris"},
-    "1c": {"base", "existing", "dt_me_lag", "dt_tel_pla", "dt_nat", "dt_sta_cia", "dt_lac_cold", "dt_lasa_oris"},
+    "1c": {"base", "existing", "dt_me_lag", "dt_tel_pla", "dt_natkomp_sta", "dt_sta_cia", "dt_lac_cold", "dt_lasa_oris"},
     "2a": {"base", "existing"},
     "3a": {"base", "existing", "dt_me_lag", "dt_tel_pla", "dt_nat", "dt_sta_cia", "dt_cold_sblLac", "dt_oris_spon"},
     "3b": {"base", "existing", "dt_tel_pla", "dt_nat", "dt_sta_cia", "dt_cold_sblLac", "dt_lasa_oris", "dt_oris_spon"},

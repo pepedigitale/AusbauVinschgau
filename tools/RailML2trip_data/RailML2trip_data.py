@@ -16,7 +16,8 @@ CONFIGURATION (edit the block below)
 
 # ── USER CONFIGURATION ────────────────────────────────────────────────────────
 
-file_name = "trip_data_4"
+file_name = "trip_data_1a"
+
 
 RAILML_FILE  = f"{file_name}.railml"   # ← path to your exported railML file
 LINE_ID      = "ln_Vinschgerbahn"      # ← id attribute of the <line> to plot
@@ -69,8 +70,8 @@ STATION_ABBREVIATIONS = {
 }
 
 # Time window to display  (HH:MM on a day when trains run)
-TIME_START = "17:00"
-TIME_END   = "20:00"
+TIME_START = "8:00"
+TIME_END   = "12:00"
 
 # Figure size in inches
 FIG_WIDTH  = 24

@@ -36,7 +36,6 @@ HD_201_04-HD_201_06;HD_201_04;HD_201_06;70;70;1;23,85;base;;straight
 HD_201_06-IG_GIU;HD_201_06;IG_GIU;70;70;0;0;base;;straight
 IG_GIU-SG_GIU;IG_GIU;SG_GIU;70;70;0,981;23,84;base;;straight
 SG_GIU-HD_201_08;SG_GIU;HD_201_08;70;70;0,019;23,68;base;;straight
-HD_201_08-IG_ART;HD_201_08;IG_ART;70;70;0,043;23,95;base;;straight
 IG_ART-SG_ART;IG_ART;SG_ART;70;70;0,08;23,87;base;;straight
 SG_ART-IG_TEL;SG_ART;IG_TEL;70;70;0,359;23,84;base;;straight
 IG_TEL-HD_201_10;IG_TEL;HD_201_10;70;70;0,518;23,84;base;;straight
@@ -313,19 +312,18 @@ HD_201_04_side-HD_201_06_side;HD_201_04_side;HD_201_06_side;70;70;1;23,85;dt_mar
 HD_201_06_side-IG_GIU_side;HD_201_06_side;IG_GIU_side;70;70;0;0;dt_mar_tel;;straight
 IG_GIU_side-SG_GIU_side;IG_GIU_side;SG_GIU_side;70;70;0,981;23,84;dt_mar_tel;;straight
 SG_GIU_side-HD_201_08_side;SG_GIU_side;HD_201_08_side;70;70;0,019;23,68;dt_mar_tel;;straight
-HD_201_08_side-IG_ART_side;HD_201_08_side;IG_ART_side;70;70;0,043;23,95;dt_mar_tel;;straight
-IG_ART_side-SG_ART_side;IG_ART_side;SG_ART_side;70;70;0,08;23,87;dt_mar_tel;;straight
-SG_ART_side-IG_TEL_side;SG_ART_side;IG_TEL_side;70;70;0,359;23,84;dt_mar_tel;;straight
-IG_TEL_side-HD_201_10_side;IG_TEL_side;HD_201_10_side;70;70;0,518;23,84;dt_mar_tel;;straight
-HD_201_10_side-SG_TEL_side;HD_201_10_side;SG_TEL_side;70;70;0,166;23,86;dt_mar_tel;;straight
-SG_TEL_side-Pr_E_TEL_01_side;SG_TEL_side;Pr_E_TEL_01_side;70;70;0,451;22,75;dt_mar_tel;;straight
-Pr_E_TEL_01_side-Pr_I_TEL_91_side;Pr_E_TEL_01_side;Pr_I_TEL_91_side;70;70;0,122;22,7;dt_mar_tel;;straight
-Pr_I_TEL_91_side-PL07_side;Pr_I_TEL_91_side;PL07_side;70;70;0,033;22,42;dt_mar_tel;;straight
-PL07_side-Pa_E_TEL_61_side;PL07_side;Pa_E_TEL_61_side;70;70;0,015;22,67;dt_mar_tel;;straight
-Pa_E_TEL_61_side-Pr_I_TEL_71_side;Pa_E_TEL_61_side;Pr_I_TEL_71_side;70;70;0,161;22,73;dt_mar_tel;;straight
-Pr_I_TEL_71_side-Dev_TEL_01_side;Pr_I_TEL_71_side;Dev_TEL_01_side;70;70;0,05;22,6;dt_mar_tel;;straight
-Dev_TEL_01_side-Pa_I_TEL_31b_side;Dev_TEL_01_side;Pa_I_TEL_31b_side;70;70;0,076;14,21;dt_mar_tel;;straight
-Dev_TEL_01-Pa_I_TEL_31b_side;Dev_TEL_01;Pa_I_TEL_31b_side;70;70;0,076;14,21;existing;;connecting
+IG_ART_side-SG_ART_side;IG_ART_side;SG_ART_side;70;70;0,08;23,87;dt_mar_tel, dt_mg_tel;;straight
+SG_ART_side-IG_TEL_side;SG_ART_side;IG_TEL_side;70;70;0,359;23,84;dt_mar_tel, dt_mg_tel;;straight
+IG_TEL_side-HD_201_10_side;IG_TEL_side;HD_201_10_side;70;70;0,518;23,84;dt_mar_tel, dt_mg_tel;;straight
+HD_201_10_side-SG_TEL_side;HD_201_10_side;SG_TEL_side;70;70;0,166;23,86;dt_mar_tel, dt_mg_tel;;straight
+SG_TEL_side-Pr_E_TEL_01_side;SG_TEL_side;Pr_E_TEL_01_side;70;70;0,451;22,75;dt_mar_tel, dt_mg_tel;;straight
+Pr_E_TEL_01_side-Pr_I_TEL_91_side;Pr_E_TEL_01_side;Pr_I_TEL_91_side;70;70;0,122;22,7;dt_mar_tel, dt_mg_tel;;straight
+Pr_I_TEL_91_side-PL07_side;Pr_I_TEL_91_side;PL07_side;70;70;0,033;22,42;dt_mar_tel, dt_mg_tel;;straight
+PL07_side-Pa_E_TEL_61_side;PL07_side;Pa_E_TEL_61_side;70;70;0,015;22,67;dt_mar_tel, dt_mg_tel;;straight
+Pa_E_TEL_61_side-Pr_I_TEL_71_side;Pa_E_TEL_61_side;Pr_I_TEL_71_side;70;70;0,161;22,73;dt_mar_tel, dt_mg_tel;;straight
+Pr_I_TEL_71_side-Dev_TEL_01_side;Pr_I_TEL_71_side;Dev_TEL_01_side;70;70;0,05;22,6;dt_mar_tel, dt_mg_tel;;straight
+Dev_TEL_01_side-Pa_I_TEL_31b_side;Dev_TEL_01_side;Pa_I_TEL_31b_side;70;70;0,076;14,21;dt_mar_tel, dt_mg_tel;;straight
+Dev_TEL_01-Pa_I_TEL_31b_side;Dev_TEL_01;Pa_I_TEL_31b_side;70;70;0,076;14,21;existing;dt_mar_tel, dt_mg_tel;connecting
 Pa_I_TEL_31b_side-Pr_I_TEL_51_side;Pa_I_TEL_31b_side;Pr_I_TEL_51_side;70;70;0,103;2,04;existing;;straight
 Pr_I_TEL_51_side-Pa_I_TEL_31a_side;Pr_I_TEL_51_side;Pa_I_TEL_31a_side;70;70;0,042;1,9;existing;;straight
 Pa_I_TEL_31a_side-TEL_side;Pa_I_TEL_31a_side;TEL_side;70;70;0,074;2,03;existing;;straight
@@ -574,3 +572,8 @@ Pr_I_MAL_51_side-Dev_MAL_05_side;Pr_I_MAL_51_side;Dev_MAL_05_side;65;65;0,118;17
 Dev_MAL_05-Pa_I_MAL_31d_side;Dev_MAL_05;Pa_I_MAL_31d_side;65;65;0,088;0;existing;;connecting
 Dev_MAL_05_side-Pa_I_MAL_31d_side;Dev_MAL_05_side;Pa_I_MAL_31d_side;65;65;0,088;0;dt_slu_mal;;straight
 Pa_I_MAL_31d_side-MAL_side;Pa_I_MAL_31d_side;MAL_side;65;65;0,132;0;existing;;straight
+HD_201_08_side-Dev_HD201/08_side;HD_201_08_side;Dev_HD201/08_side;70;70;0,02;23,87;dt_mar_tel;;straight
+Dev_HD201/08_side-IG_ART_side;Dev_HD201/08_side;IG_ART_side;0;0;0;0;dt_mar_tel;;straight
+HD_201_08-Dev_HD201/08;HD_201_08;Dev_HD201/08;70;70;0,02;23,87;base;;straight
+Dev_HD201/08-IG_ART;Dev_HD201/08;IG_ART;70;70;0,043;23,87;base;;straight
+Dev_HD201/08-IG_ART_side;Dev_HD201/08;IG_ART_side;70;70;0,043;23,87;dt_mg_tel;;connecting
