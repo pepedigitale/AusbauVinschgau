@@ -105,11 +105,8 @@ def build_ean(
                 dwell = dep_sec - arr_sec
                 if dwell < 0:
                     dwell += 24 * 3600  # midnight-wrap guard, see note above
-                min_dwell = (
-                    min_dwell_by_station.get(station, 30)
-                    if is_stop
-                    else 0
-                )
+                
+                min_dwell = (min_dwell_by_station.get(station, 30) if is_stop else 0)
 
                 G.add_edge(
                     arr_nodes[i],
