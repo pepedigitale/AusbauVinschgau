@@ -83,7 +83,7 @@ def summarize_travel_time_report(scheduled_graph, realized_graphs):
 
     scheduled_by_type = defaultdict(list)
     realized_by_type = defaultdict(list)
-
+    train_types = {}
     for train_id in trains:
         train_type = infer_train_type(scheduled_graph, train_id)
         if train_type == "unknown":
@@ -97,6 +97,8 @@ def summarize_travel_time_report(scheduled_graph, realized_graphs):
             realized_time = train_travel_time(G, train_id)
             if realized_time is not None:
                 realized_by_type[train_type].append(realized_time)
+
+        train_types[train_id] = train_type
 
     summary = {
         "scheduled": {},
@@ -119,6 +121,7 @@ def summarize_travel_time_report(scheduled_graph, realized_graphs):
             "n_observations": len(values),
         }
 
+    summary["train_types"] = train_types
     return summary
 
 
@@ -236,12 +239,12 @@ def _realized_speed_contributions_for_train(G, train_id, nodesDf, stop_names=FAS
     return contributions
 
 
-def build_speed_matrices(realized_graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
+def build_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
     """Return (fast_matrix, slow_matrix) with average realized speed in km/h."""
     fast_pairs = defaultdict(list)
     slow_pairs = defaultdict(list)
 
-    for G in realized_graphs:
+    for G in graphs:
         trains = sorted({d["train"] for _, d in G.nodes(data=True) if "train" in d})
         for train_id in trains:
             train_type = infer_train_type(G, train_id)
@@ -309,9 +312,9 @@ def plot_speed_matrix(matrix, labels, title):
     plt.show()
 
 
-def plot_speed_matrices(realized_graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
+def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
     """Create the fast and slow realized-speed matrices side by side."""
-    fast_matrix, slow_matrix = build_speed_matrices(realized_graphs, nodesDf, stop_names)
+    fast_matrix, slow_matrix = build_speed_matrices(graphs, nodesDf, stop_names)
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
     cmap = plt.get_cmap("RdYlGn")
@@ -567,8 +570,8 @@ def plot_train_report(stats):
     plt.bar(x+w/2, arr, width=w, color="firebrick",
             label="Arrival delay >3 min")
 
-    plt.xticks(x, range(len(scen)))
-    plt.xlabel("Scenario")
+    plt.xticks(x, range(1, len(scen) + 1), fontsize=5)
+    plt.xlabel("Realization")
     plt.ylabel("% of trains")
     plt.title("Train report")
     plt.legend()
@@ -598,8 +601,8 @@ def plot_delay_report(stats):
             color="forestgreen",
             label="Arrival")
 
-    plt.xticks(x, range(len(scen)))
-    plt.xlabel("Scenario")
+    plt.xticks(x, range(1, len(scen) + 1), fontsize=5)
+    plt.xlabel("Realization")
     plt.ylabel("Total delay [min]")
     plt.title("Delay report")
     plt.grid(axis="y", alpha=.3)

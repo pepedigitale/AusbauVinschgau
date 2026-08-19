@@ -50,7 +50,12 @@ def to_seconds(dt: datetime) -> float:
 # 2. Core EAN construction from trip_data alone
 # --------------------------------------------------------------------------
 
-def build_ean(trip_data: dict) -> nx.DiGraph:
+def build_ean(
+    trip_data: dict,
+    min_dwell_by_station: dict | None = None,
+) -> nx.DiGraph:
+    """Build an EAN using configurable minimum dwell times by station."""
+    min_dwell_by_station = min_dwell_by_station or {}
     G = nx.DiGraph()
 
     for train_id, stops in trip_data.items():
@@ -100,7 +105,11 @@ def build_ean(trip_data: dict) -> nx.DiGraph:
                 dwell = dep_sec - arr_sec
                 if dwell < 0:
                     dwell += 24 * 3600  # midnight-wrap guard, see note above
-                min_dwell = 30 if is_stop else 0
+                min_dwell = (
+                    min_dwell_by_station.get(station, 30)
+                    if is_stop
+                    else 0
+                )
 
                 G.add_edge(
                     arr_nodes[i],
