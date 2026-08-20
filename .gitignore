@@ -18,3 +18,5 @@ venv/
 
 # Temporary files
 tree.txt
+
+tools/demand_data/*

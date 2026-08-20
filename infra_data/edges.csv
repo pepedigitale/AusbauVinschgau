@@ -343,7 +343,7 @@ Pa_RAB_32_side-Pr_E_RAB_02_side;Pa_RAB_32_side;Pr_E_RAB_02_side;130;130;0,15;2,8
 Pr_E_RAB_02_side-HD_302_02_side;Pr_E_RAB_02_side;HD_302_02_side;130;130;1;2,87;dt_tel_pla;;straight
 HD_302_02_side-Pr_E_PLA_01_side;HD_302_02_side;Pr_E_PLA_01_side;130;130;0,763;2,87;dt_tel_pla;;straight
 Pr_E_PLA_01_side-Dev_01_PLA_side;Pr_E_PLA_01_side;Dev_01_PLA_side;130;130;0,1;2,87;dt_pla_nat;;straight
-Pr_E_PLA_01_side-Dev_01_PLA;Pr_E_PLA_01_side;Dev_01_PLA;130;130;0,1;2,87;dt_tel_pla;;connecting
+Pr_E_PLA_01_side-Dev_01_PLA;Pr_E_PLA_01_side;Dev_01_PLA;130;130;0,1;2,87;dt_tel_pla;dt_pla_nat;connecting
 Dev_01_PLA_side-Pa_PLA_31_side;Dev_01_PLA_side;Pa_PLA_31_side;130;130;0,05;2,87;dt_pla_nat;;straight
 Pa_PLA_31_side-PLA_side;Pa_PLA_31_side;PLA_side;130;130;0,11;0,27;dt_pla_nat;;straight
 PLA_side-Pa_PLA_32_side;PLA_side;Pa_PLA_32_side;130;130;0,038;0;dt_pla_nat;;straight
@@ -358,10 +358,10 @@ Pr_E_NAT_01_side-Pr_I_NAT_51_side;Pr_E_NAT_01_side;Pr_I_NAT_51_side;70;70;0,09;4
 Pr_I_NAT_51_side-PL10_side;Pr_I_NAT_51_side;PL10_side;70;70;0,03;4;dt_pla_nat;;straight
 PL10_side-Dev_NAT_01_side;PL10_side;Dev_NAT_01_side;70;70;0,022;0;dt_pla_nat;;straight
 Dev_NAT_01_side-Pa_NAT_31_side;Dev_NAT_01_side;Pa_NAT_31_side;70;70;0,008;0;dt_pla_nat;;straight
-Dev_NAT_01-Pa_NAT_31_side;Dev_NAT_01;Pa_NAT_31_side;70;70;0,008;0;dt_nat, dt_pla_nat;;connecting
+Dev_NAT_01-Pa_NAT_31_side;Dev_NAT_01;Pa_NAT_31_side;70;70;0,008;0;dt_nat;dt_pla_nat;connecting
 Pa_NAT_31_side-NAT_side;Pa_NAT_31_side;NAT_side;70;70;0,069;0;dt_nat, dt_pla_nat;;straight
 NAT_side-Pa_NAT_32_side;NAT_side;Pa_NAT_32_side;70;70;0,092;0;dt_nat, dt_pla_nat;;straight
-Pa_NAT_32_side-Dev_NAT_02;Pa_NAT_32_side;Dev_NAT_02;70;70;0,131;5,64;dt_nat, dt_pla_nat;;connecting
+Pa_NAT_32_side-Dev_NAT_02;Pa_NAT_32_side;Dev_NAT_02;70;70;0,131;5,64;dt_nat, dt_pla_nat;dt_nat_natkomp;connecting
 Pa_NAT_32_side-Dev_NAT_02_side;Pa_NAT_32_side;Dev_NAT_02_side;70;70;0,131;5,64;dt_nat_natkomp;;straight
 Dev_NAT_02_side-Pr_E_NAT_02_side;Dev_NAT_02_side;Pr_E_NAT_02_side;70;70;0,018;5,64;dt_nat_natkomp;;straight
 Pr_E_NAT_02_side-Pr_E_PL11_01_side;Pr_E_NAT_02_side;Pr_E_PL11_01_side;70;70;0,587;5,96;dt_nat_natkomp;;straight
@@ -370,7 +370,7 @@ Pr_I_PL11_51_side-PL11_side;Pr_I_PL11_51_side;PL11_side;70;70;0,026;6,15;dt_nat_
 PL11_side-Pr_I_PL11_52_side;PL11_side;Pr_I_PL11_52_side;70;70;0,023;6,09;dt_nat_natkomp;;straight
 Pr_I_PL11_52_side-Dev_PL11_02_side;Pr_I_PL11_52_side;Dev_PL11_02_side;70;70;0,023;6,09;dt_nat_natkomp;;straight
 Dev_PL11_02_side-Pr_E_PL11_02_side;Dev_PL11_02_side;Pr_E_PL11_02_side;70;70;0,023;6,09;dt_nat_natkomp;;straight
-Dev_PL11_02-Pr_E_PL11_02_side;Dev_PL11_02;Pr_E_PL11_02_side;70;70;0,023;6,09;dt_natkomp_sta;;connecting
+Dev_PL11_02-Pr_E_PL11_02_side;Dev_PL11_02;Pr_E_PL11_02_side;70;70;0,023;6,09;dt_natkomp_sta;dt_nat_natkomp;connecting
 Pr_E_PL11_02_side-SblNatKomp_side;Pr_E_PL11_02_side;SblNatKomp_side;70;70;0,041;8,29;dt_natkomp_sta;;straight
 SblNatKomp_side-Pr_E_STA_01_side;SblNatKomp_side;Pr_E_STA_01_side;70;70;0,834;12,89;dt_natkomp_sta;;straight
 Pr_E_STA_01_side-Pa_E_STA_61_side;Pr_E_STA_01_side;Pa_E_STA_61_side;70;70;0,15;12,87;dt_natkomp_sta;;straight
@@ -380,17 +380,17 @@ Dev_STA_01_side-Pa_I_STA_31_side;Dev_STA_01_side;Pa_I_STA_31_side;70;70;0,11;0;d
 Dev_STA_01-Pa_I_STA_31_side;Dev_STA_01;Pa_I_STA_31_side;70;70;0,11;0;existing;dt_natkomp_sta;connecting
 Pa_I_STA_31_side-STA_side;Pa_I_STA_31_side;STA_side;70;70;0,114;0;existing;;straight
 STA_side-Pa_I_STA_32_side;STA_side;Pa_I_STA_32_side;70;70;0,066;0;existing;;straight
-Pa_I_STA_32_side-Dev_STA_02_side;Pa_I_STA_32_side;Dev_STA_02_side;70;70;0,086;0;side;;straight
-Pa_I_STA_32_side-Dev_STA_02;Pa_I_STA_32_side;Dev_STA_02;70;70;0,086;0;existing;;connecting
-Dev_STA_02_side-Pr_I_STA_52_side;Dev_STA_02_side;Pr_I_STA_52_side;70;70;0,05;0;side;;straight
-Pr_I_STA_52_side-Pa_E_STA_62_side;Pr_I_STA_52_side;Pa_E_STA_62_side;70;70;0,276;0;side;;straight
-Pa_E_STA_62_side-PL12_side;Pa_E_STA_62_side;PL12_side;70;70;0,023;0;side;;straight
-PL12_side-Pr_I_STA_72_side;PL12_side;Pr_I_STA_72_side;70;70;0,027;0;side;;straight
-Pr_I_STA_72_side-Pr_E_STA_02_side;Pr_I_STA_72_side;Pr_E_STA_02_side;70;70;0,101;0,89;side;;straight
-Pr_E_STA_02_side-km52000_side;Pr_E_STA_02_side;km52000_side;70;70;0,091;3,3;side;;straight
-km52000_side-Dev_PL13_01_side;km52000_side;Dev_PL13_01_side;130;130;0,912;3,28;side;;straight
-Dev_PL13_01_side-Pr_E_PL13_01_side;Dev_PL13_01_side;Pr_E_PL13_01_side;130;130;0,05;3,28;side;;straight
-Dev_PL13_01-Pr_E_PL13_01_side;Dev_PL13_01;Pr_E_PL13_01_side;130;130;0,05;3,28;dt_sta_cia;;connecting
+Pa_I_STA_32_side-Dev_STA_02_side;Pa_I_STA_32_side;Dev_STA_02_side;70;70;0,086;0;dt_sta;;straight
+Pa_I_STA_32_side-Dev_STA_02;Pa_I_STA_32_side;Dev_STA_02;70;70;0,086;0;existing;dt_sta;connecting
+Dev_STA_02_side-Pr_I_STA_52_side;Dev_STA_02_side;Pr_I_STA_52_side;70;70;0,05;0;dt_sta;;straight
+Pr_I_STA_52_side-Pa_E_STA_62_side;Pr_I_STA_52_side;Pa_E_STA_62_side;70;70;0,276;0;dt_sta;;straight
+Pa_E_STA_62_side-PL12_side;Pa_E_STA_62_side;PL12_side;70;70;0,023;0;dt_sta;;straight
+PL12_side-Pr_I_STA_72_side;PL12_side;Pr_I_STA_72_side;70;70;0,027;0;dt_sta;;straight
+Pr_I_STA_72_side-Pr_E_STA_02_side;Pr_I_STA_72_side;Pr_E_STA_02_side;70;70;0,101;0,89;dt_sta;;straight
+Pr_E_STA_02_side-km52000_side;Pr_E_STA_02_side;km52000_side;70;70;0,091;3,3;dt_sta;;straight
+km52000_side-Dev_PL13_01_side;km52000_side;Dev_PL13_01_side;130;130;0,912;3,28;dt_sta;;straight
+Dev_PL13_01_side-Pr_E_PL13_01_side;Dev_PL13_01_side;Pr_E_PL13_01_side;130;130;0,05;3,28;dt_sta;;straight
+Dev_PL13_01-Pr_E_PL13_01_side;Dev_PL13_01;Pr_E_PL13_01_side;130;130;0,05;3,28;dt_sta_cia;dt_sta;connecting
 Pr_E_PL13_01_side-SblStab21529_side;Pr_E_PL13_01_side;SblStab21529_side;130;130;0,05;3,4;dt_sta_cia;;straight
 SblStab21529_side-Pr_I_PL13_51_side;SblStab21529_side;Pr_I_PL13_51_side;130;130;0,053;3,21;dt_sta_cia;;straight
 Pr_I_PL13_51_side-PL13_side;Pr_I_PL13_51_side;PL13_side;130;130;0,024;3,33;dt_sta_cia;;straight
@@ -408,7 +408,7 @@ HD_403_02_side-km55900_side;HD_403_02_side;km55900_side;130;130;0,661;7,87;dt_st
 km55900_side-SblStab24529_side;km55900_side;SblStab24529_side;120;120;0,112;7,86;dt_sta_cia, dt_cia_cab;;straight
 SblStab24529_side-Pr_E_PL15_01_side;SblStab24529_side;Pr_E_PL15_01_side;120;120;0,096;7,92;dt_sta_cia, dt_cia_cab;;straight
 Pr_E_PL15_01_side-Dev_PL15_01_side;Pr_E_PL15_01_side;Dev_PL15_01_side;120;120;0,1;7,88;dt_cia_cab;;straight
-Pr_E_PL15_01_side-Dev_PL15_01;Pr_E_PL15_01_side;Dev_PL15_01;120;120;0,1;7,88;dt_sta_cia, dt_cia_cab, connecting;;connecting
+Pr_E_PL15_01_side-Dev_PL15_01;Pr_E_PL15_01_side;Dev_PL15_01;120;120;0,1;7,88;dt_sta_cia;dt_cia_cab;connecting
 Dev_PL15_01_side-Pr_I_PL15_51_side;Dev_PL15_01_side;Pr_I_PL15_51_side;120;120;0,004;7,88;dt_cia_cab;;straight
 Pr_I_PL15_51_side-PL15_side;Pr_I_PL15_51_side;PL15_side;120;120;0,023;7,83;dt_cia_cab;;straight
 PL15_side-Pr_I_PL15_52_side;PL15_side;Pr_I_PL15_52_side;120;120;0,023;7,83;dt_cia_cab;;straight
@@ -422,8 +422,8 @@ Pa_E_CAB_61_side-Pr_I_CAB_51_side;Pa_E_CAB_61_side;Pr_I_CAB_51_side;65;65;0,043;
 Pr_I_CAB_51_side-PL17_side;Pr_I_CAB_51_side;PL17_side;65;65;0,025;0;dt_cia_cab;;straight
 PL17_side-Pa_I_CAB_31_side;PL17_side;Pa_I_CAB_31_side;65;65;0,025;0;dt_cia_cab;;straight
 Pa_I_CAB_31_side-CAB_side;Pa_I_CAB_31_side;CAB_side;65;65;0,021;0;dt_cia_cab;;straight
-CAB_side-Pa_CAB_32_side;CAB_side;Pa_CAB_32_side;65;65;0,129;3,88;dt_cia_cab;;straight
-Pa_CAB_32_side-Pr_E_CAB_02_side;Pa_CAB_32_side;Pr_E_CAB_02_side;65;65;0,15;17,13;dt_cab_lac;;straight
+CAB_side-Pa_CAB_32_side;CAB_side;Pa_CAB_32_side;65;65;0,129;3,88;dt_cab_lac, dt_cab;;straight
+Pa_CAB_32_side-Pr_E_CAB_02_side;Pa_CAB_32_side;Pr_E_CAB_02_side;65;65;0,15;17,13;dt_cab_lac, dt_cab;;straight
 Pr_E_CAB_02_side-HD_405_02_side;Pr_E_CAB_02_side;HD_405_02_side;65;65;1082;17,18;dt_cab_lac;;straight
 HD_405_02_side-km60000_side;HD_405_02_side;km60000_side;65;65;1023;17,17;dt_cab_lac;;straight
 km60000_side-Pr_E_LAC_01_side;km60000_side;Pr_E_LAC_01_side;70;70;0,141;17,16;dt_cab_lac;;straight
@@ -433,11 +433,11 @@ Pr_I_LAC_71_side-Pa_E_LAC_61_side;Pr_I_LAC_71_side;Pa_E_LAC_61_side;70;70;0,024;
 Pa_E_LAC_61_side-Pr_I_LAC_51_side;Pa_E_LAC_61_side;Pr_I_LAC_51_side;70;70;0,225;7,87;dt_cab_lac;;straight
 Pr_I_LAC_51_side-Dev_LAC_01_side;Pr_I_LAC_51_side;Dev_LAC_01_side;70;70;0,05;0;dt_cab_lac;;straight
 Dev_LAC_01_side-Pa_I_LAC_31_side;Dev_LAC_01_side;Pa_I_LAC_31_side;70;70;0,118;0;dt_cab_lac;;straight
-Dev_LAC_01-Pa_I_LAC_31_side;Dev_LAC_01;Pa_I_LAC_31_side;70;70;0,118;0;existing;;connecting
+Dev_LAC_01-Pa_I_LAC_31_side;Dev_LAC_01;Pa_I_LAC_31_side;70;70;0,118;0;existing;dt_cab_lac;connecting
 Pa_I_LAC_31_side-LAC_side;Pa_I_LAC_31_side;LAC_side;70;70;0,06;0;existing;;straight
 LAC_side-Pa_I_LAC_32_side;LAC_side;Pa_I_LAC_32_side;70;70;0,103;0;existing;;straight
 Pa_I_LAC_32_side-Dev_LAC_02_side;Pa_I_LAC_32_side;Dev_LAC_02_side;70;70;0,116;6,29;dt_lac_cold;;straight
-Pa_I_LAC_32_side-Dev_LAC_02;Pa_I_LAC_32_side;Dev_LAC_02;70;70;0,116;6,29;existing;;connecting
+Pa_I_LAC_32_side-Dev_LAC_02;Pa_I_LAC_32_side;Dev_LAC_02;70;70;0,116;6,29;existing;dt_lac_cold;connecting
 Dev_LAC_02_side-Pr_I_LAC_52_side;Dev_LAC_02_side;Pr_I_LAC_52_side;70;70;0,05;10,6;dt_lac_cold;;straight
 Pr_I_LAC_52_side-Pa_E_LAC_62_side;Pr_I_LAC_52_side;Pa_E_LAC_62_side;70;70;0,48;10,54;dt_lac_cold;;straight
 Pa_E_LAC_62_side-PL19_side;Pa_E_LAC_62_side;PL19_side;70;70;0,021;10,48;dt_lac_cold;;straight
@@ -450,7 +450,7 @@ Pr_E_COLD_01_side-Pr_I_COLD_91_side;Pr_E_COLD_01_side;Pr_I_COLD_91_side;70;70;0,
 Pr_I_COLD_91_side-PL20_side;Pr_I_COLD_91_side;PL20_side;70;70;0,026;10,38;dt_lac_cold;;straight
 PL20_side-Pa_COLD_31_side;PL20_side;Pa_COLD_31_side;70;70;0,026;10,38;dt_lac_cold;;straight
 Pa_COLD_31_side-Dev_COLD_01_side;Pa_COLD_31_side;Dev_COLD_01_side;70;70;0,064;5,76;side;;straight
-Pa_COLD_31_side-Dev_COLD_01;Pa_COLD_31_side;Dev_COLD_01;70;70;0,064;5,76;side, dt_lac_cold;;connecting
+Pa_COLD_31_side-Dev_COLD_01;Pa_COLD_31_side;Dev_COLD_01;70;70;0,064;5,76;dt_lac_cold;;connecting
 Dev_COLD_01_side-COLD_side;Dev_COLD_01_side;COLD_side;70;70;0,153;5,76;side;;straight
 Dev_COLD_01-COLD_side;Dev_COLD_01;COLD_side;70;70;0,153;5,76;dt_cold_sblLac;;connecting
 COLD_side-Pa_I_COLD_71_side;COLD_side;Pa_I_COLD_71_side;70;70;0,52;13,29;dt_cold_sblLac;;straight
@@ -468,7 +468,7 @@ Pr_I_PL23_52_side-Pr_E_PL23_02_side;Pr_I_PL23_52_side;Pr_E_PL23_02_side;70;70;0,
 Pr_E_PL23_02_side-SblLac35026_side;Pr_E_PL23_02_side;SblLac35026_side;70;70;0,417;16,5;dt_cold_sblLac;;straight
 SblLac35026_side-Pr_E_PL24_01_side;SblLac35026_side;Pr_E_PL24_01_side;70;70;0,014;16,43;dt_cold_sblLac;;straight
 Pr_E_PL24_01_side-Dev_PL24_01_side;Pr_E_PL24_01_side;Dev_PL24_01_side;70;70;0,054;16,44;dt_sblLac_sil;;straight
-Pr_E_PL24_01_side-Dev_PL24_01;Pr_E_PL24_01_side;Dev_PL24_01;70;70;0,054;16,44;dt_cold_sblLac;;connecting
+Pr_E_PL24_01_side-Dev_PL24_01;Pr_E_PL24_01_side;Dev_PL24_01;70;70;0,054;16,44;dt_cold_sblLac;dt_sblLac_sil;connecting
 Dev_PL24_01_side-Pr_I_PL24_51_side;Dev_PL24_01_side;Pr_I_PL24_51_side;70;70;0,05;16,44;dt_sblLac_sil;;straight
 Pr_I_PL24_51_side-PL24_side;Pr_I_PL24_51_side;PL24_side;70;70;0,023;16,52;dt_sblLac_sil;;straight
 PL24_side-Pr_I_PL24_52_side;PL24_side;Pr_I_PL24_52_side;70;70;0,024;16,67;dt_sblLac_sil;;straight
@@ -485,7 +485,7 @@ IG_GEO_side-Pr_I_SIL_71_side;IG_GEO_side;Pr_I_SIL_71_side;70;70;0,094;5,43;dt_sb
 Pr_I_SIL_71_side-SG_GEO_side;Pr_I_SIL_71_side;SG_GEO_side;70;70;0,048;3,96;dt_sblLac_sil;;straight
 SG_GEO_side-Dev_SIL_05_side;SG_GEO_side;Dev_SIL_05_side;70;70;0,051;1,57;dt_sblLac_sil;;straight
 Dev_SIL_05_side-Pa_I_SIL_31_side;Dev_SIL_05_side;Pa_I_SIL_31_side;70;70;0,11;0;dt_sblLac_sil;;straight
-Dev_SIL_05-Pa_I_SIL_31_side;Dev_SIL_05;Pa_I_SIL_31_side;70;70;0,11;0;existing;;connecting
+Dev_SIL_05-Pa_I_SIL_31_side;Dev_SIL_05;Pa_I_SIL_31_side;70;70;0,11;0;existing;dt_sblLac_sil;connecting
 Pa_I_SIL_31_side-SIL_side;Pa_I_SIL_31_side;SIL_side;70;70;0,11;0;existing;;straight
 SIL_side-Pa_I_SIL_32_side;SIL_side;Pa_I_SIL_32_side;70;70;0,068;0;existing;;straight
 Pa_I_SIL_32_side-Dev_SIL_02_side;Pa_I_SIL_32_side;Dev_SIL_02_side;70;70;0,079;0;side;;straight
@@ -510,7 +510,7 @@ PL28_side-Pa_I_LASA_61_side;PL28_side;Pa_I_LASA_61_side;70;70;0,023;0;dt_70200_l
 Pa_I_LASA_61_side-Pr_I_LASA_51_side;Pa_I_LASA_61_side;Pr_I_LASA_51_side;70;70;0,034;0;dt_70200_lasa;;straight
 Pr_I_LASA_51_side-Dev_LASA_01_side;Pr_I_LASA_51_side;Dev_LASA_01_side;70;70;0,02;0;dt_70200_lasa;;straight
 Dev_LASA_01_side-Pa_I_LASA_31_side;Dev_LASA_01_side;Pa_I_LASA_31_side;70;70;0,116;0;dt_70200_lasa;;straight
-Dev_LASA_01-Pa_I_LASA_31_side;Dev_LASA_01;Pa_I_LASA_31_side;70;70;0,116;0;existing;;connecting
+Dev_LASA_01-Pa_I_LASA_31_side;Dev_LASA_01;Pa_I_LASA_31_side;70;70;0,116;0;existing;dt_7200_lasa;connecting
 Pa_I_LASA_31_side-LASA_side;Pa_I_LASA_31_side;LASA_side;70;70;0,017;0;existing;;straight
 LASA_side-Pa_I_LASA_32_side;LASA_side;Pa_I_LASA_32_side;70;70;0,14;0;existing;;straight
 Pa_I_LASA_32_side-Dev_LASA_02_side;Pa_I_LASA_32_side;Dev_LASA_02_side;70;70;0,086;0;dt_lasa_oris;;straight
@@ -543,11 +543,11 @@ PL31_side-Pr_I_SPON_51_side;PL31_side;Pr_I_SPON_51_side;100;100;0,008;0;dt_oris_
 Pr_I_SPON_51_side-Pa_I_SPON_61_side;Pr_I_SPON_51_side;Pa_I_SPON_61_side;100;100;0,016;0;dt_oris_spon;;straight
 Pa_I_SPON_61_side-Dev_SPON_01_side;Pa_I_SPON_61_side;Dev_SPON_01_side;100;100;0,004;0;dt_oris_spon;;straight
 Dev_SPON_01_side-Pa_I_SPON_31_side;Dev_SPON_01_side;Pa_I_SPON_31_side;100;100;0,117;0;dt_oris_spon;;straight
-Dev_SPON_01-Pa_I_SPON_31_side;Dev_SPON_01;Pa_I_SPON_31_side;100;100;0,117;0;existing;;connecting
+Dev_SPON_01-Pa_I_SPON_31_side;Dev_SPON_01;Pa_I_SPON_31_side;100;100;0,117;0;existing;dt_oris_spon;connecting
 Pa_I_SPON_31_side-SPON_side;Pa_I_SPON_31_side;SPON_side;100;100;0,078;0;existing;;straight
 SPON_side-Pa_I_SPON_32_side;SPON_side;Pa_I_SPON_32_side;100;100;0,119;0;existing;;straight
 Pa_I_SPON_32_side-Dev_SPON_02_side;Pa_I_SPON_32_side;Dev_SPON_02_side;100;100;0,075;0;dt_spon_slu;;straight
-Pa_I_SPON_32_side-Dev_SPON_02;Pa_I_SPON_32_side;Dev_SPON_02;100;100;0,075;0;existing;;connecting
+Pa_I_SPON_32_side-Dev_SPON_02;Pa_I_SPON_32_side;Dev_SPON_02;100;100;0,075;0;existing;dt_spon_slu;connecting
 Dev_SPON_02_side-Pr_I_SPON_52_side;Dev_SPON_02_side;Pr_I_SPON_52_side;100;100;0,05;0;dt_spon_slu;;straight
 Pr_I_SPON_52_side-Pa_E_SPON_62_side;Pr_I_SPON_52_side;Pa_E_SPON_62_side;100;100;0,318;0,35;dt_spon_slu;;straight
 Pa_E_SPON_62_side-PL32_side;Pa_E_SPON_62_side;PL32_side;100;100;0,025;0,4;dt_spon_slu;;straight
@@ -560,7 +560,7 @@ SblSpon54860_side-km86800_side;SblSpon54860_side;km86800_side;100;100;0,457;9,41
 km86800_side-HD_801_06_side;km86800_side;HD_801_06_side;70;70;0,263;9,39;dt_spon_slu;;straight
 HD_801_06_side-HD_801_07_side;HD_801_06_side;HD_801_07_side;70;70;0,447;9,4;dt_spon_slu;;straight
 HD_801_07_side-SLU_side;HD_801_07_side;SLU_side;70;70;0,119;1,51;dt_spon_slu;;straight
-HD_801_07-SLU_side;HD_801_07;SLU_side;70;70;0,119;1,51;dt_slu_mal;;connecting
+HD_801_07-SLU_side;HD_801_07;SLU_side;70;70;0,119;1,51;dt_slu_mal;dt_spon_slu;connecting
 SLU_side-HD_801_08_side;SLU_side;HD_801_08_side;65;65;0,251;14,14;dt_slu_mal;;straight
 HD_801_08_side-HD_801_10_side;HD_801_08_side;HD_801_10_side;65;65;0,832;23,53;dt_slu_mal;;straight
 HD_801_10_side-HD_801_12_side;HD_801_10_side;HD_801_12_side;65;65;1;23,54;dt_slu_mal;;straight
@@ -569,7 +569,7 @@ SblSpon58860_side-Pr_E_MAL_01_side;SblSpon58860_side;Pr_E_MAL_01_side;65;65;0,24
 Pr_E_MAL_01_side-Pa_E_MAL_61_side;Pr_E_MAL_01_side;Pa_E_MAL_61_side;65;65;0,151;23,58;dt_slu_mal;;straight
 Pa_E_MAL_61_side-Pr_I_MAL_51_side;Pa_E_MAL_61_side;Pr_I_MAL_51_side;65;65;0,261;23,52;dt_slu_mal;;straight
 Pr_I_MAL_51_side-Dev_MAL_05_side;Pr_I_MAL_51_side;Dev_MAL_05_side;65;65;0,118;17,54;dt_slu_mal;;straight
-Dev_MAL_05-Pa_I_MAL_31d_side;Dev_MAL_05;Pa_I_MAL_31d_side;65;65;0,088;0;existing;;connecting
+Dev_MAL_05-Pa_I_MAL_31d_side;Dev_MAL_05;Pa_I_MAL_31d_side;65;65;0,088;0;existing;dt_slu_mal;connecting
 Dev_MAL_05_side-Pa_I_MAL_31d_side;Dev_MAL_05_side;Pa_I_MAL_31d_side;65;65;0,088;0;dt_slu_mal;;straight
 Pa_I_MAL_31d_side-MAL_side;Pa_I_MAL_31d_side;MAL_side;65;65;0,132;0;existing;;straight
 HD_201_08_side-Dev_HD201/08_side;HD_201_08_side;Dev_HD201/08_side;70;70;0,02;23,87;dt_mar_tel;;straight
@@ -577,3 +577,8 @@ Dev_HD201/08_side-IG_ART_side;Dev_HD201/08_side;IG_ART_side;0;0;0;0;dt_mar_tel;;
 HD_201_08-Dev_HD201/08;HD_201_08;Dev_HD201/08;70;70;0,02;23,87;base;;straight
 Dev_HD201/08-IG_ART;Dev_HD201/08;IG_ART;70;70;0,043;23,87;base;;straight
 Dev_HD201/08-IG_ART_side;Dev_HD201/08;IG_ART_side;70;70;0,043;23,87;dt_mg_tel;;connecting
+Pr_I_PL11_52_side-Dev_PL11_02;Pr_I_PL11_52_side;Dev_PL11_02;70;70;0,023;6,09;dt_nat_natkomp;dt_natkomp_sta;connecting
+km52000_side-Dev_PL13_01;km52000_side;Dev_PL13_01;130;130;0,912;3,28;dt_sta;dt_sta_cia;connecting
+Pa_CIA_31-CIA_side;Pa_CIA_31;CIA_side;130;130;0,121;1,98;dt_cia_cab;dt_sta_cia;connecting
+Pr_E_CAB_02_side-HD_405_02;Pr_E_CAB_02_side;HD_405_02;65;65;1082;17,18;dt_cab;dt_cab_lac;connecting
+SLU_side-HD_801_08;SLU_side;HD_801_08;65;65;0,251;14,14;dt_spon_slu;dt_slu_mal;straight

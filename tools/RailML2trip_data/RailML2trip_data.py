@@ -16,7 +16,7 @@ CONFIGURATION (edit the block below)
 
 # ── USER CONFIGURATION ────────────────────────────────────────────────────────
 
-file_name = "trip_data_1a"
+file_name = "trip_data_3f"
 
 
 RAILML_FILE  = f"{file_name}.railml"   # ← path to your exported railML file
@@ -70,8 +70,8 @@ STATION_ABBREVIATIONS = {
 }
 
 # Time window to display  (HH:MM on a day when trains run)
-TIME_START = "8:00"
-TIME_END   = "12:00"
+TIME_START = "14:00"
+TIME_END   = "18:00"
 
 # Figure size in inches
 FIG_WIDTH  = 24
