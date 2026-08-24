@@ -121,7 +121,7 @@ def add_colored_line(feature_group, pk_start, pk_end, color,
 # We only import rows where the `y` attribute == 0
 # Resulting `points` is a list of tuples: (name, pk_abs, pk_rel, attrs_dict)
 # =============================================================================
-NODES_CSV_PATH = r"C:\Users\LeoC\VSCodes\optimizationVinschgau\SimulatedAnnealing\infrastructuredesign\map\nodes_mainline.csv"
+NODES_CSV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "nodes_mainline.csv")
 
 
 points = []

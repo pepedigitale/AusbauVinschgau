@@ -1,6 +1,17 @@
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import numpy as np
+import networkx as nx
+from pathlib import Path
+
+
+def _save_figure(fig, output_dir, filename):
+    if output_dir is None:
+        return
+
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path / filename, dpi=300, bbox_inches="tight")
 
 def canonical_station(station):
     """Convert ME_side -> ME. Stations without '_side' are unchanged."""
@@ -278,7 +289,7 @@ def build_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
     return matrix_from_pairs(fast_pairs), matrix_from_pairs(slow_pairs)
 
 
-def plot_speed_matrix(matrix, labels, title):
+def plot_speed_matrix(matrix, labels, title, output_dir=None, filename="speed_matrix.png"):
     """Plot a single speed matrix with red-to-green color scale and 50% transparency."""
     fig, ax = plt.subplots(figsize=(7, 6))
 
@@ -309,19 +320,24 @@ def plot_speed_matrix(matrix, labels, title):
     cbar = fig.colorbar(im, ax=ax)
     cbar.set_label("Realized speed [km/h]")
     plt.tight_layout()
+    _save_figure(fig, output_dir, filename)
     plt.show()
 
 
-def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
-    """Create the fast and slow realized-speed matrices side by side."""
+def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS, output_dir=None):
+    """Create the fast and slow speed matrices side by side."""
     fast_matrix, slow_matrix = build_speed_matrices(graphs, nodesDf, stop_names)
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
     cmap = plt.get_cmap("RdYlGn")
+    if len(graphs) == 1:
+        which = "scheduled"
+    else:
+        which = "realized"
 
     for ax, matrix, title in [
-        (axes[0], fast_matrix, "Fast trains: realized speed [km/h]"),
-        (axes[1], slow_matrix, "Slow trains: realized speed [km/h]"),
+        (axes[0], fast_matrix, f"Fast trains: average {which} speed [km/h]"),
+        (axes[1], slow_matrix, f"Slow trains: average {which} speed [km/h]"),
     ]:
         vmin = np.nanmin(matrix) if np.isfinite(matrix).any() else 0.0
         vmax = np.nanmax(matrix) if np.isfinite(matrix).any() else 1.0
@@ -347,6 +363,7 @@ def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS):
                 ax.text(j, i, f"{value:.1f}", ha="center", va="center",
                         color="black", fontsize=8)
 
+    _save_figure(fig, output_dir, f"speed_matrices_{which}.png")
     plt.show()
 
     return fast_matrix, slow_matrix
@@ -551,8 +568,55 @@ def extract_statistics(realized_graphs):
     }
 
 
+def classify_arrival_delays(realized_graphs, threshold_seconds=180):
+    """Classify arrival delays as primary or secondary.
 
-def plot_train_report(stats):
+    A delayed arrival is secondary when an active headway edge is upstream
+    of the arrival in the realized EAN. All other delayed arrivals are
+    classified as primary.
+    """
+    delays = []
+
+    for realization, graph in enumerate(realized_graphs):
+        active_headway_heads = {
+            v
+            for u, v, data in graph.edges(data=True)
+            if data.get("kind") == "headway" and data.get("is_active") is True
+        }
+
+        for node, data in graph.nodes(data=True):
+            if data.get("event") != "arr":
+                continue
+
+            delay = float(data["time"]) - float(data["scheduled_time"])
+            if delay <= threshold_seconds:
+                continue
+
+            is_secondary = any(
+                nx.has_path(graph, head, node)
+                for head in active_headway_heads
+                if head != node
+            )
+
+            delays.append({
+                "realization": realization,
+                "node": node,
+                "train": data.get("train"),
+                "station": data.get("station"),
+                "delay_seconds": delay,
+                "classification": "secondary" if is_secondary else "primary",
+            })
+
+    return {
+        "total": len(delays),
+        "primary": sum(d["classification"] == "primary" for d in delays),
+        "secondary": sum(d["classification"] == "secondary" for d in delays),
+        "delays": delays,
+    }
+
+
+
+def plot_train_report(stats, output_dir=None):
 
     scen = stats["scenario"]
 
@@ -578,10 +642,11 @@ def plot_train_report(stats):
     plt.grid(axis="y", alpha=.3)
 
     plt.tight_layout()
+    _save_figure(plt.gcf(), output_dir, "train_report.png")
     plt.show()
 
 
-def plot_delay_report(stats):
+def plot_delay_report(stats, output_dir=None):
 
     scen = stats["scenario"]
 
@@ -609,10 +674,11 @@ def plot_delay_report(stats):
     plt.legend()
 
     plt.tight_layout()
+    _save_figure(plt.gcf(), output_dir, "delay_report.png")
     plt.show()
 
 
-def _plot_punctuality_index_counts(order, counts, title):
+def _plot_punctuality_index_counts(order, counts, title, output_dir=None, filename="punctuality_index.png"):
     early, lt60, r60_120, r120_180, r180_240, r240_300, r300_360, gt360 = [], [], [], [], [], [], [], []
 
     for st in order:
@@ -657,25 +723,35 @@ def _plot_punctuality_index_counts(order, counts, title):
     plt.grid(axis="y", alpha=.3)
     plt.legend(title="Delay category (minutes)")
     plt.tight_layout()
+    _save_figure(plt.gcf(), output_dir, filename)
     plt.show()
 
 
-def plot_punctuality_index(stats):
+def plot_punctuality_index(stats, output_dir=None):
     order = stats["station_order"]
     counts = stats["stations"]
-    _plot_punctuality_index_counts(order, counts, "Punctuality index (both directions)")
+    _plot_punctuality_index_counts(
+        order, counts, "Punctuality index (both directions)", output_dir,
+        "punctuality_index_both_directions.png",
+    )
 
 
-def plot_punctuality_index_me_to_mal(stats):
+def plot_punctuality_index_me_to_mal(stats, output_dir=None):
     order = stats["station_order"]
     counts = stats["stations_by_direction"].get("ME->MAL", {})
-    _plot_punctuality_index_counts(order, counts, "Punctuality index (ME->MAL)")
+    _plot_punctuality_index_counts(
+        order, counts, "Punctuality index (ME->MAL)", output_dir,
+        "punctuality_index_me_to_mal.png",
+    )
 
 
-def plot_punctuality_index_mal_to_me(stats):
+def plot_punctuality_index_mal_to_me(stats, output_dir=None):
     order = stats["station_order"]
     counts = stats["stations_by_direction"].get("MAL->ME", {})
-    _plot_punctuality_index_counts(order, counts, "Punctuality index (MAL->ME)")
+    _plot_punctuality_index_counts(
+        order, counts, "Punctuality index (MAL->ME)", output_dir,
+        "punctuality_index_mal_to_me.png",
+    )
 
 
 # Backward-compatible aliases using the requested diagram numbering.

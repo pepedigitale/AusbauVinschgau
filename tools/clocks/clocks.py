@@ -13,7 +13,7 @@ if str(project_root) not in sys.path:
 
 from tools.schematic_map.routing import (build_route,get_signal_nodes_on_route,)
 from infra_data.scenarios import get_scenario
-scenario = "1a"
+scenario = "3f"
 
 trip_data = np.load(rf"C:\Users\LeoC\VSCodes\optimizationVinschgau\AusbauVinschgau\tools\RailML2trip_data\trip_data_{scenario}.npy", allow_pickle=True).item()
 

@@ -415,13 +415,13 @@ PL15_side-Pr_I_PL15_52_side;PL15_side;Pr_I_PL15_52_side;120;120;0,023;7,83;dt_ci
 Pr_I_PL15_52_side-Pr_E_PL15_02_side;Pr_I_PL15_52_side;Pr_E_PL15_02_side;120;120;0,104;7,88;dt_cia_cab;;straight
 Pr_E_PL15_02_side-km57000_side;Pr_E_PL15_02_side;km57000_side;120;120;0,638;7,87;dt_cia_cab;;straight
 km57000_side-Pr_E_CAB_01_side;km57000_side;Pr_E_CAB_01_side;65;65;0,352;7,87;dt_cia_cab;;straight
-Pr_E_CAB_01_side-Pr_I_CAB_71_side;Pr_E_CAB_01_side;Pr_I_CAB_71_side;65;65;0,099;7,88;dt_cia_cab;;straight
-Pr_I_CAB_71_side-PL16_side;Pr_I_CAB_71_side;PL16_side;65;65;0,027;7,78;dt_cia_cab;;straight
-PL16_side-Pa_E_CAB_61_side;PL16_side;Pa_E_CAB_61_side;65;65;0,024;7,92;dt_cia_cab;;straight
-Pa_E_CAB_61_side-Pr_I_CAB_51_side;Pa_E_CAB_61_side;Pr_I_CAB_51_side;65;65;0,043;2,56;dt_cia_cab;;straight
-Pr_I_CAB_51_side-PL17_side;Pr_I_CAB_51_side;PL17_side;65;65;0,025;0;dt_cia_cab;;straight
-PL17_side-Pa_I_CAB_31_side;PL17_side;Pa_I_CAB_31_side;65;65;0,025;0;dt_cia_cab;;straight
-Pa_I_CAB_31_side-CAB_side;Pa_I_CAB_31_side;CAB_side;65;65;0,021;0;dt_cia_cab;;straight
+Pr_E_CAB_01_side-Pr_I_CAB_71_side;Pr_E_CAB_01_side;Pr_I_CAB_71_side;65;65;0,099;7,88;dt_cab;;straight
+Pr_I_CAB_71_side-PL16_side;Pr_I_CAB_71_side;PL16_side;65;65;0,027;7,78;dt_cab;;straight
+PL16_side-Pa_E_CAB_61_side;PL16_side;Pa_E_CAB_61_side;65;65;0,024;7,92;dt_cab;;straight
+Pa_E_CAB_61_side-Pr_I_CAB_51_side;Pa_E_CAB_61_side;Pr_I_CAB_51_side;65;65;0,043;2,56;dt_cab;;straight
+Pr_I_CAB_51_side-PL17_side;Pr_I_CAB_51_side;PL17_side;65;65;0,025;0;dt_cab;;straight
+PL17_side-Pa_I_CAB_31_side;PL17_side;Pa_I_CAB_31_side;65;65;0,025;0;dt_cab;;straight
+Pa_I_CAB_31_side-CAB_side;Pa_I_CAB_31_side;CAB_side;65;65;0,021;0;dt_cab;;straight
 CAB_side-Pa_CAB_32_side;CAB_side;Pa_CAB_32_side;65;65;0,129;3,88;dt_cab_lac, dt_cab;;straight
 Pa_CAB_32_side-Pr_E_CAB_02_side;Pa_CAB_32_side;Pr_E_CAB_02_side;65;65;0,15;17,13;dt_cab_lac, dt_cab;;straight
 Pr_E_CAB_02_side-HD_405_02_side;Pr_E_CAB_02_side;HD_405_02_side;65;65;1082;17,18;dt_cab_lac;;straight
@@ -582,3 +582,4 @@ km52000_side-Dev_PL13_01;km52000_side;Dev_PL13_01;130;130;0,912;3,28;dt_sta;dt_s
 Pa_CIA_31-CIA_side;Pa_CIA_31;CIA_side;130;130;0,121;1,98;dt_cia_cab;dt_sta_cia;connecting
 Pr_E_CAB_02_side-HD_405_02;Pr_E_CAB_02_side;HD_405_02;65;65;1082;17,18;dt_cab;dt_cab_lac;connecting
 SLU_side-HD_801_08;SLU_side;HD_801_08;65;65;0,251;14,14;dt_spon_slu;dt_slu_mal;straight
+Pr_E_CAB_01_side-Pr_I_CAB_71;Pr_E_CAB_01_side;Pr_I_CAB_71;65;65;0,099;7,88;dt_cia_cab;dt_cab_lac, dt_cab;connecting
