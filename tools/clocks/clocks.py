@@ -13,7 +13,7 @@ if str(project_root) not in sys.path:
 
 from tools.schematic_map.routing import (build_route,get_signal_nodes_on_route,)
 from infra_data.scenarios import get_scenario
-scenario = "3f"
+scenario = "0"
 
 trip_data = np.load(rf"C:\Users\LeoC\VSCodes\optimizationVinschgau\AusbauVinschgau\tools\RailML2trip_data\trip_data_{scenario}.npy", allow_pickle=True).item()
 
@@ -408,6 +408,8 @@ ax.axis("off")
 
 fig.suptitle(f"Clock in Meran - scenario {scenario}", fontsize=18, color=TEXT_COLOR)
 plt.tight_layout()
-output_path = path(__file__).resolve().parent / f"clock_{scenario}.png"
+output_dir = project_root / "results" / str(scenario)
+output_dir.mkdir(parents=True, exist_ok=True)
+output_path = output_dir / f"clock{scenario}.png"
 plt.savefig(output_path, dpi=300, bbox_inches="tight")
 plt.show()

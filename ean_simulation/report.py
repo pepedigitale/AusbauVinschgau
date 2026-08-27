@@ -608,6 +608,7 @@ def classify_arrival_delays(realized_graphs, threshold_seconds=180):
             })
 
     return {
+        "active_headways": active_headway_heads,
         "total": len(delays),
         "primary": sum(d["classification"] == "primary" for d in delays),
         "secondary": sum(d["classification"] == "secondary" for d in delays),

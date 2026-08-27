@@ -594,9 +594,10 @@ def generate_perturbation_scenarios(
     n_scenarios=5,
     entry_delay_mean=300,
     entry_delay_std=60,
+    entry_delay_probability=0.3,
     running_delay_mean=0,
     running_delay_std=60,
-    perturbation_probability=0.3,
+    edge_perturbation_probability=0.3,
     seed=None,
 ):
     """
@@ -684,22 +685,21 @@ def generate_perturbation_scenarios(
     # --------------------------------------------------
     reference_duration =  np.mean([G.edges[e]["scheduled_duration"] for e in running_edges])
 
-    edge_delay = {}
-
     for _ in range(n_scenarios):
 
-        node_delay = {
-            node: max(0, rng.normal(entry_delay_mean, entry_delay_std))
-            for node in entry_nodes
-        }
+        node_delay = {}
+        edge_delay = {}
 
+        for node in entry_nodes:
+            if rng.random() < entry_delay_probability:
+                node_delay[node] =  max(0, rng.normal(entry_delay_mean, entry_delay_std))
+            else:
+                node_delay[node] = 0.0
+            
         for edge in running_edges:
-            if rng.random() < perturbation_probability:
+            if rng.random() < edge_perturbation_probability:
                 scale = np.sqrt(G.edges[edge]["scheduled_duration"] / reference_duration)
-                edge_delay[edge] = rng.normal(
-                    running_delay_mean * scale,
-                    running_delay_std * scale,
-                )
+                edge_delay[edge] = rng.normal(running_delay_mean * scale,running_delay_std * scale,)
             else:
                 edge_delay[edge] = 0.0
 
