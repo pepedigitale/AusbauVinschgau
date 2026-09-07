@@ -369,6 +369,71 @@ def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS, output_dir
     return fast_matrix, slow_matrix
 
 
+def plot_speed_ratio_matrices(
+    scheduled_graph,
+    realized_graphs,
+    nodesDf,
+    stop_names=FAST_TRAIN_STOPS,
+    output_dir=None,
+):
+    """Plot average realized-to-scheduled speed ratios by train type."""
+    scheduled_fast, scheduled_slow = build_speed_matrices(
+        [scheduled_graph], nodesDf, stop_names
+    )
+    realized_fast, realized_slow = build_speed_matrices(
+        realized_graphs, nodesDf, stop_names
+    )
+
+    ratio_matrices = []
+    for realized, scheduled in [
+        (realized_fast, scheduled_fast),
+        (realized_slow, scheduled_slow),
+    ]:
+        ratio = np.full_like(realized, np.nan, dtype=float)
+        valid = np.isfinite(realized) & np.isfinite(scheduled) & (scheduled != 0)
+        ratio[valid] = realized[valid] / scheduled[valid]
+        ratio_matrices.append(ratio)
+
+    finite_ratios = [matrix[np.isfinite(matrix)] for matrix in ratio_matrices]
+    finite_ratios = [values for values in finite_ratios if values.size]
+    if finite_ratios:
+        vmin = min(values.min() for values in finite_ratios)
+        vmax = max(values.max() for values in finite_ratios)
+    else:
+        vmin, vmax = 0.0, 1.0
+    if vmin == vmax:
+        vmax = vmin + 1.0
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+    cmap = plt.get_cmap("RdYlGn_r")
+    origin_labels = list(reversed(stop_names))
+
+    for ax, ratio, title in zip(
+        axes,
+        ratio_matrices,
+        ("Fast trains: realized / scheduled speed", "Slow trains: realized / scheduled speed"),
+    ):
+        im = ax.imshow(ratio, cmap=cmap, vmin=vmin, vmax=vmax, alpha=0.5)
+        ax.set_xticks(range(len(stop_names)))
+        ax.set_yticks(range(len(origin_labels)))
+        ax.set_xticklabels(stop_names, rotation=45, ha="right")
+        ax.set_yticklabels(origin_labels)
+        ax.set_xlabel("Destination")
+        ax.set_ylabel("Origin")
+        ax.set_title(title)
+
+        for i in range(ratio.shape[0]):
+            for j in range(ratio.shape[1]):
+                value = ratio[i, j]
+                if np.isfinite(value):
+                    ax.text(j, i, f"{value:.2f}", ha="center", va="center", color="black", fontsize=8)
+
+    _save_figure(fig, output_dir, "speed_ratio_matrices.png")
+    plt.show()
+
+    return tuple(ratio_matrices)
+
+
 def extract_statistics(realized_graphs):
     """
     One pass over all realized graphs.
