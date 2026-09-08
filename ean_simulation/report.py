@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
 from pathlib import Path
+import json
 
 
 def _save_figure(fig, output_dir, filename):
@@ -12,6 +13,19 @@ def _save_figure(fig, output_dir, filename):
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path / filename, dpi=300, bbox_inches="tight")
+
+def _save_results(data, output_dir, filename):
+    if output_dir is None:
+        return
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    with open(output_path / filename, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, allow_nan=False)
+
+
+def save_scenario_results(results, output_dir):
+    scenario = results["scenario"]
+    _save_results(results, output_dir, f"{scenario}_results.json")
 
 def canonical_station(station):
     """Convert ME_side -> ME. Stations without '_side' are unchanged."""
@@ -428,6 +442,7 @@ def plot_speed_ratio_matrices(
                 if np.isfinite(value):
                     ax.text(j, i, f"{value:.2f}", ha="center", va="center", color="black", fontsize=8)
 
+
     _save_figure(fig, output_dir, "speed_ratio_matrices.png")
     plt.show()
 
@@ -742,6 +757,68 @@ def plot_delay_report(stats, output_dir=None):
     plt.tight_layout()
     _save_figure(plt.gcf(), output_dir, "delay_report.png")
     plt.show()
+
+
+def save_scenario_results(
+    scenario,
+    travel_report,
+    scheduled_fast,
+    scheduled_slow,
+    realized_fast,
+    realized_slow,
+    output_dir,
+    stop_names,
+):
+    scheduled = travel_report["scheduled"]
+
+    n_fast = scheduled["fast"]["n_trains"]
+    n_slow = scheduled["slow"]["n_trains"]
+
+    nominal = (
+        n_fast * scheduled["fast"]["mean_minutes"]
+        + n_slow * scheduled["slow"]["mean_minutes"]
+    ) / (n_fast + n_slow)
+
+    def mean_ratio(scheduled_matrix, realized_matrix):
+        valid = (
+            np.isfinite(scheduled_matrix)
+            & np.isfinite(realized_matrix)
+            & (realized_matrix > 0)
+        )
+        return float(np.mean(scheduled_matrix[valid] / realized_matrix[valid]))
+
+    fast_ratio = mean_ratio(scheduled_fast, realized_fast)
+    slow_ratio = mean_ratio(scheduled_slow, realized_slow)
+
+    operational = (
+        n_fast * fast_ratio + n_slow * slow_ratio
+    ) / (n_fast + n_slow)
+
+    results = {
+        "scenario": scenario,
+        "nominal": {
+            "mean_scheduled_minutes": float(nominal),
+            "fast": float(scheduled["fast"]["mean_minutes"]),
+            "slow": float(scheduled["slow"]["mean_minutes"]),
+            "n_fast": int(n_fast),
+            "n_slow": int(n_slow),
+        },
+        "operational": {
+            "fast_ratio": float(fast_ratio),
+            "slow_ratio": float(slow_ratio),
+            "weighted_ratio": float(operational),
+        },
+        "speed_matrices": {
+            "stop_names": list(stop_names),
+            "scheduled_fast": scheduled_fast.tolist(),
+            "scheduled_slow": scheduled_slow.tolist(),
+            "realized_fast": realized_fast.tolist(),
+            "realized_slow": realized_slow.tolist(),
+        },
+    }
+
+    _save_data(results, output_dir, f"{scenario}_results.json")
+    return results
 
 
 def _plot_punctuality_index_counts(order, counts, title, output_dir=None, filename="punctuality_index.png"):
