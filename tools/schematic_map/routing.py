@@ -58,7 +58,7 @@ def build_route(nodesDf, edgesDf, start, end):
 
         if not candidates:
             raise ValueError(
-                f"No valid successor from {current} towards {route_end}"
+                f"No valid successor from {route_start} in {current} towards {route_end}"
             )
 
         # at branching points choose preferred track

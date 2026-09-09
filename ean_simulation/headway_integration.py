@@ -699,7 +699,7 @@ def generate_perturbation_scenarios(
         for edge in running_edges:
             if rng.random() < edge_perturbation_probability:
                 scale = np.sqrt(G.edges[edge]["scheduled_duration"] / reference_duration)
-                edge_delay[edge] = rng.normal(running_delay_mean * scale,running_delay_std * scale,)
+                edge_delay[edge] = rng.normal(running_delay_mean * scale, running_delay_std * scale,)
             else:
                 edge_delay[edge] = 0.0
 

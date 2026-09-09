@@ -4,6 +4,15 @@ import numpy as np
 import networkx as nx
 from pathlib import Path
 import json
+import pandas as pd
+import sys
+
+project_root = Path(r"C:\Users\LeoC\VSCodes\optimizationVinschgau\AusbauVinschgau")
+
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+from infra_data.scenarios import SCENARIOS
+
 
 
 def _save_figure(fig, output_dir, filename):
@@ -14,18 +23,22 @@ def _save_figure(fig, output_dir, filename):
     output_path.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path / filename, dpi=300, bbox_inches="tight")
 
-def _save_results(data, output_dir, filename):
-    if output_dir is None:
+def _save_result(output_dir, key, value, scenario=None):
+    if output_dir is None or scenario is None:
         return
+
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
-    with open(output_path / filename, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, allow_nan=False)
 
+    results_file = output_path / f"{scenario}_results.npy"
 
-def save_scenario_results(results, output_dir):
-    scenario = results["scenario"]
-    _save_results(results, output_dir, f"{scenario}_results.json")
+    if results_file.exists():
+        results = np.load(results_file, allow_pickle=True).item()
+    else:
+        results = {}
+
+    results[key] = value
+    np.save(results_file, results)
 
 def canonical_station(station):
     """Convert ME_side -> ME. Stations without '_side' are unchanged."""
@@ -338,7 +351,7 @@ def plot_speed_matrix(matrix, labels, title, output_dir=None, filename="speed_ma
     plt.show()
 
 
-def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS, output_dir=None):
+def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS, output_dir=None, scenario=None):
     """Create the fast and slow speed matrices side by side."""
     fast_matrix, slow_matrix = build_speed_matrices(graphs, nodesDf, stop_names)
 
@@ -378,9 +391,12 @@ def plot_speed_matrices(graphs, nodesDf, stop_names=FAST_TRAIN_STOPS, output_dir
                         color="black", fontsize=8)
 
     _save_figure(fig, output_dir, f"speed_matrices_{which}.png")
+    nominal = np.nanmean(np.concatenate([m.ravel() for m in matrix]))
+    _save_result(output_dir, "nominal", nominal, scenario=scenario)
     plt.show()
 
     return fast_matrix, slow_matrix
+
 
 
 def plot_speed_ratio_matrices(
@@ -389,6 +405,7 @@ def plot_speed_ratio_matrices(
     nodesDf,
     stop_names=FAST_TRAIN_STOPS,
     output_dir=None,
+    scenario=None
 ):
     """Plot average realized-to-scheduled speed ratios by train type."""
     scheduled_fast, scheduled_slow = build_speed_matrices(
@@ -444,9 +461,30 @@ def plot_speed_ratio_matrices(
 
 
     _save_figure(fig, output_dir, "speed_ratio_matrices.png")
+    operational = np.nanmean(np.concatenate([m.ravel() for m in ratio_matrices]))
+    _save_result(output_dir, "operational", operational, scenario=scenario)
+
     plt.show()
 
     return tuple(ratio_matrices)
+
+def compute_scenario_cost(edgesDf, nodesDf, scenario, output_dir): 
+    if scenario not in SCENARIOS: raise ValueError(f"Unknown scenario: {scenario}") 
+    if scenario in {"base", "existing"}: cost = 0 
+    else: 
+        def has_scenario(value): 
+            if isinstance(value, (set, list, tuple)): 
+                return scenario in value 
+            return pd.notna(value) and value == scenario 
+    included = edgesDf["scenario"].apply(has_scenario) 
+    excluded = edgesDf["exclude_scenario"].apply(has_scenario) 
+    scenario_edges = edgesDf[included & ~excluded] 
+    pk_rel = nodesDf["pk_rel"]
+    node_from = scenario_edges["node_from"].map(pk_rel) 
+    node_to = scenario_edges["node_to"].map(pk_rel) 
+    cost = (node_to - node_from).abs().sum() 
+    _save_result(output_dir, "cost", cost, scenario=scenario) 
+    return cost
 
 
 def extract_statistics(realized_graphs):
@@ -757,68 +795,6 @@ def plot_delay_report(stats, output_dir=None):
     plt.tight_layout()
     _save_figure(plt.gcf(), output_dir, "delay_report.png")
     plt.show()
-
-
-def save_scenario_results(
-    scenario,
-    travel_report,
-    scheduled_fast,
-    scheduled_slow,
-    realized_fast,
-    realized_slow,
-    output_dir,
-    stop_names,
-):
-    scheduled = travel_report["scheduled"]
-
-    n_fast = scheduled["fast"]["n_trains"]
-    n_slow = scheduled["slow"]["n_trains"]
-
-    nominal = (
-        n_fast * scheduled["fast"]["mean_minutes"]
-        + n_slow * scheduled["slow"]["mean_minutes"]
-    ) / (n_fast + n_slow)
-
-    def mean_ratio(scheduled_matrix, realized_matrix):
-        valid = (
-            np.isfinite(scheduled_matrix)
-            & np.isfinite(realized_matrix)
-            & (realized_matrix > 0)
-        )
-        return float(np.mean(scheduled_matrix[valid] / realized_matrix[valid]))
-
-    fast_ratio = mean_ratio(scheduled_fast, realized_fast)
-    slow_ratio = mean_ratio(scheduled_slow, realized_slow)
-
-    operational = (
-        n_fast * fast_ratio + n_slow * slow_ratio
-    ) / (n_fast + n_slow)
-
-    results = {
-        "scenario": scenario,
-        "nominal": {
-            "mean_scheduled_minutes": float(nominal),
-            "fast": float(scheduled["fast"]["mean_minutes"]),
-            "slow": float(scheduled["slow"]["mean_minutes"]),
-            "n_fast": int(n_fast),
-            "n_slow": int(n_slow),
-        },
-        "operational": {
-            "fast_ratio": float(fast_ratio),
-            "slow_ratio": float(slow_ratio),
-            "weighted_ratio": float(operational),
-        },
-        "speed_matrices": {
-            "stop_names": list(stop_names),
-            "scheduled_fast": scheduled_fast.tolist(),
-            "scheduled_slow": scheduled_slow.tolist(),
-            "realized_fast": realized_fast.tolist(),
-            "realized_slow": realized_slow.tolist(),
-        },
-    }
-
-    _save_data(results, output_dir, f"{scenario}_results.json")
-    return results
 
 
 def _plot_punctuality_index_counts(order, counts, title, output_dir=None, filename="punctuality_index.png"):

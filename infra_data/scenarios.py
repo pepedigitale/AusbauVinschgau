@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -6,7 +7,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 INFRASTRUCTURE = PROJECT_ROOT / "infra_data"
 HEADWAYS = PROJECT_ROOT / "headways"
 
-SCENARIO = "3e"
+SCENARIO = os.environ.get("SCENARIO", "3ee")
 
 SCENARIOS = {
     "0": {"base", "existing"},
@@ -19,7 +20,7 @@ SCENARIOS = {
     "3c": {"base", "existing", "dt_me_lag", "dt_tel_pla", "dt_nat", "dt_sta_cia", "dt_cold_sblLac", "dt_sblLac_sil", "dt_lasa_oris"},
     "3d": {"base", "existing", "dt_tel_pla", "dt_pla_nat", "dt_nat", "dt_nat_natkomp", "dt_natkomp_sta", "dt_sta", "dt_sta_cia", "dt_cia_cab", "dt_cab", "dt_lac_cold", "dt_lasa_oris", "dt_oris_spon", "dt_slu_mal"},
     "3e": {"base", "existing", "dt_tel_pla", "dt_pla_nat", "dt_nat", "dt_nat_natkomp", "dt_natkomp_sta", "dt_sta_cia", "dt_cia_cab", "dt_cold_sblLac", "dt_lasa_oris", "dt_oris_spon", "dt_slu_mal"},
-    "3ee": {"base", "existing", "dt_lag_mar", "dt_tel_pla", "dt_pla_nat", "dt_nat", "dt_nat_natkomp", "dt_natkomp_sta", "dt_sta", "dt_sta_cia", "dt_cia_cab", "dt_cab", "dt_lac_cold", "dt_lasa_oris", "dt_oris_spon", "dt_slu_mal"},
+    "3ee": {"base", "existing", "dt_me_lag", "dt_lag_mar", "dt_tel_pla", "dt_pla_nat", "dt_nat", "dt_nat_natkomp", "dt_natkomp_sta", "dt_sta", "dt_sta_cia", "dt_cia_cab", "dt_cab", "dt_lac_cold", "dt_lasa_oris", "dt_oris_spon", "dt_slu_mal"},
     "3f": {"base", "existing", "dt_mg_tel", "dt_tel_pla", "dt_pla_nat", "dt_nat", "dt_sta_cia", "dt_cia_cab", "dt_cold_sblLac", "dt_lasa_oris", "dt_oris_spon"},
     "4": {"base", "existing", "dt_tel_pla", "dt_nat", "dt_sta_cia", "dt_cold_sblLac", "dt_sblLac_sil", "dt_lasa_oris"},
     "all": None,

@@ -1,0 +1,59 @@
+Data;Template;Treno;OraP;OraA;Partenza;Rit.;Causale;Nota partenza;Arrivo;Rit.;Causale;Nota arrivo;Composizione;Coincidenza;Esito;Causale soppressione;Nota soppressione;Verifica;Chiusura
+07/09/2026;26-A-sco;7100;07/09/2026 05:16;07/09/2026 06:26;Malles - Mals;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7101;07/09/2026 05:34;07/09/2026 06:21;Meran/o;;;;Silandro - Schlanders;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7004;07/09/2026 06:06;07/09/2026 06:28;Malles - Mals;;;;Silandro - Schlanders;7;Guasto veicoli viaggiatori;+7 M40 etcs sistema non connesso;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7103;07/09/2026 06:36;07/09/2026 07:15;Meran/o;;;;Laces - Latsch;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7001;07/09/2026 06:38;07/09/2026 07:01;Silandro - Schlanders;10;Guasto veicoli viaggiatori;ante 7004;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7104;07/09/2026 06:38;07/09/2026 07:29;Silandro - Schlanders;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7006;07/09/2026 06:42;07/09/2026 07:16;Malles - Mals;;;;Laces - Latsch;;;;Singola;SI;S;Guasto materiale;;OK;OK
+07/09/2026;26-A-sco;7008;07/09/2026 07:20;07/09/2026 07:54;Malles - Mals;4;Guasto veicoli viaggiatori;ante 7001;Laces - Latsch;9;Guasto veicoli viaggiatori;+5 M40 etcs sistema non connesso;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7003;07/09/2026 07:26;07/09/2026 08:08;Laces - Latsch;;;;Malles - Mals;;;;Singola;SI;S;Guasto materiale;;OK;OK
+07/09/2026;26-A-sco;7106;07/09/2026 07:32;07/09/2026 08:13;Laces - Latsch;;;;Meran/o;3;Coincidenze programmate;+3 (x) 7107 tel;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7107;07/09/2026 07:46;07/09/2026 08:51;Meran/o;2;Coincidenze programmate;+2 c bz;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7110;07/09/2026 07:50;07/09/2026 09:13;Malles - Mals;;;;Meran/o;3;Coincidenze programmate;+7 (x) 7005 silandro +3 (x) 7111 tel;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7005;07/09/2026 08:04;07/09/2026 08:38;Laces - Latsch;9;Guasto veicoli viaggiatori;ante 7008;Malles - Mals;7;Guasto veicoli viaggiatori;ante 7008;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7012;07/09/2026 08:20;07/09/2026 08:54;Malles - Mals;;;;Laces - Latsch;8;Guasto veicoli viaggiatori;+8 (x) 7005 spondigna;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7111;07/09/2026 08:46;07/09/2026 09:51;Meran/o;4;Coincidenze programmate;+4 c bz;Lasa - Laas;14;Guasto veicoli viaggiatori;+14 (x) 7016 silandro;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7009;07/09/2026 09:04;07/09/2026 09:38;Laces - Latsch;7;Guasto veicoli viaggiatori;+7 ante 7012;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7114;07/09/2026 09:07;07/09/2026 10:13;Lasa - Laas;;;;Meran/o;5;Coincidenze programmate;+7 (x) 7009 silandro +6 x 7115 tel;Singola;NP;;;;OK;OK
+07/09/2026;26-A-sco;7016;07/09/2026 09:20;07/09/2026 09:54;Malles - Mals;2;Guasto veicoli viaggiatori;+2 ante 7005;Laces - Latsch;14;Guasto veicoli viaggiatori;+5 x 7009 spondigna +9 guasto tra lasa e silandro;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7115;07/09/2026 09:46;07/09/2026 10:51;Meran/o;5;Coincidenze programmate;+5 c bz;Lasa - Laas;3;Guasto veicoli viaggiatori;+3 x 7118 laces;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7013;07/09/2026 10:04;07/09/2026 10:38;Laces - Latsch;14;Guasto veicoli viaggiatori;+14 ante 7016;Malles - Mals;18;Guasto veicoli viaggiatori;+4 7020 lasa;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7118;07/09/2026 10:07;07/09/2026 11:13;Lasa - Laas;;;;Meran/o;5;Coincidenze programmate;+12 x 7013 silandro +5 x 7119 tel;Singola;NO;;;;OK;OK
+07/09/2026;26-A-sco;7020;07/09/2026 10:20;07/09/2026 10:54;Malles - Mals;;;;Laces - Latsch;14;Guasto veicoli viaggiatori;+14 x 7013 lasa ;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7119;07/09/2026 10:46;07/09/2026 11:51;Meran/o;5;Coincidenze programmate;+5 c bz;Lasa - Laas;12;Guasto veicoli viaggiatori;+12 x 7024;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7017;07/09/2026 11:04;07/09/2026 11:38;Laces - Latsch;;;;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7122;07/09/2026 11:07;07/09/2026 12:13;Lasa - Laas;;;;Meran/o;2;Coincidenze programmate;+2 x 7123 tel;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7024;07/09/2026 11:20;07/09/2026 11:54;Malles - Mals;;;;Laces - Latsch;13;Guasto veicoli viaggiatori;+10 guasto Lasa + 4 guasto silandro;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7123;07/09/2026 11:46;07/09/2026 12:51;Meran/o;2;Coincidenze programmate;+2 c bz;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7021;07/09/2026 12:04;07/09/2026 12:38;Laces - Latsch;12;Guasto veicoli viaggiatori;+12 ant 7024 + 5 x 7028 lasa;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7126;07/09/2026 12:07;07/09/2026 13:13;Lasa - Laas;3;Guasto veicoli viaggiatori;+3 ante 7119;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7028;07/09/2026 12:20;07/09/2026 12:54;Malles - Mals;;;;Laces - Latsch;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7127;07/09/2026 12:46;07/09/2026 13:51;Meran/o;;;;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7025;07/09/2026 13:04;07/09/2026 13:38;Laces - Latsch;;;;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7130;07/09/2026 13:07;07/09/2026 14:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7032;07/09/2026 13:20;07/09/2026 13:54;Malles - Mals;;;;Laces - Latsch;20;Altre cause impianti;+20 tra PLS 23 e Coldrano guasto SSB + modulistica;Singola;NO;;;;OK;OK
+07/09/2026;26-A-sco;7131;07/09/2026 13:46;07/09/2026 14:51;Meran/o;;;;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7029;07/09/2026 14:04;07/09/2026 14:38;Laces - Latsch;20;Altre cause impianti;rit suo ant 7032;Malles - Mals;20;Eventi accidentali;Arresto d'emergenza causa danneggiamento traliccio TE da parte di mezzo agricolo;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7134;07/09/2026 14:07;07/09/2026 15:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7036;07/09/2026 14:20;07/09/2026 14:54;Malles - Mals;;;;Laces - Latsch;7;Altre cause impianti;+8 Lasa (x) 7029;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7135;07/09/2026 14:46;07/09/2026 15:51;Meran/o;;;;Lasa - Laas;15;Altre cause impianti;+16 Lac (x) 7033;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7033;07/09/2026 15:04;07/09/2026 15:38;Laces - Latsch;26;Altre cause impianti;+26 Lac (x) 7134+7135;Spondigna - Spondinig (Var.);26;Altre cause impianti;+26 da Lac;Singola;SI;SP;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Tratta Spo-Ma interrotta per danno TE cause esterne;OK;OK
+07/09/2026;26-A-sco;7138;07/09/2026 15:07;07/09/2026 16:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7040;07/09/2026 15:20;07/09/2026 15:54;Malles - Mals;;;;Laces - Latsch;;;;Singola;SI;S;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Tratta Spo-Ma interrotta per danno TE cause esterne;OK;OK
+07/09/2026;26-A-sco;7139;07/09/2026 15:46;07/09/2026 16:51;Meran/o;;;;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7037;07/09/2026 16:04;07/09/2026 16:38;Laces - Latsch;;;;Malles - Mals;;;;Singola;SI;S;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Tratta Spo-Ma interrotta per danno TE cause esterne;OK;OK
+07/09/2026;26-A-sco;7142;07/09/2026 16:07;07/09/2026 17:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7044;07/09/2026 16:20;07/09/2026 16:54;Spondigna - Spondinig (Var.);;;;Laces - Latsch;;;;Singola;SI;SP;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Tratta Spo-Ma interrotta per danno TE cause esterne;OK;OK
+07/09/2026;26-A-sco;7143;07/09/2026 16:46;07/09/2026 17:51;Meran/o;;;;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7041;07/09/2026 17:04;07/09/2026 17:38;Laces - Latsch;;;;Spondigna - Spondinig (Var.);;;;Singola;SI;SP;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Danneggiamento traliccio TE Km 88 - Tratta Spondigna-Malles interrotta;OK;OK
+07/09/2026;26-A-sco;7146;07/09/2026 17:07;07/09/2026 18:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7048;07/09/2026 17:20;07/09/2026 17:54;Malles - Mals;;;;Laces - Latsch;;;;Singola;SI;S;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Danneggiamento traliccio TE Km 88 - Tratta Spondigna-Malles interrotta;OK;OK
+07/09/2026;26-A-sco;7147;07/09/2026 17:46;07/09/2026 18:51;Meran/o;;;;Lasa - Laas;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7045;07/09/2026 18:04;07/09/2026 18:38;Laces - Latsch;;;;Malles - Mals;;;;Singola;SI;S;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Danneggiamento traliccio TE Km 88 - Tratta Spondigna-Malles interrotta;OK;OK
+07/09/2026;26-A-sco;7150;07/09/2026 18:07;07/09/2026 19:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7052;07/09/2026 18:20;07/09/2026 18:54;Malles - Mals;;;;Spondigna - Spondinig (Var.);;;;Singola;SI;SP;Soppresso per indisponibilitï¿½ï¿½ï¿½ï¿½ï¿½ï¿;Danneggiamento traliccio TE Km 88 - Tratta Spondigna-Malles interrotta;OK;OK
+07/09/2026;26-A-sco;7151;07/09/2026 18:46;07/09/2026 20:08;Meran/o;;;;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7049;07/09/2026 19:04;07/09/2026 19:38;Laces - Latsch;;;;Malles - Mals;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7154;07/09/2026 19:07;07/09/2026 20:13;Lasa - Laas;;;;Meran/o;;;;Singola;SI;;;;OK;OK
+07/09/2026;26-A-sco;7155;07/09/2026 19:46;07/09/2026 21:08;Meran/o;14;Coincidenze programmate;(c) BZ;Malles - Mals;;;;Singola;SI;;;;OK;OK
